@@ -1,8 +1,25 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import type { DashboardState, ControlOverride, WarehouseControlOverride } from '../types';
 
-const WS_URL = 'ws://localhost:8000/ws';
-const API_URL = 'http://localhost:8000';
+const getWsUrl = () => {
+  if (import.meta.env.VITE_WS_URL) return import.meta.env.VITE_WS_URL;
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'ws://localhost:8000/ws';
+  }
+  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  return `${protocol}//${window.location.host}/ws`;
+};
+
+const getApiUrl = () => {
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:8000';
+  }
+  return `${window.location.protocol}//${window.location.host}`;
+};
+
+const WS_URL = getWsUrl();
+const API_URL = getApiUrl();
 
 export function useWebSocket() {
   const [state, setState] = useState<DashboardState | null>(null);
