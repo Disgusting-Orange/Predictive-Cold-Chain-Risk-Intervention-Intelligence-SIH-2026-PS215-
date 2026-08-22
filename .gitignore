@@ -27,3 +27,6 @@ build/
 .vscode/
 .idea/
 *.log
+
+frontend-old/
+.vite/
