@@ -58,6 +58,39 @@ async def login(credentials: LoginRequest, db: AsyncSession = Depends(get_db)):
     )
 
 
+@router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
+async def register(payload: UserCreate, db: AsyncSession = Depends(get_db)):
+    """Create a workspace account and return a JWT."""
+    existing = await db.execute(select(User).where(User.email == payload.email))
+    if existing.scalars().first():
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="An account with this email already exists")
+
+    role = (payload.role or "FIELD_AGENT").upper()
+    if role not in ("ADMIN", "FIELD_AGENT", "CLIENT"):
+        role = "CLIENT"
+
+    user = User(
+        email=payload.email,
+        password_hash=get_password_hash(payload.password),
+        full_name=payload.full_name,
+        role=role,
+        phone=payload.phone,
+    )
+    db.add(user)
+    await db.commit()
+    await db.refresh(user)
+
+    access_token = create_access_token(subject=str(user.id), role=user.role, full_name=user.full_name)
+    return TokenResponse(
+        access_token=access_token,
+        token_type="bearer",
+        user_id=str(user.id),
+        email=user.email,
+        full_name=user.full_name,
+        role=user.role,
+    )
+
+
 @router.get("/me", response_model=UserResponse)
 async def get_current_user_profile(current_user: User = Depends(get_current_user)):
     """Get profile of the currently logged-in user."""

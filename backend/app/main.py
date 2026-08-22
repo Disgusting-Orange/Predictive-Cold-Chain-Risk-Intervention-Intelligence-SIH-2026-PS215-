@@ -5,16 +5,18 @@ Unified backend connecting ESP32 Hardware, Supabase PostgreSQL,
 AI Risk & What-If Engine, 3-Role JWT Auth, and Real-Time WebSockets.
 """
 
+import asyncio
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from app.core.config import settings
 from app.db.database import engine, Base, AsyncSessionLocal
-from app.db.models import User, Product, ColdStorageFacility, Shipment
+from app.db.models import User, Product, Shipment
 from app.core.security import get_password_hash
-from app.routers import auth, telemetry, shipments, products, interventions, public, audit
+from app.routers import auth, telemetry, shipments, products, interventions, public, audit, demo
 from app.websocket.manager import ws_manager
+from app.services.demo_loop import run_demo_loop
 from sqlalchemy import select
 
 
@@ -55,9 +57,12 @@ async def lifespan(app: FastAPI):
         s_stmt = select(Shipment).limit(1)
         s_res = await session.execute(s_stmt)
         if not s_res.scalars().first():
+            products = (await session.execute(select(Product))).scalars().all()
+            by_name = {p.name: p.id for p in products}
             demo_shipments = [
                 Shipment(
                     shipment_code="SHP-1042",
+                    product_id=by_name.get("Pasteurized Milk"),
                     vehicle_number="TN-07-CD-5678",
                     origin_name="MediCold Distribution Centre",
                     origin_lat=13.0827,
@@ -74,6 +79,7 @@ async def lifespan(app: FastAPI):
                 ),
                 Shipment(
                     shipment_code="SHP-1041",
+                    product_id=by_name.get("COVID-19 Vaccines"),
                     vehicle_number="TN-07-AB-1234",
                     origin_name="MediCold Distribution Centre",
                     origin_lat=13.0827,
@@ -90,6 +96,7 @@ async def lifespan(app: FastAPI):
                 ),
                 Shipment(
                     shipment_code="SHP-1043",
+                    product_id=by_name.get("Insulin Glargine"),
                     vehicle_number="TN-07-EF-9012",
                     origin_name="Cold Storage A (Guindy)",
                     origin_lat=13.0067,
@@ -106,12 +113,22 @@ async def lifespan(app: FastAPI):
                 )
             ]
             session.add_all(demo_shipments)
+
+        missing_products = (await session.execute(select(Shipment).where(Shipment.product_id.is_(None)))).scalars().all()
+        if missing_products:
+            products = (await session.execute(select(Product))).scalars().all()
+            by_name = {p.name: p.id for p in products}
+            mapping = {"SHP-1042": "Pasteurized Milk", "SHP-1041": "COVID-19 Vaccines", "SHP-1043": "Insulin Glargine"}
+            for shipment in missing_products:
+                name = mapping.get(shipment.shipment_code)
+                if name and name in by_name:
+                    shipment.product_id = by_name[name]
             
         await session.commit()
-        
+
+    loop_task = asyncio.create_task(run_demo_loop())
     yield
-    
-    # Cleanup on shutdown
+    loop_task.cancel()
     await engine.dispose()
 
 
@@ -139,6 +156,7 @@ app.include_router(products.router, prefix=settings.API_V1_STR)
 app.include_router(interventions.router, prefix=settings.API_V1_STR)
 app.include_router(public.router, prefix=settings.API_V1_STR)
 app.include_router(audit.router, prefix=settings.API_V1_STR)
+app.include_router(demo.router, prefix=settings.API_V1_STR)
 
 # Top-level alias for canonical /telemetry endpoint as specified in contract
 app.include_router(telemetry.router)
