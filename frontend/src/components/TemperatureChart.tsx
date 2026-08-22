@@ -115,8 +115,8 @@ export default function TemperatureChart({ history, safeMin, safeMax }: Props) {
               fontSize: '12px',
               color: '#e2e8f0',
             }}
-            formatter={(value: number, name: string) => [
-              `${value.toFixed(1)}°C`,
+            formatter={(value: any, name: any) => [
+              `${typeof value === 'number' ? value.toFixed(1) : value}°C`,
               name === 'observed' ? 'Observed' : 'Predicted',
             ]}
           />
