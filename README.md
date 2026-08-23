@@ -105,6 +105,8 @@ Set these values in the Vercel project environment. Do not commit any value.
 | `VITE_API_URL` | Optional separate API host | No, leave empty for same-domain API |
 | `VITE_WS_URL` | Optional persistent WebSocket host | No |
 
+The root `requirements.txt` is intentionally serverless-focused. It uses `asyncpg` for Supabase and plain `uvicorn` because Vercel does not need local server extras such as `uvloop`, `websockets`, or `httptools`. The fuller local backend setup remains available in `backend/requirements.txt`.
+
 The Supabase password supplied during setup was exposed in chat. Rotate it in Supabase and replace the Vercel `DATABASE_URL` secret before treating the deployment as production-ready.
 
 ## Authentication
