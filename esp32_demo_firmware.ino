@@ -130,7 +130,7 @@ void loop() {
 
     // Transmit to Backend
     HTTPClient http;
-    http.setTimeout(2500); // 2.5s Timeout to prevent Watchdog WDT panic
+    http.setTimeout(10000); // 10s Timeout to allow XGBoost + TreeSHAP ML model response
     http.begin(getApiUrl());
     http.addHeader("Content-Type", "application/json");
 

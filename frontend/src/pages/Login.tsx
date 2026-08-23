@@ -32,22 +32,33 @@ export default function Login() {
   };
   const currentRoleDetails = roleDetails[role];
 
-  const login = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const performLogin = async (loginEmail: string, loginPass: string, targetRole: LoginRole) => {
     setSubmitting(true);
     setIsError(false);
     setMessage("Authenticating…");
     try {
-      const result = await api.login(email, password);
+      const result = await api.login(loginEmail, loginPass);
       setMessage(`Welcome back, ${result.full_name}!`);
       window.setTimeout(() => {
-        setLocation(role === "field" ? "/field-agent" : role === "client" ? "/client" : "/dashboard/admin");
-      }, 500);
+        setLocation(targetRole === "field" ? "/field-agent" : targetRole === "client" ? "/client" : "/dashboard/admin");
+      }, 400);
     } catch (err: any) {
       setIsError(true);
       setMessage(err.message || "Authentication failed. Please check your credentials.");
       setSubmitting(false);
     }
+  };
+
+  const login = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await performLogin(email, password, role);
+  };
+
+  const handleQuickDemo = (demoEmail: string, demoPass: string, demoRole: LoginRole) => {
+    setEmail(demoEmail);
+    setPassword(demoPass);
+    setRole(demoRole);
+    performLogin(demoEmail, demoPass, demoRole);
   };
 
   return (
@@ -67,8 +78,39 @@ export default function Login() {
             {submitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Authenticating…</> : <>Sign in <ArrowRight className="ml-2 h-4 w-4" /></>}
           </Button>
         </form>
+
+        <div className="mt-6 border-t border-white/10 pt-5">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">⚡ Instant Demo Access</p>
+          <div className="mt-3 grid grid-cols-3 gap-2">
+            <button
+              type="button"
+              disabled={submitting}
+              onClick={() => handleQuickDemo("admin@coldchain.ai", "admin123", "admin")}
+              className="rounded border border-[#1D9E75]/40 bg-[#1D9E75]/10 py-2 text-center text-xs font-bold text-[#66d9b4] hover:bg-[#1D9E75]/20 disabled:opacity-50"
+            >
+              Fleet Admin
+            </button>
+            <button
+              type="button"
+              disabled={submitting}
+              onClick={() => handleQuickDemo("driver@coldchain.ai", "driver123", "field")}
+              className="rounded border border-[#1D9E75]/40 bg-[#1D9E75]/10 py-2 text-center text-xs font-bold text-[#66d9b4] hover:bg-[#1D9E75]/20 disabled:opacity-50"
+            >
+              Field Driver
+            </button>
+            <button
+              type="button"
+              disabled={submitting}
+              onClick={() => handleQuickDemo("client@coldchain.ai", "client123", "client")}
+              className="rounded border border-[#1D9E75]/40 bg-[#1D9E75]/10 py-2 text-center text-xs font-bold text-[#66d9b4] hover:bg-[#1D9E75]/20 disabled:opacity-50"
+            >
+              Client View
+            </button>
+          </div>
+        </div>
+
         {message && <p className={`mt-4 flex items-center gap-2 text-xs ${isError ? "text-red-400" : "text-[#66d9b4]"}`}><Radio className="h-3.5 w-3.5" /> {message}</p>}
-        <p className="mt-8 text-center text-sm text-slate-500">New to Cold Chain AI? <Link href="/signup" className="font-bold text-[#66d9b4] hover:text-white">Create your workspace</Link></p>
+        <p className="mt-6 text-center text-sm text-slate-500">New to Cold Chain AI? <Link href="/signup" className="font-bold text-[#66d9b4] hover:text-white">Create your workspace</Link></p>
       </div>
     </main>
   );
