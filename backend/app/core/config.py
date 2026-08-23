@@ -21,11 +21,16 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "1440"))
     
+    PUBLIC_URL: str = os.getenv("PUBLIC_URL", "https://ambitious-divided-catsup.ngrok-free.dev")
+    NGROK_URL: str = os.getenv("NGROK_URL", "https://ambitious-divided-catsup.ngrok-free.dev")
+    
     CORS_ORIGINS: Union[List[str], str] = [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "https://coldchaiai-dffrzqpg.manus.space",
+        "https://ambitious-divided-catsup.ngrok-free.dev",
         "*"
     ]
     

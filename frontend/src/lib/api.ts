@@ -1,7 +1,41 @@
 /**
  * Central API Client for Cold Chain AI platform.
  * Transparently wraps HTTP fetch requests with Bearer tokens and handles WebSocket telemetry streams.
+ * Supports configurable VITE_API_URL and VITE_WS_URL for production deployment.
  */
+
+const getApiBase = (): string => {
+  const envUrl = (import.meta.env as any).VITE_API_URL;
+  if (envUrl && typeof envUrl === "string") {
+    return envUrl.replace(/\/+$/, "");
+  }
+  return "";
+};
+
+const getWsUrl = (): string => {
+  const envWs = (import.meta.env as any).VITE_WS_URL;
+  if (envWs && typeof envWs === "string") {
+    return envWs;
+  }
+  const apiBase = getApiBase();
+  if (apiBase) {
+    try {
+      const url = new URL(apiBase);
+      const protocol = url.protocol === "https:" ? "wss:" : "ws:";
+      return `${protocol}//${url.host}/ws`;
+    } catch {
+      // Fall through to window origin fallback
+    }
+  }
+  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+  return `${protocol}//${window.location.host}/ws`;
+};
+
+const apiUrl = (path: string): string => {
+  const base = getApiBase();
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${cleanPath}`;
+};
 
 const getAuthHeaders = (): HeadersInit => {
   const token = localStorage.getItem("token");
@@ -89,7 +123,7 @@ export interface WhatIfSimulationResponse {
 export const api = {
   // Authentication
   async login(email: string, password: string): Promise<TokenResponse> {
-    const res = await fetch("/api/auth/login", {
+    const res = await fetch(apiUrl("/api/auth/login"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -106,7 +140,7 @@ export const api = {
   },
 
   async register(payload: { email: string; password_hash?: string; password?: string; full_name: string; role: string; phone?: string }): Promise<TokenResponse> {
-    const res = await fetch("/api/auth/register", {
+    const res = await fetch(apiUrl("/api/auth/register"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -135,7 +169,7 @@ export const api = {
   },
 
   async getProfile(): Promise<UserResponse> {
-    const res = await fetch("/api/auth/me", {
+    const res = await fetch(apiUrl("/api/auth/me"), {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error("Could not fetch profile");
@@ -144,21 +178,21 @@ export const api = {
 
   // Shipments
   async listShipments(): Promise<Shipment[]> {
-    const res = await fetch("/api/shipments", { headers: getAuthHeaders() });
+    const res = await fetch(apiUrl("/api/shipments"), { headers: getAuthHeaders() });
     if (!res.ok) throw new Error("Failed to load shipments");
     const data = await res.json();
     return data.shipments;
   },
 
   async getShipment(code: string): Promise<any> {
-    const res = await fetch(`/api/shipments/${code}`, { headers: getAuthHeaders() });
+    const res = await fetch(apiUrl(`/api/shipments/${code}`), { headers: getAuthHeaders() });
     if (!res.ok) throw new Error("Failed to load shipment details");
     return res.json();
   },
 
   // Products
   async listProducts(): Promise<ProductProfile[]> {
-    const res = await fetch("/api/products", { headers: getAuthHeaders() });
+    const res = await fetch(apiUrl("/api/products"), { headers: getAuthHeaders() });
     if (!res.ok) throw new Error("Failed to load products");
     const data = await res.json();
     return data.products;
@@ -166,7 +200,7 @@ export const api = {
 
   // Interventions
   async simulate(code: string): Promise<WhatIfSimulationResponse> {
-    const res = await fetch(`/api/interventions/${code}/simulate`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/simulate`), {
       method: "POST",
       headers: getAuthHeaders(),
     });
@@ -175,7 +209,7 @@ export const api = {
   },
 
   async approve(code: string): Promise<any> {
-    const res = await fetch(`/api/interventions/${code}/approve`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/approve`), {
       method: "POST",
       headers: getAuthHeaders(),
     });
@@ -184,7 +218,7 @@ export const api = {
   },
 
   async override(code: string, reason: string): Promise<any> {
-    const res = await fetch(`/api/interventions/${code}/override`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/override`), {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify({ overrideReason: reason }),
@@ -194,7 +228,7 @@ export const api = {
   },
 
   async fieldAccept(code: string): Promise<any> {
-    const res = await fetch(`/api/interventions/${code}/field-accept`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/field-accept`), {
       method: "POST",
       headers: getAuthHeaders(),
     });
@@ -203,7 +237,7 @@ export const api = {
   },
 
   async toggleBackupCooling(code: string): Promise<any> {
-    const res = await fetch(`/api/interventions/${code}/backup-cooling`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/backup-cooling`), {
       method: "POST",
       headers: getAuthHeaders(),
     });
@@ -212,7 +246,7 @@ export const api = {
   },
 
   async confirmHandoff(code: string, photoUrl?: string): Promise<any> {
-    const res = await fetch(`/api/interventions/${code}/handoff`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/handoff`), {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify({ handoffPhotoUrl: photoUrl || "" }),
@@ -221,11 +255,42 @@ export const api = {
     return res.json();
   },
 
+  // Audit
+  async getAuditTrail(shipmentId: string): Promise<any> {
+    const res = await fetch(apiUrl(`/api/audit/${shipmentId}`), { headers: getAuthHeaders() });
+    if (!res.ok) throw new Error("Failed to load audit trail");
+    return res.json();
+  },
+
+  // Edge & Resilience
+  async getEdgeStatus(): Promise<any> {
+    const res = await fetch(apiUrl("/api/v1/edge/status"), { headers: getAuthHeaders() });
+    if (!res.ok) throw new Error("Failed to load edge status");
+    return res.json();
+  },
+
+  async simulateNetwork(online: boolean): Promise<any> {
+    const res = await fetch(apiUrl(`/api/v1/edge/simulate_network`), {
+      method: "POST",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ internet_connected: online, edge_gateway_reachable: online, sensor_connected: online }),
+    });
+    if (!res.ok) throw new Error("Failed to simulate edge network");
+    return res.json();
+  },
+
+  async syncEdge(): Promise<any> {
+    const res = await fetch(apiUrl("/api/v1/edge/sync"), {
+      method: "POST",
+      headers: getAuthHeaders(),
+    });
+    if (!res.ok) throw new Error("Failed to sync edge queue");
+    return res.json();
+  },
+
   // WebSockets
   connectTelemetry(onMessage: (data: any) => void): WebSocket {
-    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const host = window.location.host;
-    const socket = new WebSocket(`${protocol}//${host}/ws`);
+    const socket = new WebSocket(getWsUrl());
     socket.onmessage = (event) => {
       try {
         const payload = JSON.parse(event.data);

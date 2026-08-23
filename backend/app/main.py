@@ -140,9 +140,17 @@ app = FastAPI(
 )
 
 # CORS Configuration
+origins = settings.CORS_ORIGINS
+if isinstance(origins, str):
+    import json
+    try:
+        origins = json.loads(origins)
+    except Exception:
+        origins = [o.strip() for o in origins.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins if origins else ["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -168,11 +176,15 @@ app.include_router(edge.router)
 @app.get("/health", tags=["Health"])
 @app.get("/api/health", tags=["Health"])
 async def health_check():
-    """Health check endpoint."""
+    """Health check endpoint displaying backend, DB, and ML model status."""
+    from app.services.risk_service import get_edge_gateway
+    gw = get_edge_gateway()
+    ml_status = "LOADED" if gw is not None else "UNAVAILABLE"
     return {
         "status": "ok",
         "service": "cold-chain-backend",
         "database": "connected",
+        "mlModel": ml_status,
         "version": settings.VERSION
     }
 

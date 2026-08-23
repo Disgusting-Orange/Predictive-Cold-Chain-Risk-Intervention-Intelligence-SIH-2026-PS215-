@@ -16,11 +16,21 @@ async def process_telemetry_ingestion(
     Ingest, validate, persist telemetry from ESP32 / Simulator,
     calculate AI risk & SHAP factors, and record alerts.
     """
+    # Derive aggregate temperature if probes given
+    current_temp = telemetry_in.temperature
+    if current_temp is None and telemetry_in.probes:
+        valid_vals = [v for v in telemetry_in.probes.values() if v is not None and -50.0 <= float(v) <= 80.0]
+        current_temp = round(sum(valid_vals) / len(valid_vals), 2) if valid_vals else 4.0
+    elif current_temp is None:
+        current_temp = 4.0
+
+    current_humidity = telemetry_in.humidity if telemetry_in.humidity is not None else 50.0
+
     # 1. Sanity Range Validation
     sensor_health = "HEALTHY"
-    if telemetry_in.temperature < -50.0 or telemetry_in.temperature > 80.0:
+    if current_temp < -50.0 or current_temp > 80.0:
         sensor_health = "DEGRADED_TEMP_OUT_OF_BOUNDS"
-    if telemetry_in.humidity < 0.0 or telemetry_in.humidity > 100.0:
+    if current_humidity < 0.0 or current_humidity > 100.0:
         sensor_health = "DEGRADED_HUMIDITY_OUT_OF_BOUNDS"
 
     # 2. Persist Raw Telemetry
@@ -28,8 +38,8 @@ async def process_telemetry_ingestion(
         shipment_id=telemetry_in.shipmentId,
         device_id=telemetry_in.deviceId or "BOX-01",
         timestamp=telemetry_in.timestamp or datetime.now(timezone.utc),
-        temperature=telemetry_in.temperature,
-        humidity=telemetry_in.humidity,
+        temperature=current_temp,
+        humidity=current_humidity,
         latitude=telemetry_in.latitude,
         longitude=telemetry_in.longitude,
         speed=telemetry_in.speed or 0.0,
@@ -90,7 +100,7 @@ async def process_telemetry_ingestion(
         predicted_points,
         msg
     ) = calculate_risk_and_shap(
-        temperature=telemetry_in.temperature,
+        temperature=current_temp,
         safe_min=safe_min,
         safe_max=safe_max,
         temp_trend=temp_trend,
@@ -100,7 +110,8 @@ async def process_telemetry_ingestion(
         speed=telemetry_in.speed or 0.0,
         shipment_id=telemetry_in.shipmentId,
         timestamp=telemetry_in.timestamp,
-        battery=telemetry_in.battery or 90.0
+        battery=telemetry_in.battery or 90.0,
+        raw_probes=telemetry_in.probes
     )
 
     # 6. Save Risk Prediction Record

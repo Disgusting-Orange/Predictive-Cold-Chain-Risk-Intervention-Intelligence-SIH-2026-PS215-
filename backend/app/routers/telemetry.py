@@ -12,6 +12,8 @@ router = APIRouter(tags=["Telemetry"])
 
 
 @router.post("/telemetry", status_code=status.HTTP_201_CREATED)
+@router.post("/api/telemetry", status_code=status.HTTP_201_CREATED)
+@router.post("/api/v1/telemetry", status_code=status.HTTP_201_CREATED)
 async def ingest_telemetry(
     payload: TelemetryCreate,
     db: AsyncSession = Depends(get_db)
