@@ -9,6 +9,12 @@ import { api } from "../lib/api";
 
 type LoginRole = "admin" | "field" | "client";
 
+const demoCredentials: Record<LoginRole, { label: string; email: string; password: string }> = {
+  admin: { label: "Admin / Ops", email: "admin@coldchain.ai", password: "admin123" },
+  field: { label: "Field Agent", email: "driver@coldchain.ai", password: "driver123" },
+  client: { label: "Client View", email: "client@coldchain.ai", password: "client123" },
+};
+
 export default function Login() {
   const [, setLocation] = useLocation();
   const [message, setMessage] = useState("");
@@ -31,6 +37,15 @@ export default function Login() {
     client: { eyebrow: "CLIENT ACCESS", title: "Open your shipment view.", description: "See delivery progress, condition, and protected shipment records." },
   };
   const currentRoleDetails = roleDetails[role];
+
+  const useDemoCredentials = (demoRole: LoginRole) => {
+    const demo = demoCredentials[demoRole];
+    setRole(demoRole);
+    setEmail(demo.email);
+    setPassword(demo.password);
+    setMessage(`${demo.label} demo credentials loaded.`);
+    setIsError(false);
+  };
 
   const login = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -67,6 +82,18 @@ export default function Login() {
             {submitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Authenticating…</> : <>Sign in <ArrowRight className="ml-2 h-4 w-4" /></>}
           </Button>
         </form>
+        <div className="mt-6 border border-dashed border-white/[0.14] p-3">
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Demo access</p>
+          <div className="mt-2 grid gap-2 sm:grid-cols-3">
+            {(Object.keys(demoCredentials) as LoginRole[]).map((demoRole) => (
+              <button key={demoRole} type="button" onClick={() => useDemoCredentials(demoRole)} className="border border-white/[0.12] px-2 py-2 text-left text-[11px] text-slate-300 transition hover:border-[#66d9b4] hover:text-white">
+                <span className="block font-bold">{demoCredentials[demoRole].label}</span>
+                <span className="mt-1 block truncate text-[10px] text-slate-500">{demoCredentials[demoRole].email}</span>
+                <span className="block text-[10px] text-slate-500">{demoCredentials[demoRole].password}</span>
+              </button>
+            ))}
+          </div>
+        </div>
         {message && <p className={`mt-4 flex items-center gap-2 text-xs ${isError ? "text-red-400" : "text-[#66d9b4]"}`}><Radio className="h-3.5 w-3.5" /> {message}</p>}
         <p className="mt-8 text-center text-sm text-slate-500">New to Cold Chain AI? <Link href="/signup" className="font-bold text-[#66d9b4] hover:text-white">Create your workspace</Link></p>
       </div>
