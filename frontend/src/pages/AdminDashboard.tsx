@@ -23,31 +23,20 @@ import {
   Truck,
   X,
 } from "lucide-react";
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState, useEffect, type ReactNode } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { api } from "../lib/api";
 
 const tempData = [
   { time: "08:00", temperature: 4.3 }, { time: "08:30", temperature: 4.8 }, { time: "09:00", temperature: 5.2 }, { time: "09:30", temperature: 6.1 }, { time: "10:00", temperature: 6.7 }, { time: "10:30", temperature: 7.4 }, { time: "11:00", temperature: 8.2 },
 ];
 
-const shipments = [
-  { id: "CC-1024", product: "Milk", batch: "M102", origin: "Bengaluru Hub", destination: "Pune Retail", status: "High", healthScore: 72, risk: 72, temperature: "8.2°C", eta: "42 min", safeLife: "38 min", x: "52%", y: "45%" },
-  { id: "CC-1037", product: "Curd", batch: "C764", origin: "Nashik Dairy", destination: "Pune West", status: "Attention", healthScore: 81, risk: 44, temperature: "6.8°C", eta: "1 h 18 min", safeLife: "2 h 14 min", x: "70%", y: "27%" },
-  { id: "CC-1071", product: "Paneer", batch: "P211", origin: "Bengaluru Hub", destination: "Satara Retail", status: "Safe", healthScore: 94, risk: 12, temperature: "4.6°C", eta: "2 h 05 min", safeLife: "7 h 40 min", x: "30%", y: "62%" },
-  { id: "CC-1098", product: "Meat", batch: "ME450", origin: "Pune Cold Dock", destination: "Kolhapur", status: "Safe", healthScore: 97, risk: 8, temperature: "2.1°C", eta: "3 h 11 min", safeLife: "9 h 12 min", x: "82%", y: "70%" },
-  { id: "CC-1112", product: "Seafood", batch: "SF104", origin: "Mumbai Port", destination: "Pune Central", status: "Attention", healthScore: 76, risk: 51, temperature: "3.5°C", eta: "2 h 26 min", safeLife: "1 h 48 min", x: "17%", y: "24%" },
+const defaultShipments = [
+  { id: "SHP-1042", product: "Milk", batch: "M102", origin: "MediCold Distribution Centre", destination: "Apollo Hospital Pharmacy", status: "Attention", healthScore: 72, risk: 72, temperature: "8.2°C", eta: "42 min", safeLife: "38 min", x: "52%", y: "45%" },
 ];
 
-const productProfiles = [
-  ["Milk", "2–6°C", "8°C", "High", "48 h"], ["Curd", "2–6°C", "8°C", "High", "72 h"], ["Paneer", "2–6°C", "8°C", "High", "72 h"], ["Cheese", "2–8°C", "10°C", "Medium", "14 d"], ["Meat", "0–4°C", "5°C", "Very high", "36 h"], ["Seafood", "0–2°C", "3°C", "Very high", "24 h"], ["Produce", "4–10°C", "12°C", "Medium", "7 d"],
-];
-
-const navItems = [
-  ["Dashboard", LayoutDashboard], ["Live Shipments", Truck], ["Risk Monitor", CircleAlert], ["Recommended Actions", ClipboardCheck], ["Route Planning", Route], ["Product Profiles", PackageSearch], ["Audit Reports", FileDown],
-] as const;
-
+type Shipment = typeof defaultShipments[number];
 type Workspace = "Dashboard" | "Live Shipments" | "Risk Monitor" | "Recommended Actions" | "Route Planning" | "Product Profiles" | "Audit Reports";
-type Shipment = typeof shipments[number];
 
 function Panel({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <article className={`relative overflow-hidden border border-slate-800 bg-[#101820] before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69] ${className}`}>{children}</article>;
@@ -58,7 +47,11 @@ function RiskBadge({ status }: { status: Shipment["status"] }) {
   return <span className={`inline-flex rounded border px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] ${styles}`}>{status}</span>;
 }
 
-function MiniMap({ selected, onSelect }: { selected: Shipment; onSelect: (shipment: Shipment) => void }) {
+const navItems = [
+  ["Dashboard", LayoutDashboard], ["Live Shipments", Truck], ["Risk Monitor", CircleAlert], ["Recommended Actions", ClipboardCheck], ["Route Planning", Route], ["Product Profiles", PackageSearch], ["Audit Reports", FileDown],
+] as const;
+
+function MiniMap({ shipments, selected, onSelect }: { shipments: Shipment[]; selected: Shipment; onSelect: (shipment: Shipment) => void }) {
   const colorFor = (status: Shipment["status"]) => status === "High" ? "#d56560" : status === "Attention" ? "#d6a855" : "#26986f";
   return <div className="relative mt-4 h-[285px] overflow-hidden border border-slate-800 bg-[#111f24]" aria-label="Shipment route map"><div className="absolute left-[10%] top-[57%] h-px w-[74%] -rotate-[26deg] bg-[#239b75]/70" /><div className="absolute left-[21%] top-[34%] h-px w-[45%] rotate-[17deg] bg-slate-600/60" /><div className="absolute -left-12 top-8 h-44 w-[72%] rotate-[-18deg] rounded-full border-[22px] border-[#1a3030]" /><div className="absolute right-[-80px] bottom-[-44px] h-60 w-[47%] rotate-[20deg] rounded-full border-[22px] border-[#192931]" /><span className="absolute left-4 bottom-4 text-[10px] font-bold tracking-[0.1em] text-slate-500">BENGALURU / 01</span><span className="absolute right-4 top-4 text-[10px] font-bold tracking-[0.1em] text-slate-500">PUNE / 02</span>{[["18%", "22%"], ["42%", "14%"], ["58%", "76%"], ["88%", "46%"], ["37%", "83%"]].map(([left, top], index) => <span key={`${left}-${top}`} className="absolute h-1.5 w-1.5 rounded-full bg-[#6ed8b2] opacity-70" style={{ left, top, boxShadow: "0 0 0 3px rgba(39,139,105,0.12)" }} />)}{shipments.map((shipment) => <button type="button" key={shipment.id} onClick={() => onSelect(shipment)} style={{ left: shipment.x, top: shipment.y, borderColor: colorFor(shipment.status) }} className={`absolute grid h-9 w-9 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 bg-[#101820] transition hover:scale-110 ${selected.id === shipment.id ? "ring-2 ring-white/30" : ""}`} title={`Open ${shipment.id}`}><Truck className="h-3.5 w-3.5" style={{ color: colorFor(shipment.status) }} /></button>)}</div>;
 }
@@ -66,7 +59,11 @@ function MiniMap({ selected, onSelect }: { selected: Shipment; onSelect: (shipme
 export default function AdminDashboard() {
   const [mobileNav, setMobileNav] = useState(false);
   const [activeView, setActiveView] = useState<Workspace>("Dashboard");
-  const [selectedShipment, setSelectedShipment] = useState<Shipment>(shipments[0]);
+  const [shipments, setShipments] = useState<Shipment[]>(defaultShipments);
+  const [selectedShipment, setSelectedShipment] = useState<Shipment>(defaultShipments[0]);
+  const [productsList, setProductsList] = useState<any[]>([]);
+  const [simulationScenarios, setSimulationScenarios] = useState<any[]>([]);
+  
   const [liveDetailOpen, setLiveDetailOpen] = useState(false);
   const [shipmentFilter, setShipmentFilter] = useState<"All" | Shipment["status"]>("All");
   const [searchTerm, setSearchTerm] = useState("");
@@ -74,16 +71,76 @@ export default function AdminDashboard() {
   const [overrideOpen, setOverrideOpen] = useState(false);
   const [reportGenerated, setReportGenerated] = useState(false);
   const [pendingActions, setPendingActions] = useState([
-    { id: "CC-1024", action: "Reroute to Cold Storage A", reason: "Safe exposure will reach 65% in 21 min", status: "High" },
-    { id: "CC-1037", action: "Verify cooling with the carrier", reason: "Temperature trend is increasing", status: "Attention" },
-    { id: "CC-1112", action: "Switch delivery priority", reason: "Customer time window closes in 48 min", status: "Attention" },
+    { id: "SHP-1042", action: "Reroute to Cold Storage A (Guindy)", reason: "Safe life is under 45 minutes", status: "High" }
   ]);
+
+  const mapBackendShipment = (s: any): Shipment => {
+    const statusMap: Record<string, "High" | "Attention" | "Safe"> = {
+      CRITICAL: "High",
+      DIVERTED: "Attention",
+      DELIVERED: "Safe",
+      IN_TRANSIT: s.riskScore > 70 ? "High" : s.riskScore > 30 ? "Attention" : "Safe"
+    };
+    return {
+      id: s.shipmentId,
+      product: s.productName,
+      batch: s.shipmentId.replace("SHP-", "B-"),
+      origin: s.origin.name,
+      destination: s.destination.name,
+      status: statusMap[s.status] || "Safe",
+      healthScore: 100 - s.riskScore,
+      risk: s.riskScore,
+      temperature: `${s.temperature.toFixed(1)}°C`,
+      eta: `${s.etaMinutes} min`,
+      safeLife: s.remainingSafeLifeMinutes ? `${s.remainingSafeLifeMinutes} min` : "N/A",
+      x: s.shipmentId === "SHP-1041" ? "42%" : s.shipmentId === "SHP-1042" ? "52%" : "82%",
+      y: s.shipmentId === "SHP-1041" ? "14%" : s.shipmentId === "SHP-1042" ? "45%" : "70%",
+    };
+  };
+
+  const loadData = async () => {
+    try {
+      const active = await api.listShipments();
+      const mapped = active.map(mapBackendShipment);
+      if (mapped.length > 0) {
+        setShipments(mapped);
+        setSelectedShipment(prev => {
+          const updated = mapped.find(m => m.id === prev.id);
+          return updated || mapped[0];
+        });
+      }
+      
+      const prods = await api.listProducts();
+      setProductsList(prods);
+    } catch (err) {
+      console.error("Failed to load initial data", err);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+    const ws = api.connectTelemetry((msg) => {
+      // Telemetry feed contains live updates
+      if (msg.type === "TELEMETRY_UPDATE" || msg.type === "DEMO_STATE") {
+        loadData();
+      }
+    });
+    return () => ws.close();
+  }, []);
+
+  useEffect(() => {
+    if (selectedShipment) {
+      api.simulate(selectedShipment.id)
+        .then(res => setSimulationScenarios(res.scenarios))
+        .catch(err => console.error("Simulation failed", err));
+    }
+  }, [selectedShipment]);
 
   const filteredShipments = useMemo(() => shipments.filter((shipment) => {
     const matchesFilter = shipmentFilter === "All" || shipment.status === shipmentFilter;
     const terms = `${shipment.id} ${shipment.product} ${shipment.origin} ${shipment.destination}`.toLowerCase();
     return matchesFilter && terms.includes(searchTerm.toLowerCase());
-  }), [shipmentFilter, searchTerm]);
+  }), [shipments, shipmentFilter, searchTerm]);
 
   const openShipment = (shipment: Shipment) => {
     setSelectedShipment(shipment);
@@ -97,7 +154,26 @@ export default function AdminDashboard() {
     setMobileNav(false);
   };
 
-  const approveAction = (id: string) => setPendingActions((items) => items.filter((item) => item.id !== id));
+  const approveAction = async (id: string) => {
+    try {
+      await api.approve(id);
+      setPendingActions((items) => items.filter((item) => item.id !== id));
+      loadData();
+    } catch (err: any) {
+      alert("Approve failed: " + err.message);
+    }
+  };
+
+  const overrideAction = async (id: string, reason: string) => {
+    try {
+      await api.override(id, reason);
+      setPendingActions((items) => items.filter((item) => item.id !== id));
+      setOverrideOpen(false);
+      loadData();
+    } catch (err: any) {
+      alert("Override failed: " + err.message);
+    }
+  };
 
   const viewMeta: Record<Workspace, { eyebrow: string; title: string; description: string }> = {
     Dashboard: { eyebrow: "OPERATIONS", title: "Operations overview", description: "Live visibility across active cold-chain shipments." },
@@ -130,11 +206,11 @@ export default function AdminDashboard() {
             <div className="flex flex-col justify-between gap-4 border-b border-slate-800 pb-5 sm:flex-row sm:items-end"><div><div className="flex items-center gap-3"><span className="h-px w-8 bg-[#278a69]" /><p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#68bfa0]">{meta.eyebrow}</p><span className="text-[10px] font-bold tracking-[0.08em] text-slate-600">01 / 07</span></div><h1 className="font-display mt-3 text-4xl font-bold tracking-[-0.055em] text-white">{meta.title}</h1><p className="mt-2 text-sm text-slate-400">{meta.description}</p></div><div className="flex items-center gap-3"><div className="hidden border-l border-slate-800 pl-4 text-right sm:block"><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Network status</p><p className="mt-1 flex items-center justify-end gap-2 text-xs font-semibold text-[#74c8a7]"><span className="h-2 w-2 rounded-full bg-[#278a69]" /> All systems reporting</p></div>{activeView === "Dashboard" && <button type="button" onClick={() => setSimulatorOpen(!simulatorOpen)} className="min-h-10 rounded border border-[#2e7660] bg-[#133329] px-4 text-sm font-semibold text-[#8ad8bb] hover:bg-[#1a4034]">{simulatorOpen ? "Hide comparison" : "Compare routes"}</button>}</div></div>
 
             {activeView === "Dashboard" && <>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">{[["Active shipments", "24", "all live loads", Truck], ["High risk", "3", "needs review", CircleAlert], ["Attention", "7", "watch closely", Activity], ["Safe", "14", "within range", ShieldCheck]].map(([label, value, note, StatIcon], index) => { const Icon = StatIcon as typeof Truck; const color = index === 1 ? "text-[#e9918d]" : index === 2 ? "text-[#e4c177]" : "text-[#72c8a5]"; return <Panel key={label as string} className="p-4"><div className="flex items-center justify-between"><p className="text-xs font-medium text-slate-400">{label as string}</p><Icon className={`h-4 w-4 ${color}`} /></div><p className="font-display mt-4 text-4xl font-bold tracking-[-0.065em] text-white">{value as string}</p><p className="mt-1 text-xs text-slate-500">{note as string}</p></Panel>; })}</div>
-              <div className="mt-5 grid gap-5 xl:grid-cols-[1.12fr_0.88fr]"><Panel className="p-5"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-300">Live shipment map</p><p className="mt-1 text-sm text-slate-500">Select a vehicle to review its shipment.</p></div><span className="text-xs font-semibold text-[#73c6a7]">24 active</span></div><MiniMap selected={selectedShipment} onSelect={setSelectedShipment} /><div className="mt-3 flex gap-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-500"><span><i className="mr-1 inline-block h-2 w-2 rounded-full bg-[#d56560]" />High</span><span><i className="mr-1 inline-block h-2 w-2 rounded-full bg-[#d6a855]" />Attention</span><span><i className="mr-1 inline-block h-2 w-2 rounded-full bg-[#26986f]" />Safe</span></div></Panel><Panel className="p-5"><div className="flex items-start justify-between"><div><p className="text-xs font-semibold text-slate-400">Selected shipment</p><h2 className="font-display mt-1 text-3xl font-bold tracking-[-0.06em] text-white">{selectedShipment.id}</h2><p className="mt-1 text-sm text-slate-500">{selectedShipment.product} · Batch {selectedShipment.batch}</p></div><RiskBadge status={selectedShipment.status} /></div><div className="mt-5 grid grid-cols-2 gap-x-5 gap-y-4 border-y border-slate-800 py-4 text-sm"><div><p className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Origin</p><p className="mt-1 font-medium text-slate-200">{selectedShipment.origin}</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Destination</p><p className="mt-1 font-medium text-slate-200">{selectedShipment.destination}</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">ETA</p><p className="mt-1 font-medium text-slate-200">{selectedShipment.eta}</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Temperature</p><p className="mt-1 font-medium text-slate-200">{selectedShipment.temperature}</p></div></div><div className="mt-5 grid grid-cols-2 gap-4"><div><p className="text-xs text-slate-500">Spoilage risk</p><p className="font-display mt-1 text-4xl font-bold tracking-[-0.07em] text-[#e9918d]">{selectedShipment.risk}%</p></div><div><p className="text-xs text-slate-500">Safe life remaining</p><p className="font-display mt-1 text-4xl font-bold tracking-[-0.07em] text-white">{selectedShipment.safeLife}</p></div></div></Panel></div>
-              <div className="mt-5 grid gap-5 xl:grid-cols-[1.1fr_0.9fr]"><Panel className="p-5"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-300">Temperature history</p><p className="mt-1 text-sm text-slate-500">Milk · {selectedShipment.id}</p></div><div className="text-right"><p className="text-xs text-slate-500">Current</p><p className="mt-1 text-xl font-semibold text-[#e9918d]">{selectedShipment.temperature}</p></div></div><div className="mt-4 h-[220px]"><ResponsiveContainer width="100%" height="100%"><LineChart data={tempData} margin={{ top: 6, right: 8, left: -20, bottom: 0 }}><CartesianGrid stroke="#ffffff12" vertical={false} /><XAxis dataKey="time" tick={{ fill: "#718095", fontSize: 11 }} axisLine={false} tickLine={false} /><YAxis domain={[0, 10]} tick={{ fill: "#718095", fontSize: 11 }} axisLine={false} tickLine={false} /><Tooltip contentStyle={{ background: "#101820", border: "1px solid #334155", borderRadius: 4 }} labelStyle={{ color: "#cbd5e1" }} itemStyle={{ color: "#f09a93" }} /><Line type="monotone" dataKey="temperature" stroke="#df716b" strokeWidth={2.5} dot={{ r: 2.5, fill: "#df716b" }} /></LineChart></ResponsiveContainer></div><div className="mt-3 flex flex-wrap gap-4 border-t border-slate-800 pt-3 text-xs"><span className="text-slate-500">Optimal: <b className="ml-1 text-[#74c8a7]">2–6°C</b></span><span className="text-slate-500">Above range: <b className="ml-1 text-[#e9918d]">21 min</b></span><span className="text-slate-500">Trend: <b className="ml-1 text-[#e9918d]">increasing</b></span></div></Panel><Panel className="p-5"><p className="text-xs font-semibold text-slate-300">Risk factors</p><p className="mt-1 text-sm text-slate-500">Why this shipment needs intervention.</p><ul className="mt-5 space-y-3">{["Temperature has exceeded the operating range for 21 minutes", "Temperature is increasing between scans", "Milk is highly temperature sensitive", "65% of safe exposure has been consumed"].map((item) => <li key={item} className="flex gap-3 text-sm leading-5 text-slate-400"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#d6a855]" />{item}</li>)}</ul><div className="mt-6 border-t border-slate-800 pt-4"><p className="text-xs font-semibold text-slate-300">Suggested action</p><p className="mt-1 text-lg font-semibold text-white">Move to nearest cold storage</p><div className="mt-4 grid gap-2 sm:grid-cols-3"><button type="button" className="min-h-10 rounded bg-[#238767] px-3 text-xs font-semibold text-white hover:bg-[#2c9c78]">Approve</button><button type="button" className="min-h-10 rounded border border-slate-700 px-3 text-xs font-semibold text-slate-200 hover:bg-slate-800">Alternatives</button><button type="button" onClick={() => setOverrideOpen(!overrideOpen)} className="min-h-10 rounded border border-slate-700 px-3 text-xs font-semibold text-slate-200 hover:bg-slate-800">Override</button></div>{overrideOpen && <select className="mt-3 h-10 w-full rounded border border-slate-700 bg-[#111b24] px-3 text-xs text-slate-200"><option>Select override reason</option><option>Driver unavailable</option><option>Storage unavailable</option><option>Customer priority</option><option>Other</option></select>}</div></Panel></div>
-              {simulatorOpen && <Panel className="mt-5 p-5"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-300">Route comparison</p><p className="mt-1 text-sm text-slate-500">Estimated outcome for CC-1024.</p></div><button type="button" onClick={() => setSimulatorOpen(false)} className="text-xs font-semibold text-slate-500 hover:text-white"><X className="inline h-3.5 w-3.5" /> Close</button></div><div className="mt-4 grid gap-3 lg:grid-cols-3">{[["Continue current route", "72%", "38 min", "₹18,500", false], ["Reroute to cold storage", "16%", "2 h 12 m", "₹3,900", true], ["Emergency delivery", "24%", "1 h 34 m", "₹7,800", false]].map(([name, risk, life, loss, recommended]) => <div key={name as string} className={`border p-4 ${recommended ? "border-[#318368] bg-[#14261f]" : "border-slate-800 bg-[#0d161e]"}`}><div className="flex items-start justify-between gap-3"><p className="text-sm font-semibold text-white">{name as string}</p>{recommended && <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#7bd0af]">Preferred</span>}</div><div className="mt-5 grid grid-cols-3 gap-2 text-center text-xs"><div><p className="text-slate-500">Risk</p><p className="mt-1 font-semibold text-white">{risk as string}</p></div><div><p className="text-slate-500">Safe life</p><p className="mt-1 font-semibold text-white">{life as string}</p></div><div><p className="text-slate-500">Est. loss</p><p className="mt-1 font-semibold text-white">{loss as string}</p></div></div></div>)}</div></Panel>}
-              <div className="mt-5 grid gap-5 xl:grid-cols-[1.1fr_0.9fr]"><Panel className="p-5"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-300">Product profiles</p><p className="mt-1 text-sm text-slate-500">Temperature ranges by product.</p></div><button type="button" className="flex min-h-9 items-center gap-2 rounded border border-slate-700 px-3 text-xs font-semibold text-slate-200 hover:bg-slate-800"><Plus className="h-3.5 w-3.5" /> Add profile</button></div><div className="mt-4 overflow-x-auto"><table className="w-full min-w-[580px] text-left text-xs"><thead className="border-b border-slate-800 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500"><tr><th className="pb-3">Product</th><th className="pb-3">Optimal</th><th className="pb-3">Critical</th><th className="pb-3">Sensitivity</th><th className="pb-3">Shelf life</th></tr></thead><tbody>{productProfiles.map(([product, optimal, critical, sensitivity, shelf]) => <tr key={product} className="border-b border-slate-800/80 text-slate-400 last:border-0"><td className="py-3 font-semibold text-slate-200">{product}</td><td className="py-3">{optimal}</td><td className="py-3 text-[#dfbd70]">{critical}</td><td className="py-3">{sensitivity}</td><td className="py-3">{shelf}</td></tr>)}</tbody></table></div></Panel><Panel className="p-5"><p className="text-xs font-semibold text-slate-300">Pending actions</p><p className="mt-1 text-sm text-slate-500">Operations waiting for confirmation.</p><div className="mt-4 space-y-3">{pendingActions.length === 0 ? <div className="rounded border border-dashed border-slate-700 p-5 text-center text-sm text-slate-500">No pending actions.</div> : pendingActions.map((action) => <div key={action.id} className="rounded border border-slate-800 bg-[#0d161e] p-4"><div className="flex items-start justify-between gap-3"><div><button type="button" onClick={() => openShipment(shipments.find((shipment) => shipment.id === action.id) ?? shipments[0])} className="text-left text-sm font-semibold text-white hover:text-[#82d1b0]">{action.id}</button><p className="mt-1 text-sm text-slate-300">{action.action}</p><p className="mt-1 text-xs text-slate-500">{action.reason}</p></div><RiskBadge status={action.status as Shipment["status"]} /></div><div className="mt-3 flex gap-2"><button type="button" onClick={() => approveAction(action.id)} className="min-h-9 rounded bg-[#238767] px-3 text-xs font-semibold text-white hover:bg-[#2c9c78]">Approve</button><button type="button" onClick={() => setOverrideOpen(true)} className="min-h-9 rounded border border-slate-700 px-3 text-xs font-semibold text-slate-300 hover:bg-slate-800">Override</button></div></div>)}</div></Panel></div>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">{[["Active shipments", shipments.length.toString(), "all live loads", Truck], ["High risk", shipments.filter(s => s.status === "High").length.toString(), "needs review", CircleAlert], ["Attention", shipments.filter(s => s.status === "Attention").length.toString(), "watch closely", Activity], ["Safe", shipments.filter(s => s.status === "Safe").length.toString(), "within range", ShieldCheck]].map(([label, value, note, StatIcon], index) => { const Icon = StatIcon as typeof Truck; const color = index === 1 ? "text-[#e9918d]" : index === 2 ? "text-[#e4c177]" : "text-[#72c8a5]"; return <Panel key={label as string} className="p-4"><div className="flex items-center justify-between"><p className="text-xs font-medium text-slate-400">{label as string}</p><Icon className={`h-4 w-4 ${color}`} /></div><p className="font-display mt-4 text-4xl font-bold tracking-[-0.065em] text-white">{value as string}</p><p className="mt-1 text-xs text-slate-500">{note as string}</p></Panel>; })}</div>
+              <div className="mt-5 grid gap-5 xl:grid-cols-[1.12fr_0.88fr]"><Panel className="p-5"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-300">Live shipment map</p><p className="mt-1 text-sm text-slate-500">Select a vehicle to review its shipment.</p></div><span className="text-xs font-semibold text-[#73c6a7]">{shipments.length} active</span></div><MiniMap shipments={shipments} selected={selectedShipment} onSelect={setSelectedShipment} /><div className="mt-3 flex gap-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-500"><span><i className="mr-1 inline-block h-2 w-2 rounded-full bg-[#d56560]" />High</span><span><i className="mr-1 inline-block h-2 w-2 rounded-full bg-[#d6a855]" />Attention</span><span><i className="mr-1 inline-block h-2 w-2 rounded-full bg-[#26986f]" />Safe</span></div></Panel><Panel className="p-5"><div className="flex items-start justify-between"><div><p className="text-xs font-semibold text-slate-400">Selected shipment</p><h2 className="font-display mt-1 text-3xl font-bold tracking-[-0.06em] text-white">{selectedShipment.id}</h2><p className="mt-1 text-sm text-slate-500">{selectedShipment.product} · Batch {selectedShipment.batch}</p></div><RiskBadge status={selectedShipment.status} /></div><div className="mt-5 grid grid-cols-2 gap-x-5 gap-y-4 border-y border-slate-800 py-4 text-sm"><div><p className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Origin</p><p className="mt-1 font-medium text-slate-200">{selectedShipment.origin}</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Destination</p><p className="mt-1 font-medium text-slate-200">{selectedShipment.destination}</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">ETA</p><p className="mt-1 font-medium text-slate-200">{selectedShipment.eta}</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Temperature</p><p className="mt-1 font-medium text-slate-200">{selectedShipment.temperature}</p></div></div><div className="mt-5 grid grid-cols-2 gap-4"><div><p className="text-xs text-slate-500">Spoilage risk</p><p className="font-display mt-1 text-4xl font-bold tracking-[-0.07em] text-[#e9918d]">{selectedShipment.risk}%</p></div><div><p className="text-xs text-slate-500">Safe life remaining</p><p className="font-display mt-1 text-4xl font-bold tracking-[-0.07em] text-white">{selectedShipment.safeLife}</p></div></div></Panel></div>
+              <div className="mt-5 grid gap-5 xl:grid-cols-[1.1fr_0.9fr]"><Panel className="p-5"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-300">Temperature history</p><p className="mt-1 text-sm text-slate-500">{selectedShipment.product} · {selectedShipment.id}</p></div><div className="text-right"><p className="text-xs text-slate-500">Current</p><p className="mt-1 text-xl font-semibold text-[#e9918d]">{selectedShipment.temperature}</p></div></div><div className="mt-4 h-[220px]"><ResponsiveContainer width="100%" height="100%"><LineChart data={tempData} margin={{ top: 6, right: 8, left: -20, bottom: 0 }}><CartesianGrid stroke="#ffffff12" vertical={false} /><XAxis dataKey="time" tick={{ fill: "#718095", fontSize: 11 }} axisLine={false} tickLine={false} /><YAxis domain={[0, 10]} tick={{ fill: "#718095", fontSize: 11 }} axisLine={false} tickLine={false} /><Tooltip contentStyle={{ background: "#101820", border: "1px solid #334155", borderRadius: 4 }} labelStyle={{ color: "#cbd5e1" }} itemStyle={{ color: "#f09a93" }} /><Line type="monotone" dataKey="temperature" stroke="#df716b" strokeWidth={2.5} dot={{ r: 2.5, fill: "#df716b" }} /></LineChart></ResponsiveContainer></div><div className="mt-3 flex flex-wrap gap-4 border-t border-slate-800 pt-3 text-xs"><span className="text-slate-500">Optimal: <b className="ml-1 text-[#74c8a7]">2–6°C</b></span><span className="text-slate-500">Above range: <b className="ml-1 text-[#e9918d]">21 min</b></span><span className="text-slate-500">Trend: <b className="ml-1 text-[#e9918d]">increasing</b></span></div></Panel><Panel className="p-5"><p className="text-xs font-semibold text-slate-300">Risk factors</p><p className="mt-1 text-sm text-slate-500">Why this shipment needs intervention.</p><ul className="mt-5 space-y-3">{["Temperature has exceeded the operating range for 21 minutes", "Temperature is increasing between scans", `${selectedShipment.product} is highly temperature sensitive`, `${selectedShipment.risk}% spoilage exposure has been consumed`].map((item) => <li key={item} className="flex gap-3 text-sm leading-5 text-slate-400"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#d6a855]" />{item}</li>)}</ul><div className="mt-6 border-t border-slate-800 pt-4"><p className="text-xs font-semibold text-slate-300">Suggested action</p><p className="mt-1 text-lg font-semibold text-white">Move to nearest cold storage</p><div className="mt-4 grid gap-2 sm:grid-cols-3"><button type="button" onClick={() => approveAction(selectedShipment.id)} className="min-h-10 rounded bg-[#238767] px-3 text-xs font-semibold text-white hover:bg-[#2c9c78]">Approve</button><button type="button" className="min-h-10 rounded border border-slate-700 px-3 text-xs font-semibold text-slate-200 hover:bg-slate-800">Alternatives</button><button type="button" onClick={() => setOverrideOpen(!overrideOpen)} className="min-h-10 rounded border border-slate-700 px-3 text-xs font-semibold text-slate-200 hover:bg-slate-800">Override</button></div>{overrideOpen && <select onChange={(e) => overrideAction(selectedShipment.id, e.target.value)} className="mt-3 h-10 w-full rounded border border-slate-700 bg-[#111b24] px-3 text-xs text-slate-200"><option>Select override reason</option><option value="Driver unavailable">Driver unavailable</option><option value="Storage unavailable">Storage unavailable</option><option value="Customer priority">Customer priority</option><option value="Other">Other</option></select>}</div></Panel></div>
+              {simulatorOpen && <Panel className="mt-5 p-5"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-300">Route comparison</p><p className="mt-1 text-sm text-slate-500">Estimated outcome for {selectedShipment.id}.</p></div><button type="button" onClick={() => setSimulatorOpen(false)} className="text-xs font-semibold text-slate-500 hover:text-white"><X className="inline h-3.5 w-3.5" /> Close</button></div><div className="mt-4 grid gap-3 lg:grid-cols-3">{(simulationScenarios.length > 0 ? simulationScenarios.map(s => [s.scenarioName, `${s.projectedRiskScore}%`, `${s.projectedEtaMinutes} min`, `₹${s.projectedLossAvoided.toLocaleString()}`, s.isRecommended]) : [["Continue current route", "72%", "38 min", "₹18,500", false], ["Reroute to cold storage", "16%", "2 h 12 m", "₹3,900", true], ["Emergency delivery", "24%", "1 h 34 m", "₹7,800", false]]).map(([name, risk, life, loss, recommended]) => <div key={name as string} className={`border p-4 ${recommended ? "border-[#318368] bg-[#14261f]" : "border-slate-800 bg-[#0d161e]"}`}><div className="flex items-start justify-between gap-3"><p className="text-sm font-semibold text-white">{name as string}</p>{recommended && <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#7bd0af]">Preferred</span>}</div><div className="mt-5 grid grid-cols-3 gap-2 text-center text-xs"><div><p className="text-slate-500">Risk</p><p className="mt-1 font-semibold text-white">{risk as string}</p></div><div><p className="text-slate-500">Safe life</p><p className="mt-1 font-semibold text-white">{life as string}</p></div><div><p className="text-slate-500">Est. loss</p><p className="mt-1 font-semibold text-white">{loss as string}</p></div></div></div>)}</div></Panel>}
+              <div className="mt-5 grid gap-5 xl:grid-cols-[1.1fr_0.9fr]"><Panel className="p-5"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-300">Product profiles</p><p className="mt-1 text-sm text-slate-500">Temperature ranges by product.</p></div><button type="button" className="flex min-h-9 items-center gap-2 rounded border border-slate-700 px-3 text-xs font-semibold text-slate-200 hover:bg-slate-800"><Plus className="h-3.5 w-3.5" /> Add profile</button></div><div className="mt-4 overflow-x-auto"><table className="w-full min-w-[580px] text-left text-xs"><thead className="border-b border-slate-800 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500"><tr><th className="pb-3">Product</th><th className="pb-3">Optimal</th><th className="pb-3">Critical</th><th className="pb-3">Sensitivity</th><th className="pb-3">Shelf life</th></tr></thead><tbody>{(productsList.length > 0 ? productsList.map(p => [p.name, `${p.safeTempMin}–${p.safeTempMax}°C`, `${p.criticalTempMax}°C`, p.temperatureSensitivity, `${p.shelfLifeHours} h`]) : [["Milk", "2–6°C", "8°C", "High", "48 h"]]).map(([product, optimal, critical, sensitivity, shelf]) => <tr key={product} className="border-b border-slate-800/80 text-slate-400 last:border-0"><td className="py-3 font-semibold text-slate-200">{product}</td><td className="py-3">{optimal}</td><td className="py-3 text-[#dfbd70]">{critical}</td><td className="py-3">{sensitivity}</td><td className="py-3">{shelf}</td></tr>)}</tbody></table></div></Panel><Panel className="p-5"><p className="text-xs font-semibold text-slate-300">Pending actions</p><p className="mt-1 text-sm text-slate-500">Operations waiting for confirmation.</p><div className="mt-4 space-y-3">{pendingActions.length === 0 ? <div className="rounded border border-dashed border-slate-700 p-5 text-center text-sm text-slate-500">No pending actions.</div> : pendingActions.map((action) => <div key={action.id} className="rounded border border-slate-800 bg-[#0d161e] p-4"><div className="flex items-start justify-between gap-3"><div><button type="button" onClick={() => openShipment(shipments.find((shipment) => shipment.id === action.id) ?? shipments[0])} className="text-left text-sm font-semibold text-white hover:text-[#82d1b0]">{action.id}</button><p className="mt-1 text-sm text-slate-300">{action.action}</p><p className="mt-1 text-xs text-slate-500">{action.reason}</p></div><RiskBadge status={action.status as Shipment["status"]} /></div><div className="mt-3 flex gap-2"><button type="button" onClick={() => approveAction(action.id)} className="min-h-9 rounded bg-[#238767] px-3 text-xs font-semibold text-white hover:bg-[#2c9c78]">Approve</button><button type="button" onClick={() => setOverrideOpen(true)} className="min-h-9 rounded border border-slate-700 px-3 text-xs font-semibold text-slate-300 hover:bg-slate-800">Override</button></div></div>)}</div></Panel></div>
               <Panel className="mt-5 p-5"><div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><div><p className="text-xs font-semibold text-slate-300">Audit record · CC-1024</p><p className="mt-1 text-sm text-slate-500">Timestamped shipment events and decision history.</p></div><button type="button" onClick={() => setReportGenerated(true)} className="flex min-h-10 items-center justify-center gap-2 rounded border border-slate-700 px-3 text-xs font-semibold text-slate-200 hover:bg-slate-800"><FileDown className="h-3.5 w-3.5" /> Generate report</button></div>{reportGenerated && <p className="mt-4 rounded border border-[#2e7660] bg-[#14261f] px-3 py-2 text-sm text-[#83cfaf]">Audit report prepared for export.</p>}<div className="mt-5 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]"><div className="space-y-0 border-l border-slate-700 pl-5">{[["08:06", "Shipment started", "Bengaluru Hub departure recorded"], ["10:41", "Threshold exceeded", "Temperature moved beyond the operating range"], ["10:47", "Risk forecast recorded", "Remaining safe life estimated at 38 minutes"], ["10:49", "Action suggested", "Reroute to nearest cold storage"], ["10:52", "Awaiting human confirmation", "Operations team notified"]].map(([time, title, note], index) => <div key={time} className="relative pb-5 last:pb-0"><span className={`absolute -left-[25px] top-1 h-2.5 w-2.5 rounded-full ${index === 4 ? "bg-[#d6a855]" : "bg-[#26986f]"}`} /><p className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#74c8a7]">{time}</p><p className="mt-1 text-sm font-semibold text-slate-200">{title}</p><p className="mt-1 text-xs text-slate-500">{note}</p></div>)}</div><div className="rounded border border-slate-800 bg-[#0d161e] p-4"><ShieldCheck className="h-5 w-5 text-[#74c8a7]" /><p className="mt-4 text-sm font-semibold text-white">Decision trail retained</p><p className="mt-2 text-xs leading-5 text-slate-500">Condition changes, actions, and approvals are preserved with the shipment record.</p></div></div></Panel>
             </>}
 

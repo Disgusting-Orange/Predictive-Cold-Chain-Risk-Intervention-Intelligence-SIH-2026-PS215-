@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Building2, Check, CircleDot, Eye, Radio, Truck, UserRound } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { Link, useLocation } from "wouter";
+import { api } from "../lib/api";
 
 const roleOptions = [
   { id: "admin", title: "Admin / Ops", description: "Set the playbook, manage exceptions, and coordinate your complete operating network.", icon: Building2, signal: "CONTROL ROOM" },
@@ -17,10 +18,30 @@ export default function Signup() {
   const [stage, setStage] = useState<"signup" | "role">("signup");
   const [trackingCode, setTrackingCode] = useState("");
   const [trackingMessage, setTrackingMessage] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const submitSignup = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStage("role");
+  };
+
+  const handleRoleSelect = async (roleId: string) => {
+    try {
+      const mappedRole = roleId === "field" ? "FIELD_AGENT" : roleId === "client" ? "CLIENT" : "ADMIN";
+      await api.register({
+        email,
+        password,
+        full_name: fullName,
+        role: mappedRole,
+        phone: ""
+      });
+      setLocation(roleId === "field" ? "/field-agent" : roleId === "client" ? "/client" : "/dashboard/admin");
+    } catch (err: any) {
+      alert("Registration failed: " + err.message);
+    }
   };
 
   const openTracking = (event: FormEvent<HTMLFormElement>) => {
@@ -68,10 +89,10 @@ export default function Signup() {
                 <h2 className="font-display mt-6 text-4xl font-bold tracking-[-0.06em]">Set up your workspace.</h2>
                 <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">Start with the operational basics. You will choose the right view on the next step.</p>
                 <form onSubmit={submitSignup} className="mt-8 grid gap-5 sm:grid-cols-2">
-                  <label className="form-label">Full name<input required name="name" placeholder="Your name" className="signal-input mt-2" /></label>
-                  <label className="form-label">Organization<input required name="organization" placeholder="Company name" className="signal-input mt-2" /></label>
-                  <label className="form-label sm:col-span-2">Work email<input required type="email" name="email" placeholder="you@company.com" className="signal-input mt-2" /></label>
-                  <label className="form-label sm:col-span-2">Password<input required minLength={8} type="password" name="password" placeholder="At least 8 characters" className="signal-input mt-2" /></label>
+                  <label className="form-label">Full name<input required value={fullName} onChange={e => setFullName(e.target.value)} name="name" placeholder="Your name" className="signal-input mt-2" /></label>
+                  <label className="form-label">Organization<input required value={organization} onChange={e => setOrganization(e.target.value)} name="organization" placeholder="Company name" className="signal-input mt-2" /></label>
+                  <label className="form-label sm:col-span-2">Work email<input required type="email" value={email} onChange={e => setEmail(e.target.value)} name="email" placeholder="you@company.com" className="signal-input mt-2" /></label>
+                  <label className="form-label sm:col-span-2">Password<input required minLength={8} type="password" value={password} onChange={e => setPassword(e.target.value)} name="password" placeholder="At least 8 characters" className="signal-input mt-2" /></label>
                   <Button type="submit" className="mt-2 h-13 rounded-none bg-[#1D9E75] text-[15px] font-extrabold hover:bg-[#27ad84] sm:col-span-2">Continue to role selection <ArrowRight className="ml-2 h-4 w-4" /></Button>
                 </form>
                 <div className="mt-8 border-t border-white/[0.1] pt-6">
@@ -95,7 +116,7 @@ export default function Signup() {
                   {roleOptions.map((role) => {
                     const Icon = role.icon;
                     return (
-                      <button key={role.id} type="button" onClick={() => setLocation(role.id === "field" ? "/field-agent" : role.id === "client" ? "/track/CC-1024" : "/dashboard/admin")} className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border border-white/[0.1] bg-[#0b1a24] p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-[#1D9E75]/70 hover:bg-[#10242d]">
+                      <button key={role.id} type="button" onClick={() => handleRoleSelect(role.id)} className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border border-white/[0.1] bg-[#0b1a24] p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-[#1D9E75]/70 hover:bg-[#10242d]">
                         <span className="grid h-11 w-11 place-items-center rounded-full border border-[#1D9E75]/35 bg-[#1D9E75]/10 text-[#66d9b4]"><Icon className="h-5 w-5" /></span>
                         <span><span className="font-display block text-xl font-bold tracking-[-0.045em] text-white">{role.title}</span><span className="mt-1 block max-w-[330px] text-sm leading-5 text-slate-400">{role.description}</span><span className="mt-3 block text-[9px] font-bold tracking-[0.16em] text-[#66d9b4]">{role.signal}</span></span>
                         <ArrowRight className="h-5 w-5 text-slate-600 transition-all group-hover:translate-x-1 group-hover:text-[#66d9b4]" />

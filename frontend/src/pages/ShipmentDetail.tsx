@@ -2,17 +2,10 @@
  * Shipment detail design: a dedicated operational record with health, risk, telemetry, route, and intervention context—opened from the Live Shipments workspace.
  */
 import { ArrowLeft, Bell, Check, CircleAlert, Clock3, MapPin, Route, ShieldCheck, ThermometerSun, Truck } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Link, useRoute } from "wouter";
-
-const records = {
-  "CC-1024": { product: "Milk", batch: "M102", origin: "Bengaluru Hub", destination: "Pune Retail", status: "High", health: 72, risk: 72, temp: "8.2°C", range: "2–6°C", eta: "42 min", safeLife: "38 min", note: "Temperature exposure is consuming safe life. Review the intervention before the next scan.", action: "Move to Cold Storage A" },
-  "CC-1037": { product: "Curd", batch: "C764", origin: "Nashik Dairy", destination: "Pune West", status: "Attention", health: 81, risk: 44, temp: "6.8°C", range: "2–6°C", eta: "1 h 18 min", safeLife: "2 h 14 min", note: "Temperature is increasing but there is time to correct the route or confirm cooling.", action: "Verify cooling with the carrier" },
-  "CC-1071": { product: "Paneer", batch: "P211", origin: "Bengaluru Hub", destination: "Satara Retail", status: "Safe", health: 94, risk: 12, temp: "4.6°C", range: "2–6°C", eta: "2 h 05 min", safeLife: "7 h 40 min", note: "Shipment is within the configured range. Continue routine monitoring.", action: "Continue monitored route" },
-  "CC-1098": { product: "Meat", batch: "ME450", origin: "Pune Cold Dock", destination: "Kolhapur", status: "Safe", health: 97, risk: 8, temp: "2.1°C", range: "0–4°C", eta: "3 h 11 min", safeLife: "9 h 12 min", note: "Product temperature is stable and the shipment remains well within its safe operating window.", action: "Continue monitored route" },
-  "CC-1112": { product: "Seafood", batch: "SF104", origin: "Mumbai Port", destination: "Pune Central", status: "Attention", health: 76, risk: 51, temp: "3.5°C", range: "0–2°C", eta: "2 h 26 min", safeLife: "1 h 48 min", note: "Temperature is above the configured range. Confirm priority delivery or nearest approved storage.", action: "Switch delivery priority" },
-} as const;
+import { api } from "../lib/api";
 
 const telemetry = [
   { time: "08:00", value: 4.3 }, { time: "08:30", value: 4.8 }, { time: "09:00", value: 5.2 }, { time: "09:30", value: 6.1 }, { time: "10:00", value: 6.7 }, { time: "10:30", value: 7.4 }, { time: "11:00", value: 8.2 },
@@ -25,10 +18,74 @@ function SeverityBadge({ status }: { status: "High" | "Attention" | "Safe" }) {
 
 export default function ShipmentDetail() {
   const [, params] = useRoute("/shipment/:id");
-  const shipmentId = params?.id && params.id in records ? params.id as keyof typeof records : "CC-1024";
-  const shipment = records[shipmentId];
+  const shipmentId = params?.id || "SHP-1042";
+  const [shipment, setShipment] = useState<any>(null);
   const [approved, setApproved] = useState(false);
   const [reportReady, setReportReady] = useState(false);
+
+  const loadShipment = async () => {
+    try {
+      const active = await api.listShipments();
+      const s = active.find(item => item.shipmentId === shipmentId) || active[0];
+      if (s) {
+        const statusMap: Record<string, "High" | "Attention" | "Safe"> = {
+          CRITICAL: "High",
+          DIVERTED: "Attention",
+          DELIVERED: "Safe",
+          IN_TRANSIT: s.riskScore > 70 ? "High" : s.riskScore > 30 ? "Attention" : "Safe"
+        };
+        
+        setShipment({
+          id: s.shipmentId,
+          product: s.productName,
+          batch: s.shipmentId.replace("SHP-", "B-"),
+          origin: s.origin.name,
+          destination: s.destination.name,
+          status: statusMap[s.status] || "Safe",
+          health: 100 - s.riskScore,
+          risk: s.riskScore,
+          temp: `${s.temperature.toFixed(1)}°C`,
+          range: `${s.safeMinTemp}–${s.safeMaxTemp}°C`,
+          eta: `${s.etaMinutes} min`,
+          safeLife: s.remainingSafeLifeMinutes ? `${s.remainingSafeLifeMinutes} min` : "N/A",
+          note: s.riskScore > 50 ? "Temperature exposure is consuming safe life. Review the intervention before the next scan." : "Shipment parameters are stable.",
+          action: "Move to Cold Storage A (Guindy)"
+        });
+        setApproved(s.status === "DIVERTED" || s.status === "DELIVERED");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    loadShipment();
+    const ws = api.connectTelemetry((msg) => {
+      if (msg.type === "TELEMETRY_UPDATE" || msg.type === "DEMO_STATE") {
+        loadShipment();
+      }
+    });
+    return () => ws.close();
+  }, [shipmentId]);
+
+  const handleApprove = async () => {
+    try {
+      await api.approve(shipmentId);
+      setApproved(true);
+      loadShipment();
+    } catch (err: any) {
+      alert("Error: " + err.message);
+    }
+  };
+
+  if (!shipment) {
+    return (
+      <main className="min-h-screen bg-[#0b1117] text-slate-200 grid place-items-center">
+        <p className="text-sm">Loading shipment record…</p>
+      </main>
+    );
+  }
+
   const statusColor = shipment.status === "High" ? "#e9918d" : shipment.status === "Attention" ? "#e4c177" : "#72c8a5";
 
   return (
@@ -39,12 +96,12 @@ export default function ShipmentDetail() {
       </header>
 
       <div className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <div className="flex flex-col justify-between gap-5 border-b border-slate-800 pb-5 sm:flex-row sm:items-end"><div><Link href="/dashboard/admin?view=shipments" className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 transition hover:text-[#7bd0af]"><ArrowLeft className="h-3.5 w-3.5" /> Live Shipments</Link><div className="mt-4 flex items-center gap-3"><h1 className="font-display text-4xl font-bold tracking-[-0.06em] text-white">{shipmentId}</h1><SeverityBadge status={shipment.status} /></div><p className="mt-2 text-sm text-slate-400">{shipment.product} · Batch {shipment.batch} · {shipment.origin} → {shipment.destination}</p></div><div className="flex items-center gap-3"><button type="button" onClick={() => setReportReady(true)} className="min-h-10 rounded border border-slate-700 px-4 text-sm font-semibold text-slate-300 hover:bg-slate-800">Generate report</button><button type="button" onClick={() => setApproved(true)} className="min-h-10 rounded bg-[#238767] px-4 text-sm font-semibold text-white hover:bg-[#2c9c78]">{approved ? "Action approved" : "Approve action"}</button></div></div>
+        <div className="flex flex-col justify-between gap-5 border-b border-slate-800 pb-5 sm:flex-row sm:items-end"><div><Link href="/dashboard/admin?view=shipments" className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 transition hover:text-[#7bd0af]"><ArrowLeft className="h-3.5 w-3.5" /> Live Shipments</Link><div className="mt-4 flex items-center gap-3"><h1 className="font-display text-4xl font-bold tracking-[-0.06em] text-white">{shipmentId}</h1><SeverityBadge status={shipment.status} /></div><p className="mt-2 text-sm text-slate-400">{shipment.product} · Batch {shipment.batch} · {shipment.origin} → {shipment.destination}</p></div><div className="flex items-center gap-3"><button type="button" onClick={() => setReportReady(true)} className="min-h-10 rounded border border-slate-700 px-4 text-sm font-semibold text-slate-300 hover:bg-slate-800">Generate report</button><button type="button" onClick={handleApprove} className="min-h-10 rounded bg-[#238767] px-4 text-sm font-semibold text-white hover:bg-[#2c9c78]">{approved ? "Action approved" : "Approve action"}</button></div></div>
         {reportReady && <p className="mt-4 rounded border border-[#2e7660] bg-[#14261f] px-4 py-3 text-sm font-medium text-[#83cfaf]">Shipment report prepared for export.</p>}
 
         <section className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4"><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Health score</p><p className="font-display mt-3 text-5xl font-bold tracking-[-0.08em] text-white">{shipment.health}<span className="text-xl text-slate-500">/100</span></p><div className="mt-4 h-1.5 bg-slate-800"><span className="block h-full bg-[#278a69]" style={{ width: `${shipment.health}%` }} /></div></article><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#d56560]"><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Spoilage risk</p><p className="font-display mt-3 text-5xl font-bold tracking-[-0.08em] text-[#e9918d]">{shipment.risk}%</p><p className="mt-4 text-xs text-slate-500">Current exposure estimate</p></article><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Safe life remaining</p><p className="font-display mt-3 text-5xl font-bold tracking-[-0.08em] text-white">{shipment.safeLife}</p><p className="mt-4 text-xs text-slate-500">At current conditions</p></article><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Arrival estimate</p><p className="font-display mt-3 text-5xl font-bold tracking-[-0.08em] text-white">{shipment.eta}</p><p className="mt-4 text-xs text-slate-500">Pune delivery window</p></article></section>
 
-        <section className="mt-6 grid gap-5 xl:grid-cols-[1.08fr_0.92fr]"><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-200">Temperature history</p><p className="mt-1 text-sm text-slate-500">Sensor readings from the current route.</p></div><div className="text-right"><p className="text-xs text-slate-500">Current reading</p><p className="mt-1 text-xl font-semibold" style={{ color: statusColor }}>{shipment.temp}</p></div></div><div className="mt-5 h-[280px]"><ResponsiveContainer width="100%" height="100%"><LineChart data={telemetry} margin={{ top: 6, right: 8, left: -20, bottom: 0 }}><CartesianGrid stroke="#ffffff12" vertical={false} /><XAxis dataKey="time" tick={{ fill: "#718095", fontSize: 11 }} axisLine={false} tickLine={false} /><YAxis domain={[0, 10]} tick={{ fill: "#718095", fontSize: 11 }} axisLine={false} tickLine={false} /><Tooltip contentStyle={{ background: "#101820", border: "1px solid #334155", borderRadius: 4 }} labelStyle={{ color: "#cbd5e1" }} itemStyle={{ color: statusColor }} /><Line type="monotone" dataKey="value" stroke={statusColor} strokeWidth={2.5} dot={{ r: 3, fill: statusColor }} /></LineChart></ResponsiveContainer></div><div className="mt-4 flex flex-wrap gap-5 border-t border-slate-800 pt-4 text-xs"><span className="text-slate-500">Operating range <b className="ml-1 text-[#74c8a7]">{shipment.range}</b></span><span className="text-slate-500">Above range <b className="ml-1 text-[#e9918d]">21 min</b></span><span className="text-slate-500">Last sensor check <b className="ml-1 text-slate-300">11:00</b></span></div></article><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#d6a855]"><p className="text-xs font-semibold text-slate-200">Current condition</p><div className="mt-5 grid grid-cols-2 gap-4 border-y border-slate-800 py-5"><div><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Temperature</p><p className="font-display mt-2 text-3xl font-bold tracking-[-0.06em] text-white">{shipment.temp}</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Operating range</p><p className="font-display mt-2 text-3xl font-bold tracking-[-0.06em] text-[#74c8a7]">{shipment.range}</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Carrier</p><p className="mt-2 text-sm font-semibold text-slate-200">NorthLine Cold</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Last update</p><p className="mt-2 text-sm font-semibold text-slate-200">2 min ago</p></div></div><div className="mt-5 border-l-2 border-[#d6a855] pl-4"><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#e4c177]">Operator note</p><p className="mt-3 text-sm leading-6 text-slate-400">{shipment.note}</p></div><div className="mt-6 border-t border-slate-800 pt-5"><p className="text-xs font-semibold text-slate-200">Recommended action</p><p className="mt-2 text-xl font-semibold text-white">{shipment.action}</p><button type="button" onClick={() => setApproved(true)} className="mt-4 flex min-h-10 w-full items-center justify-center gap-2 rounded bg-[#238767] px-4 text-sm font-semibold text-white hover:bg-[#2c9c78]">{approved ? <><Check className="h-4 w-4" /> Action approved</> : <>Approve action <Route className="h-4 w-4" /></>}</button></div></article></section>
+        <section className="mt-6 grid gap-5 xl:grid-cols-[1.08fr_0.92fr]"><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-200">Temperature history</p><p className="mt-1 text-sm text-slate-500">Sensor readings from the current route.</p></div><div className="text-right"><p className="text-xs text-slate-500">Current reading</p><p className="mt-1 text-xl font-semibold" style={{ color: statusColor }}>{shipment.temp}</p></div></div><div className="mt-5 h-[280px]"><ResponsiveContainer width="100%" height="100%"><LineChart data={telemetry} margin={{ top: 6, right: 8, left: -20, bottom: 0 }}><CartesianGrid stroke="#ffffff12" vertical={false} /><XAxis dataKey="time" tick={{ fill: "#718095", fontSize: 11 }} axisLine={false} tickLine={false} /><YAxis domain={[0, 10]} tick={{ fill: "#718095", fontSize: 11 }} axisLine={false} tickLine={false} /><Tooltip contentStyle={{ background: "#101820", border: "1px solid #334155", borderRadius: 4 }} labelStyle={{ color: "#cbd5e1" }} itemStyle={{ color: statusColor }} /><Line type="monotone" dataKey="value" stroke={statusColor} strokeWidth={2.5} dot={{ r: 3, fill: statusColor }} /></LineChart></ResponsiveContainer></div><div className="mt-4 flex flex-wrap gap-5 border-t border-slate-800 pt-4 text-xs"><span className="text-slate-500">Operating range <b className="ml-1 text-[#74c8a7]">{shipment.range}</b></span><span className="text-slate-500">Above range <b className="ml-1 text-[#e9918d]">21 min</b></span><span className="text-slate-500">Last sensor check <b className="ml-1 text-slate-300">11:00</b></span></div></article><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#d6a855]"><p className="text-xs font-semibold text-slate-200">Current condition</p><div className="mt-5 grid grid-cols-2 gap-4 border-y border-slate-800 py-5"><div><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Temperature</p><p className="font-display mt-2 text-3xl font-bold tracking-[-0.06em] text-white">{shipment.temp}</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Operating range</p><p className="font-display mt-2 text-3xl font-bold tracking-[-0.06em] text-[#74c8a7]">{shipment.range}</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Carrier</p><p className="mt-2 text-sm font-semibold text-slate-200">NorthLine Cold</p></div><div><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Last update</p><p className="mt-2 text-sm font-semibold text-slate-200">2 min ago</p></div></div><div className="mt-5 border-l-2 border-[#d6a855] pl-4"><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#e4c177]">Operator note</p><p className="mt-3 text-sm leading-6 text-slate-400">{shipment.note}</p></div><div className="mt-6 border-t border-slate-800 pt-5"><p className="text-xs font-semibold text-slate-200">Recommended action</p><p className="mt-2 text-xl font-semibold text-white">{shipment.action}</p><button type="button" onClick={handleApprove} className="mt-4 flex min-h-10 w-full items-center justify-center gap-2 rounded bg-[#238767] px-4 text-sm font-semibold text-white hover:bg-[#2c9c78]">{approved ? <><Check className="h-4 w-4" /> Action approved</> : <>Approve action <Route className="h-4 w-4" /></>}</button></div></article></section>
 
         <section className="mt-6 grid gap-5 xl:grid-cols-[1.08fr_0.92fr]"><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-200">Shipment route</p><p className="mt-1 text-sm text-slate-500">Current position and assigned destination.</p></div><span className="text-xs font-semibold text-[#74c8a7]">Live tracking</span></div><div className="relative mt-5 h-[240px] overflow-hidden border border-slate-800 bg-[#111f24]"><div className="absolute left-[13%] top-[61%] h-px w-[71%] -rotate-[27deg] bg-[#239b75]/80" /><div className="absolute -left-10 top-11 h-48 w-[68%] rotate-[-18deg] rounded-full border-[22px] border-[#1a3030]" /><div className="absolute right-[-56px] bottom-[-56px] h-60 w-[45%] rotate-[20deg] rounded-full border-[22px] border-[#192931]" /><span className="absolute left-[12%] top-[56%] grid h-10 w-10 place-items-center rounded-full border-2 border-[#74c8a7] bg-[#101820] text-[#74c8a7]"><Truck className="h-4 w-4" /></span><span className="absolute right-[15%] top-[20%] grid h-10 w-10 place-items-center rounded-full border-2 border-[#74c8a7] bg-[#101820] text-[#74c8a7]"><MapPin className="h-4 w-4" /></span><span className="absolute left-4 bottom-4 text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Current position</span><span className="absolute right-4 top-4 text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Destination</span></div></article><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><p className="text-xs font-semibold text-slate-200">Shipment record</p><div className="mt-5 space-y-0 border-l border-slate-700 pl-5">{[["08:06", "Shipment started", "Bengaluru Hub departure recorded", Truck], ["10:41", "Operating range exceeded", "Temperature moved above the configured range", ThermometerSun], ["10:47", "Health score updated", "Current health score: " + shipment.health + "/100", ShieldCheck], ["10:52", "Action waiting", shipment.action, CircleAlert]].map(([time, title, note, Icon], index) => { const EventIcon = Icon as typeof Truck; return <div key={time as string} className="relative pb-5 last:pb-0"><span className={`absolute -left-[25px] top-0.5 grid h-3 w-3 place-items-center rounded-full ${index === 3 ? "bg-[#d6a855]" : "bg-[#278a69]"}`} /><p className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#74c8a7]">{time as string}</p><p className="mt-1 flex items-center gap-2 text-sm font-semibold text-slate-200"><EventIcon className="h-3.5 w-3.5 text-slate-500" /> {title as string}</p><p className="mt-1 text-xs text-slate-500">{note as string}</p></div>; })}</div></article></section>
       </div>

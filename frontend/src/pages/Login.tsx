@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, KeyRound, Radio } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
+import { api } from "../lib/api";
 
 type LoginRole = "admin" | "field" | "client";
 
@@ -12,6 +13,8 @@ export default function Login() {
   const [, setLocation] = useLocation();
   const [message, setMessage] = useState("");
   const [role, setRole] = useState<LoginRole>("admin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const requestedRole = new URLSearchParams(window.location.search).get("role");
 
   useEffect(() => {
@@ -27,10 +30,21 @@ export default function Login() {
   };
   const currentRoleDetails = roleDetails[role];
 
-  const login = (event: FormEvent<HTMLFormElement>) => {
+  const login = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setMessage("Workspace verified. Opening your workspace…");
-    window.setTimeout(() => setLocation(role === "field" ? "/field-agent" : role === "client" ? "/client" : "/dashboard/admin"), 420);
+    setMessage("Verifying workspace credentials…");
+    try {
+      // Map frontend role terminology to backend roles (ADMIN, FIELD_AGENT, CLIENT)
+      const mappedRole = role === "field" ? "FIELD_AGENT" : role === "client" ? "CLIENT" : "ADMIN";
+      const result = await api.login(email, password);
+      
+      setMessage(`Success. Welcome back, ${result.full_name}!`);
+      window.setTimeout(() => {
+        setLocation(role === "field" ? "/field-agent" : role === "client" ? "/client" : "/dashboard/admin");
+      }, 420);
+    } catch (err: any) {
+      setMessage(`Authentication failed: ${err.message}`);
+    }
   };
 
   return (
@@ -43,8 +57,8 @@ export default function Login() {
         <h1 className="font-display mt-5 text-4xl font-bold tracking-[-0.065em]">{currentRoleDetails.title}</h1>
         <p className="mt-3 text-sm leading-6 text-slate-400">{currentRoleDetails.description}</p>
         <form onSubmit={login} className="mt-8 space-y-5">
-          <label className="form-label">Work email<input required type="email" placeholder="you@company.com" className="signal-input mt-2" /></label>
-          <label className="form-label">Password<input required type="password" placeholder="Your password" className="signal-input mt-2" /></label>
+          <label className="form-label">Work email<input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@company.com" className="signal-input mt-2" /></label>
+          <label className="form-label">Password<input required type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Your password" className="signal-input mt-2" /></label>
           <label className="form-label">Open workspace as<select value={role} onChange={(event) => setRole(event.target.value as LoginRole)} className="signal-input mt-2"><option value="admin">Admin / Ops</option><option value="field">Field Agent</option><option value="client">Client View</option></select></label>
           <Button type="submit" className="h-13 w-full rounded-none bg-[#1D9E75] font-extrabold hover:bg-[#27ad84]">Open workspace <ArrowRight className="ml-2 h-4 w-4" /></Button>
         </form>
