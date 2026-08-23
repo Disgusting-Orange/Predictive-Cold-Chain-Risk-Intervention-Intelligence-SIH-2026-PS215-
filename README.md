@@ -11,7 +11,7 @@ Cold Chain AI monitors temperature-sensitive shipments, estimates spoilage risk,
 | Frontend | Deployed | React, Vite, TypeScript, Tailwind CSS on Vercel |
 | Backend | Deployed | FastAPI Python function on Vercel |
 | Database | Connected | Supabase PostgreSQL through the transaction pooler |
-| Authentication | Working | JWT login with Admin, Field Agent, and Client roles |
+| Authentication | Working | JWT login with Admin, Field Agent, and Client roles. Protected routes enforce bearer tokens and write roles |
 | Telemetry ingestion | Working | ESP32 or simulator can send JSON over HTTP |
 | Risk scoring | Working | Deterministic temperature, trend, delay, door, and speed scorer |
 | FrostLink XGBoost model | Packaged, not active in the main API | It requires a 40-feature engineered input vector and a separate runtime bridge |
@@ -123,6 +123,9 @@ These accounts are for demonstrations only. Replace them with managed accounts a
 | Method | Endpoint | Authentication | Purpose |
 |---|---|---|---|
 | `GET` | `/api/health` | None | Backend and database health |
+| `GET` | `/api/docs` | None | Deployed Swagger UI |
+| `GET` | `/api/openapi.json` | None | Deployed OpenAPI schema |
+| `GET` | `/api/redoc` | None | Deployed ReDoc UI |
 | `POST` | `/api/auth/login` | None | Return a JWT |
 | `POST` | `/api/auth/register` | None | Create a role account |
 | `GET` | `/api/auth/me` | Bearer token | Return current user |
@@ -130,7 +133,7 @@ These accounts are for demonstrations only. Replace them with managed accounts a
 | `GET` | `/api/shipments` | Bearer token | Fleet overview with latest risk |
 | `GET` | `/api/shipments/{id}` | Bearer token | Shipment details and latest prediction |
 | `GET` | `/api/products` | Bearer token | Product temperature profiles |
-| `POST` | `/api/interventions/{id}/simulate` | Bearer token | Compare intervention scenarios |
+| `POST` | `/api/interventions/{id}/simulate` | Any Bearer token | Compare intervention scenarios |
 | `POST` | `/api/interventions/{id}/approve` | Admin token | Approve a reroute |
 | `POST` | `/api/interventions/{id}/field-accept` | Field Agent token | Accept a reroute |
 | `POST` | `/api/interventions/{id}/backup-cooling` | Field Agent token | Record backup cooling action |
@@ -186,4 +189,3 @@ The ESP32 should send an HTTP POST to the FastAPI ingestion endpoint. It should 
 | Integration branch | `aiml-supabase-integration` |
 | Latest documentation and demo login commit | `69a364a` |
 | Remote | `origin` on the original GitHub repository |
-

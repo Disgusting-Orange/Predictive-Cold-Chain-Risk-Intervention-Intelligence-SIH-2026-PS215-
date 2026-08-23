@@ -5,12 +5,16 @@ from typing import List
 from app.db.database import get_db
 from app.db.models import Shipment, Product, Telemetry, RiskPrediction
 from app.schemas.shipment import ShipmentResponse, ShipmentCreate
+from app.core.dependencies import get_current_user
 
 router = APIRouter(prefix="/shipments", tags=["Shipments"])
 
 
 @router.get("")
-async def list_active_shipments(db: AsyncSession = Depends(get_db)):
+async def list_active_shipments(
+    db: AsyncSession = Depends(get_db),
+    _current_user=Depends(get_current_user),
+):
     """Retrieve all active shipments with latest telemetry and risk scores."""
     stmt = select(Shipment)
     result = await db.execute(stmt)
@@ -96,7 +100,11 @@ async def list_active_shipments(db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/{shipment_id}")
-async def get_shipment_by_code(shipment_id: str, db: AsyncSession = Depends(get_db)):
+async def get_shipment_by_code(
+    shipment_id: str,
+    db: AsyncSession = Depends(get_db),
+    _current_user=Depends(get_current_user),
+):
     """Retrieve detailed state for a single shipment."""
     stmt = select(Shipment).where(Shipment.shipment_code == shipment_id)
     res = await db.execute(stmt)

@@ -12,6 +12,7 @@ from app.schemas.intervention import (
 from app.services.intervention_service import generate_what_if_scenarios
 from app.services.audit_service import log_audit_event
 from app.websocket.manager import ws_manager
+from app.core.dependencies import get_current_user, require_role
 
 router = APIRouter(prefix="/interventions", tags=["Interventions"])
 
@@ -19,7 +20,8 @@ router = APIRouter(prefix="/interventions", tags=["Interventions"])
 @router.post("/{shipment_id}/simulate", response_model=WhatIfSimulationResponse)
 async def simulate_what_if_scenarios(
     shipment_id: str,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _current_user=Depends(get_current_user),
 ):
     """
     Generate and compare the 3 What-If action candidate scenarios:
@@ -62,7 +64,8 @@ async def simulate_what_if_scenarios(
 async def approve_intervention(
     shipment_id: str,
     body: InterventionApproveRequest = None,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _admin=Depends(require_role(["ADMIN"])),
 ):
     """
     (Admin Action) Approve AI recommendation to divert shipment to Cold Storage.
@@ -125,7 +128,8 @@ async def approve_intervention(
 async def override_intervention(
     shipment_id: str,
     body: InterventionOverrideRequest,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _admin=Depends(require_role(["ADMIN"])),
 ):
     """
     (Admin Action) Override AI recommendation with required reason string.
@@ -143,7 +147,8 @@ async def override_intervention(
 @router.post("/{shipment_id}/field-accept")
 async def field_agent_accept_reroute(
     shipment_id: str,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _field_agent=Depends(require_role(["FIELD_AGENT"])),
 ):
     """
     (Field Agent Action) Driver taps 'Accept & Reroute' on in-cab mobile screen.
@@ -166,7 +171,8 @@ async def field_agent_accept_reroute(
 @router.post("/{shipment_id}/backup-cooling")
 async def toggle_backup_cooling(
     shipment_id: str,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _field_agent=Depends(require_role(["FIELD_AGENT"])),
 ):
     """
     (Field Agent Action) Driver activates in-cab backup cooling compressor.
@@ -185,7 +191,8 @@ async def toggle_backup_cooling(
 async def verify_handoff_completion(
     shipment_id: str,
     body: HandoffRequest = None,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _field_agent=Depends(require_role(["FIELD_AGENT"])),
 ):
     """
     (Field Agent Action) Driver uploads photo & confirms handoff at cold storage bay.

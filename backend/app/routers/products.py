@@ -3,12 +3,16 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from app.db.database import get_db
 from app.db.models import Product
+from app.core.dependencies import get_current_user
 
 router = APIRouter(prefix="/products", tags=["Products"])
 
 
 @router.get("")
-async def list_product_profiles(db: AsyncSession = Depends(get_db)):
+async def list_product_profiles(
+    db: AsyncSession = Depends(get_db),
+    _current_user=Depends(get_current_user),
+):
     """Retrieve all configurable product profiles and safe temperature limits."""
     stmt = select(Product)
     result = await db.execute(stmt)

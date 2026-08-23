@@ -7,6 +7,7 @@ from app.db.models import Telemetry
 from app.schemas.telemetry import TelemetryCreate, TelemetryResponse
 from app.services.telemetry_service import process_telemetry_ingestion
 from app.websocket.manager import ws_manager
+from app.core.dependencies import get_current_user
 
 router = APIRouter(tags=["Telemetry"])
 
@@ -37,7 +38,8 @@ async def ingest_telemetry(
 async def get_shipment_telemetry_history(
     shipment_id: str,
     limit: int = 50,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _current_user=Depends(get_current_user),
 ):
     """Retrieve historical telemetry time-series for charts."""
     stmt = (
