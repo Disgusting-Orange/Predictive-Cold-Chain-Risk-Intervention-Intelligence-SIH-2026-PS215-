@@ -1,0 +1,73 @@
+{
+  "integration_test_suite_version": "1.1.0",
+  "model_version": "frostlink_xgb_v2",
+  "threshold": 0.575,
+  "all_tests_passed": true,
+  "tests_passed_count": 12,
+  "total_tests": 12,
+  "results": {
+    "1_zero_observations_no_prediction": {
+      "passed": true,
+      "history_len": 0
+    },
+    "2_obs1_cold_start_no_inference": {
+      "passed": true,
+      "status": "COLD_START",
+      "risk_prob": null
+    },
+    "3_obs2_cold_start_no_inference": {
+      "passed": true,
+      "status": "COLD_START"
+    },
+    "4_obs3_cold_start_no_inference": {
+      "passed": true,
+      "status": "COLD_START"
+    },
+    "5_obs4_cold_start_no_inference": {
+      "passed": true,
+      "status": "COLD_START"
+    },
+    "6_obs5_cold_start_no_inference": {
+      "passed": true,
+      "status": "COLD_START"
+    },
+    "7_obs6_warmed_prediction_allowed": {
+      "passed": true,
+      "status": "WARMED",
+      "prob": 0.00029978720704093575
+    },
+    "8_obs7_plus_prediction_allowed": {
+      "passed": true,
+      "status": "WARMED",
+      "prob": 0.00021839651162736118
+    },
+    "9_missing_probe_graceful_degradation": {
+      "passed": true,
+      "active_probes": 7,
+      "prob": 0.0001877843460533768
+    },
+    "10_all_probes_missing_fail_closed": {
+      "passed": true,
+      "error": "Raw packet failed structural or probe validation (no valid probe readings)."
+    },
+    "11_40_feature_schema_alignment": {
+      "passed": true,
+      "feature_count": 40
+    },
+    "12_v2_prediction_and_shap_additivity": {
+      "passed": true,
+      "additivity_delta": 4.5299530029296875e-06,
+      "prob_delta": 8.529554762146119e-10,
+      "threshold": 0.575
+    }
+  },
+  "warmed_step_latencies_ms": {
+    "validation_ms": 0.050900038331747055,
+    "event_detection_ms": 0.13209995813667774,
+    "history_buffer_ms": 0.02410006709396839,
+    "feature_engineering_ms": 18.301400006748736,
+    "inference_and_shap_ms": 12.545799952931702,
+    "risk_fusion_ms": 0.12330000754445791,
+    "total_pipeline_ms": 31.224300037138164
+  }
+}

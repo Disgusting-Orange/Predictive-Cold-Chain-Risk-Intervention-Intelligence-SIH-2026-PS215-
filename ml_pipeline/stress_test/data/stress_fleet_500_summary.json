@@ -1,0 +1,4002 @@
+[
+  {
+    "shipment_id": "STRESS_SHIP_001",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.0044949603319226,
+    "max_true_temp": 2.0545033566367974,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_002",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.993405632545156,
+    "max_true_temp": 2.0575289415307294,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_003",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.6412151510518163,
+    "max_true_temp": 2.060424548302533,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_004",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.093147064548869,
+    "max_true_temp": 2.061822005713206,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_005",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.129103766073619,
+    "max_true_temp": 2.5048128219015453,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_006",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.2969539502659453,
+    "max_true_temp": 2.043746836668962,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_007",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.1674493052508668,
+    "max_true_temp": 2.0550952918592627,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_008",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.7024062838332799,
+    "max_true_temp": 2.060174823183172,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_009",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.4138701608809945,
+    "max_true_temp": 2.0473551698246926,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_010",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.5432859875436649,
+    "max_true_temp": 2.047077500909854,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_011",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.169486732656103,
+    "max_true_temp": 2.0577049383579555,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_012",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.632982764886422,
+    "max_true_temp": 2.326734133346304,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_013",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.9424096842974024,
+    "max_true_temp": 2.3295369554569008,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_014",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.532641096134509,
+    "max_true_temp": 2.0604494906642548,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_015",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.797342813972312,
+    "max_true_temp": 2.406258979235642,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_016",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.6542017402466342,
+    "max_true_temp": 3.092340034651428,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_017",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.684232591141919,
+    "max_true_temp": 2.1348455331561547,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_018",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.650518672312519,
+    "max_true_temp": 3.151858412745447,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_019",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.9024330462898487,
+    "max_true_temp": 2.496172865362821,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_020",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.6323729996645016,
+    "max_true_temp": 2.0530673210261834,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_021",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.8789520762732903,
+    "max_true_temp": 2.0477329241308686,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_022",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.5910931730628697,
+    "max_true_temp": 3.138805795667911,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_023",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.584286440440141,
+    "max_true_temp": 2.037210386459037,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_024",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.5628552376097034,
+    "max_true_temp": 2.050831849703497,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_025",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.4461635214504325,
+    "max_true_temp": 2.0386770729960264,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_026",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.2609389969643754,
+    "max_true_temp": 2.04940375795652,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_027",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.7790672401565755,
+    "max_true_temp": 3.2237028026825163,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_028",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.1657613303662044,
+    "max_true_temp": 2.629552349664492,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_029",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.9268836652209709,
+    "max_true_temp": 2.073095741052462,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_030",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.1175084470517826,
+    "max_true_temp": 2.5348664873867315,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_031",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.4924084882624493,
+    "max_true_temp": 2.9447632217030173,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_032",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.2547545384482044,
+    "max_true_temp": 2.046992829065357,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_033",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.553415550902362,
+    "max_true_temp": 2.0467094840906106,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_034",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.925143980885876,
+    "max_true_temp": 2.312680534889551,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_035",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.9514158104670654,
+    "max_true_temp": 2.048628620521022,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_036",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.015981235817546,
+    "max_true_temp": 2.0443157615071508,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_037",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.6048391809591003,
+    "max_true_temp": 2.1717016320104,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_038",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.408004831153261,
+    "max_true_temp": 2.0546199499527487,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_039",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.5943401536332624,
+    "max_true_temp": 3.0292812352401595,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_040",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.391476654664465,
+    "max_true_temp": 2.9425293688044962,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_041",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.9063695314094597,
+    "max_true_temp": 2.05240780028806,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_042",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.806229583006414,
+    "max_true_temp": 2.221489040702924,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_043",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.0786046936872307,
+    "max_true_temp": 2.043682375778343,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_044",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.6554220947311284,
+    "max_true_temp": 2.0613930230589914,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_045",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.6393389808959977,
+    "max_true_temp": 2.136402092359884,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_046",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.356070057775946,
+    "max_true_temp": 2.7238909635631425,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_047",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.531970798109861,
+    "max_true_temp": 3.0639027681965234,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_048",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.7553380402308916,
+    "max_true_temp": 3.3286857834861237,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_049",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.6642421079813543,
+    "max_true_temp": 2.0648524390608975,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_050",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.340729915974577,
+    "max_true_temp": 2.874072505485913,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_051",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.6931764307087462,
+    "max_true_temp": 3.015034623446358,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_052",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.3807914271068245,
+    "max_true_temp": 2.7915032714137626,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_053",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.868570136440142,
+    "max_true_temp": 2.2701141405433285,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_054",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.681878014776288,
+    "max_true_temp": 2.1174328150683492,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_055",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.5744560046032336,
+    "max_true_temp": 2.05326599925902,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_056",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.0673744296245915,
+    "max_true_temp": 2.051021169062762,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_057",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.5860240156406604,
+    "max_true_temp": 2.0470255800554322,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_058",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.6479431594665694,
+    "max_true_temp": 2.0569411628048413,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_059",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.571722963286674,
+    "max_true_temp": 2.0460123528057697,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_060",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.9568399972625585,
+    "max_true_temp": 2.0498545278735696,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_061",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.5160274696161462,
+    "max_true_temp": 2.061175651539838,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_062",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.5468419288659916,
+    "max_true_temp": 2.064240108449618,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_063",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.35222753787265,
+    "max_true_temp": 2.0549780744110357,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_064",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.382994716862992,
+    "max_true_temp": 2.0537424318338084,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_065",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.9390692886270555,
+    "max_true_temp": 2.048020435092652,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_066",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 2.3140849203407763,
+    "max_true_temp": 2.0447563423031467,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_067",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 3.1486935319867353,
+    "max_true_temp": 2.724238242477533,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_068",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.566669470282238,
+    "max_true_temp": 2.0597995853551025,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_069",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.7444348007763177,
+    "max_true_temp": 2.0473530329949448,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_070",
+    "scenario": "NORMAL",
+    "rows": 144,
+    "initial_temp": 1.868116162289162,
+    "max_true_temp": 2.054957861505879,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_071",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.6649796144854507,
+    "max_true_temp": 2.254275522505987,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_072",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.9323960335000416,
+    "max_true_temp": 2.3794001368310678,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_073",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.969877586272646,
+    "max_true_temp": 2.4982148096089323,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_074",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.8261839477219097,
+    "max_true_temp": 2.37831064177749,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_075",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.2883411105806135,
+    "max_true_temp": 2.0579634816100545,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_076",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.1591743614876813,
+    "max_true_temp": 2.0414063425975977,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_077",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.2916142864567868,
+    "max_true_temp": 2.0627780280421733,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_078",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.3818117990624676,
+    "max_true_temp": 2.895665788632046,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_079",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.028642508088475,
+    "max_true_temp": 2.0505647848679587,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_080",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.562262786441141,
+    "max_true_temp": 2.0764171987171474,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_081",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.9614453519393173,
+    "max_true_temp": 2.05431212422256,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_082",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.7640433070491053,
+    "max_true_temp": 3.21468095967622,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_083",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.712861999065282,
+    "max_true_temp": 2.185632065167967,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_084",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.8910843240133566,
+    "max_true_temp": 2.0463474400435246,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_085",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.6012871634221817,
+    "max_true_temp": 3.1373909357198637,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_086",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.651198777241921,
+    "max_true_temp": 3.1768313421141143,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_087",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.4543817380828643,
+    "max_true_temp": 2.070589663979663,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_088",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.714391279717849,
+    "max_true_temp": 2.1306109201912733,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_089",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.5864594687813285,
+    "max_true_temp": 3.0378608049221887,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_090",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.686507679565938,
+    "max_true_temp": 2.0925071013758885,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_091",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.5568966166436806,
+    "max_true_temp": 2.054747401939495,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_092",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.2042153482825952,
+    "max_true_temp": 2.049394402847358,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_093",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.907324362643194,
+    "max_true_temp": 2.0532536950264264,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_094",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.2083043398278672,
+    "max_true_temp": 2.047095106951545,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_095",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.8413322968840728,
+    "max_true_temp": 2.0462743003711985,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_096",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.2318006464619193,
+    "max_true_temp": 2.638413816412793,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_097",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.497452789117059,
+    "max_true_temp": 3.0432802304238917,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_098",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.6966717399926845,
+    "max_true_temp": 2.0514451875319493,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_099",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.3553911578638775,
+    "max_true_temp": 2.048101287543304,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_100",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.6160448920795347,
+    "max_true_temp": 2.0472581029200496,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_101",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.5028891820247696,
+    "max_true_temp": 2.9353591706092454,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_102",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.366347897113351,
+    "max_true_temp": 2.05584959500054,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_103",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.3720979864126397,
+    "max_true_temp": 3.0565267992937835,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_104",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.787330577741449,
+    "max_true_temp": 2.065216947642878,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_105",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.126047224859383,
+    "max_true_temp": 2.056491975329146,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_106",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.5666021146874052,
+    "max_true_temp": 2.0459320566481134,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_107",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.770391928608173,
+    "max_true_temp": 3.255495454631887,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_108",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.582419458287595,
+    "max_true_temp": 2.050726132025877,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_109",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.3650506735586627,
+    "max_true_temp": 2.0618398896148853,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_110",
+    "scenario": "HIGH_AMBIENT_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.7676773079947816,
+    "max_true_temp": 3.341648779874372,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_111",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.70146992739415,
+    "max_true_temp": 2.6089390844206473,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_112",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.1559430996774176,
+    "max_true_temp": 3.037592132854564,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_113",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.8557374855583433,
+    "max_true_temp": 2.7423213497171997,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_114",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.3546395963714413,
+    "max_true_temp": 2.1987454084963964,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_115",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.1121602841554505,
+    "max_true_temp": 2.049719968330922,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_116",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.239088680337998,
+    "max_true_temp": 3.1273558310208944,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_117",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 1.538196766455015,
+    "max_true_temp": 2.0512143578249233,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_118",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.4955751017176913,
+    "max_true_temp": 3.4586792828848094,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_119",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.014675317519918,
+    "max_true_temp": 2.0437773509243,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_120",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 1.5069238947011456,
+    "max_true_temp": 2.050130645340442,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_121",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.4505867347814423,
+    "max_true_temp": 3.3063367737477143,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_122",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.525758234005978,
+    "max_true_temp": 3.3520601848550298,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_123",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.375535305088385,
+    "max_true_temp": 3.1562255707723708,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_124",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.27393391120545,
+    "max_true_temp": 2.246686991078712,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_125",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.251347576151432,
+    "max_true_temp": 2.0544138528946587,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_126",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.718632392045317,
+    "max_true_temp": 3.489345233851981,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_127",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.304216505356482,
+    "max_true_temp": 2.2600248973803234,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_128",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.6343258158848086,
+    "max_true_temp": 3.4798824864232234,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_129",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.2413576962370714,
+    "max_true_temp": 3.103584894766575,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_130",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.318353137104589,
+    "max_true_temp": 3.4045203766123424,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_131",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 1.614529644641569,
+    "max_true_temp": 2.0530133694969814,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_132",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.2695769697980275,
+    "max_true_temp": 3.2509737013448534,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_133",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.2841716302798214,
+    "max_true_temp": 2.1132021588470624,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_134",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.4403375649340675,
+    "max_true_temp": 2.297386436996624,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_135",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 1.7720587274812778,
+    "max_true_temp": 2.049439206987539,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_136",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 1.8205846433993464,
+    "max_true_temp": 2.038670489937967,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_137",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.491684405002555,
+    "max_true_temp": 3.448277435669872,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_138",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.1206253644619335,
+    "max_true_temp": 2.056586989733568,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_139",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.430270944236134,
+    "max_true_temp": 3.661960365557452,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_140",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.7686973469073974,
+    "max_true_temp": 3.4013978026935647,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_141",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 3.1542774826491886,
+    "max_true_temp": 3.0856341084551486,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_142",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 1.6215560667359719,
+    "max_true_temp": 2.0496631309103868,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_143",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 1.7381036774168128,
+    "max_true_temp": 2.049528412750243,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_144",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.4560716245581116,
+    "max_true_temp": 2.3035039654474145,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_145",
+    "scenario": "HIGH_AMBIENT_DEGRADED_COOLING",
+    "rows": 144,
+    "initial_temp": 2.7492301102445205,
+    "max_true_temp": 2.5798658686867415,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_146",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.2079355970032317,
+    "max_true_temp": 9.835001046966504,
+    "excursion_rows": 13
+  },
+  {
+    "shipment_id": "STRESS_SHIP_147",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.4091076046336237,
+    "max_true_temp": 13.084894940802501,
+    "excursion_rows": 18
+  },
+  {
+    "shipment_id": "STRESS_SHIP_148",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.9355994187200976,
+    "max_true_temp": 7.033582189105061,
+    "excursion_rows": 6
+  },
+  {
+    "shipment_id": "STRESS_SHIP_149",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.638350623227994,
+    "max_true_temp": 7.968573931986636,
+    "excursion_rows": 8
+  },
+  {
+    "shipment_id": "STRESS_SHIP_150",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.3457829105900254,
+    "max_true_temp": 5.882778647801355,
+    "excursion_rows": 5
+  },
+  {
+    "shipment_id": "STRESS_SHIP_151",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.372247614558014,
+    "max_true_temp": 4.800248072355156,
+    "excursion_rows": 2
+  },
+  {
+    "shipment_id": "STRESS_SHIP_152",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.903676004413733,
+    "max_true_temp": 6.38565781928334,
+    "excursion_rows": 6
+  },
+  {
+    "shipment_id": "STRESS_SHIP_153",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.322248928922022,
+    "max_true_temp": 8.101048399529889,
+    "excursion_rows": 10
+  },
+  {
+    "shipment_id": "STRESS_SHIP_154",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.6491661267585442,
+    "max_true_temp": 5.400276596806665,
+    "excursion_rows": 3
+  },
+  {
+    "shipment_id": "STRESS_SHIP_155",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.9404672961535754,
+    "max_true_temp": 10.89663653502834,
+    "excursion_rows": 15
+  },
+  {
+    "shipment_id": "STRESS_SHIP_156",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.5268423620630314,
+    "max_true_temp": 8.108557231599779,
+    "excursion_rows": 10
+  },
+  {
+    "shipment_id": "STRESS_SHIP_157",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.558831067247434,
+    "max_true_temp": 7.118585775220715,
+    "excursion_rows": 9
+  },
+  {
+    "shipment_id": "STRESS_SHIP_158",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.1893908928298047,
+    "max_true_temp": 7.3642844943128125,
+    "excursion_rows": 8
+  },
+  {
+    "shipment_id": "STRESS_SHIP_159",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.4140099558834884,
+    "max_true_temp": 6.646955208025295,
+    "excursion_rows": 6
+  },
+  {
+    "shipment_id": "STRESS_SHIP_160",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.728317924366626,
+    "max_true_temp": 9.99901113488258,
+    "excursion_rows": 12
+  },
+  {
+    "shipment_id": "STRESS_SHIP_161",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.5850456296347564,
+    "max_true_temp": 9.01472095285929,
+    "excursion_rows": 14
+  },
+  {
+    "shipment_id": "STRESS_SHIP_162",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.6330471029040687,
+    "max_true_temp": 9.710027474245626,
+    "excursion_rows": 14
+  },
+  {
+    "shipment_id": "STRESS_SHIP_163",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.0289599209727687,
+    "max_true_temp": 6.993628838653295,
+    "excursion_rows": 8
+  },
+  {
+    "shipment_id": "STRESS_SHIP_164",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.9426053706831374,
+    "max_true_temp": 6.746097228699706,
+    "excursion_rows": 7
+  },
+  {
+    "shipment_id": "STRESS_SHIP_165",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.6508484755328188,
+    "max_true_temp": 12.539988667767398,
+    "excursion_rows": 19
+  },
+  {
+    "shipment_id": "STRESS_SHIP_166",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.524957147149268,
+    "max_true_temp": 9.051570138871336,
+    "excursion_rows": 11
+  },
+  {
+    "shipment_id": "STRESS_SHIP_167",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.6151663469811206,
+    "max_true_temp": 12.363445128435602,
+    "excursion_rows": 17
+  },
+  {
+    "shipment_id": "STRESS_SHIP_168",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.7046153663797137,
+    "max_true_temp": 8.768102819048753,
+    "excursion_rows": 11
+  },
+  {
+    "shipment_id": "STRESS_SHIP_169",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.69895297363173,
+    "max_true_temp": 7.099688488154496,
+    "excursion_rows": 7
+  },
+  {
+    "shipment_id": "STRESS_SHIP_170",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.232561534977221,
+    "max_true_temp": 7.141403035626352,
+    "excursion_rows": 7
+  },
+  {
+    "shipment_id": "STRESS_SHIP_171",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.0107912832943633,
+    "max_true_temp": 12.253484811119698,
+    "excursion_rows": 20
+  },
+  {
+    "shipment_id": "STRESS_SHIP_172",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.0754627894198805,
+    "max_true_temp": 11.049830536822938,
+    "excursion_rows": 14
+  },
+  {
+    "shipment_id": "STRESS_SHIP_173",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.5104643912559519,
+    "max_true_temp": 13.704499577042405,
+    "excursion_rows": 18
+  },
+  {
+    "shipment_id": "STRESS_SHIP_174",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.257172643970479,
+    "max_true_temp": 4.7082100476061095,
+    "excursion_rows": 2
+  },
+  {
+    "shipment_id": "STRESS_SHIP_175",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.231745023273046,
+    "max_true_temp": 7.039571050296723,
+    "excursion_rows": 6
+  },
+  {
+    "shipment_id": "STRESS_SHIP_176",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.5844427256743034,
+    "max_true_temp": 7.070546443026729,
+    "excursion_rows": 6
+  },
+  {
+    "shipment_id": "STRESS_SHIP_177",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.0338522957265845,
+    "max_true_temp": 10.448978130439325,
+    "excursion_rows": 14
+  },
+  {
+    "shipment_id": "STRESS_SHIP_178",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.0833875979068224,
+    "max_true_temp": 6.077102326536815,
+    "excursion_rows": 5
+  },
+  {
+    "shipment_id": "STRESS_SHIP_179",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.50003396867678,
+    "max_true_temp": 10.999005284163637,
+    "excursion_rows": 20
+  },
+  {
+    "shipment_id": "STRESS_SHIP_180",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.1981458135802208,
+    "max_true_temp": 8.463476933098194,
+    "excursion_rows": 10
+  },
+  {
+    "shipment_id": "STRESS_SHIP_181",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.7015014365767547,
+    "max_true_temp": 8.960368871494627,
+    "excursion_rows": 11
+  },
+  {
+    "shipment_id": "STRESS_SHIP_182",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.036154429107504,
+    "max_true_temp": 8.595783328082193,
+    "excursion_rows": 11
+  },
+  {
+    "shipment_id": "STRESS_SHIP_183",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.9549457591520187,
+    "max_true_temp": 8.608081110069733,
+    "excursion_rows": 11
+  },
+  {
+    "shipment_id": "STRESS_SHIP_184",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.9046811428300559,
+    "max_true_temp": 11.681405923479529,
+    "excursion_rows": 19
+  },
+  {
+    "shipment_id": "STRESS_SHIP_185",
+    "scenario": "SHORT_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.7214440547545553,
+    "max_true_temp": 10.88746095050487,
+    "excursion_rows": 16
+  },
+  {
+    "shipment_id": "STRESS_SHIP_186",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.1606596408427063,
+    "max_true_temp": 13.684175563407377,
+    "excursion_rows": 31
+  },
+  {
+    "shipment_id": "STRESS_SHIP_187",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.2070282786101556,
+    "max_true_temp": 12.748324434257157,
+    "excursion_rows": 25
+  },
+  {
+    "shipment_id": "STRESS_SHIP_188",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.270455913769765,
+    "max_true_temp": 13.181591084488007,
+    "excursion_rows": 25
+  },
+  {
+    "shipment_id": "STRESS_SHIP_189",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.583055652226896,
+    "max_true_temp": 18.21223152581742,
+    "excursion_rows": 38
+  },
+  {
+    "shipment_id": "STRESS_SHIP_190",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.7412230963062476,
+    "max_true_temp": 17.86783480262637,
+    "excursion_rows": 38
+  },
+  {
+    "shipment_id": "STRESS_SHIP_191",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.6679710377953767,
+    "max_true_temp": 14.919087268688155,
+    "excursion_rows": 28
+  },
+  {
+    "shipment_id": "STRESS_SHIP_192",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.1661692440722753,
+    "max_true_temp": 16.797295402926434,
+    "excursion_rows": 32
+  },
+  {
+    "shipment_id": "STRESS_SHIP_193",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.800514137270909,
+    "max_true_temp": 12.808565788512412,
+    "excursion_rows": 30
+  },
+  {
+    "shipment_id": "STRESS_SHIP_194",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.581276973317112,
+    "max_true_temp": 16.84154336278971,
+    "excursion_rows": 34
+  },
+  {
+    "shipment_id": "STRESS_SHIP_195",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.2377258314034005,
+    "max_true_temp": 14.570602018939097,
+    "excursion_rows": 27
+  },
+  {
+    "shipment_id": "STRESS_SHIP_196",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.661272175819934,
+    "max_true_temp": 16.28525077913315,
+    "excursion_rows": 33
+  },
+  {
+    "shipment_id": "STRESS_SHIP_197",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.7295224810283718,
+    "max_true_temp": 16.87634984597981,
+    "excursion_rows": 35
+  },
+  {
+    "shipment_id": "STRESS_SHIP_198",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.53831318258852,
+    "max_true_temp": 17.771405427430235,
+    "excursion_rows": 38
+  },
+  {
+    "shipment_id": "STRESS_SHIP_199",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.4804110456753174,
+    "max_true_temp": 17.036307724025583,
+    "excursion_rows": 36
+  },
+  {
+    "shipment_id": "STRESS_SHIP_200",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.4019215420003066,
+    "max_true_temp": 19.325005175820046,
+    "excursion_rows": 37
+  },
+  {
+    "shipment_id": "STRESS_SHIP_201",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.494077981177058,
+    "max_true_temp": 14.384157676899864,
+    "excursion_rows": 23
+  },
+  {
+    "shipment_id": "STRESS_SHIP_202",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.831371411351344,
+    "max_true_temp": 13.904702982943922,
+    "excursion_rows": 23
+  },
+  {
+    "shipment_id": "STRESS_SHIP_203",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.2534577565775806,
+    "max_true_temp": 19.871085870959217,
+    "excursion_rows": 40
+  },
+  {
+    "shipment_id": "STRESS_SHIP_204",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.5593698554669446,
+    "max_true_temp": 17.12957498475106,
+    "excursion_rows": 36
+  },
+  {
+    "shipment_id": "STRESS_SHIP_205",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.6772424269902293,
+    "max_true_temp": 15.461561103274473,
+    "excursion_rows": 36
+  },
+  {
+    "shipment_id": "STRESS_SHIP_206",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.7329656162460534,
+    "max_true_temp": 16.038143978609536,
+    "excursion_rows": 30
+  },
+  {
+    "shipment_id": "STRESS_SHIP_207",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.968519533560664,
+    "max_true_temp": 16.04238248251019,
+    "excursion_rows": 41
+  },
+  {
+    "shipment_id": "STRESS_SHIP_208",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.322430499812584,
+    "max_true_temp": 18.7612457526096,
+    "excursion_rows": 40
+  },
+  {
+    "shipment_id": "STRESS_SHIP_209",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.401964386850957,
+    "max_true_temp": 14.776929309013859,
+    "excursion_rows": 28
+  },
+  {
+    "shipment_id": "STRESS_SHIP_210",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.629094505757698,
+    "max_true_temp": 13.974088000094271,
+    "excursion_rows": 29
+  },
+  {
+    "shipment_id": "STRESS_SHIP_211",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.1054380142836115,
+    "max_true_temp": 19.917527961399163,
+    "excursion_rows": 42
+  },
+  {
+    "shipment_id": "STRESS_SHIP_212",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.8831052636503145,
+    "max_true_temp": 14.93878294281624,
+    "excursion_rows": 28
+  },
+  {
+    "shipment_id": "STRESS_SHIP_213",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.4717400638015574,
+    "max_true_temp": 13.34886449934436,
+    "excursion_rows": 31
+  },
+  {
+    "shipment_id": "STRESS_SHIP_214",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.3646364051606357,
+    "max_true_temp": 15.181955008434599,
+    "excursion_rows": 25
+  },
+  {
+    "shipment_id": "STRESS_SHIP_215",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.7075053192471836,
+    "max_true_temp": 10.27327948892954,
+    "excursion_rows": 19
+  },
+  {
+    "shipment_id": "STRESS_SHIP_216",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.119627765607901,
+    "max_true_temp": 15.816856025480678,
+    "excursion_rows": 41
+  },
+  {
+    "shipment_id": "STRESS_SHIP_217",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.5974624867960612,
+    "max_true_temp": 16.635203545062566,
+    "excursion_rows": 36
+  },
+  {
+    "shipment_id": "STRESS_SHIP_218",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.3318468958469465,
+    "max_true_temp": 13.511171269906399,
+    "excursion_rows": 30
+  },
+  {
+    "shipment_id": "STRESS_SHIP_219",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.295505509480966,
+    "max_true_temp": 14.125106448924123,
+    "excursion_rows": 23
+  },
+  {
+    "shipment_id": "STRESS_SHIP_220",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.7743925269633616,
+    "max_true_temp": 20.80827962679102,
+    "excursion_rows": 50
+  },
+  {
+    "shipment_id": "STRESS_SHIP_221",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 1.664392786476913,
+    "max_true_temp": 15.924349930630903,
+    "excursion_rows": 28
+  },
+  {
+    "shipment_id": "STRESS_SHIP_222",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.6632997001013843,
+    "max_true_temp": 21.115662871671464,
+    "excursion_rows": 50
+  },
+  {
+    "shipment_id": "STRESS_SHIP_223",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.6916577168122675,
+    "max_true_temp": 16.09661568362956,
+    "excursion_rows": 33
+  },
+  {
+    "shipment_id": "STRESS_SHIP_224",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 3.061562559948423,
+    "max_true_temp": 13.790344578022037,
+    "excursion_rows": 28
+  },
+  {
+    "shipment_id": "STRESS_SHIP_225",
+    "scenario": "LONG_DOOR_OPENING",
+    "rows": 144,
+    "initial_temp": 2.400471516092352,
+    "max_true_temp": 15.81926523180834,
+    "excursion_rows": 35
+  },
+  {
+    "shipment_id": "STRESS_SHIP_226",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.8682501862982241,
+    "max_true_temp": 17.126962600674812,
+    "excursion_rows": 57
+  },
+  {
+    "shipment_id": "STRESS_SHIP_227",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.7715842543228586,
+    "max_true_temp": 21.750954479909243,
+    "excursion_rows": 98
+  },
+  {
+    "shipment_id": "STRESS_SHIP_228",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.1033337486294377,
+    "max_true_temp": 13.551533906110974,
+    "excursion_rows": 36
+  },
+  {
+    "shipment_id": "STRESS_SHIP_229",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.2608861497968666,
+    "max_true_temp": 14.91190290783589,
+    "excursion_rows": 49
+  },
+  {
+    "shipment_id": "STRESS_SHIP_230",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.129039869879127,
+    "max_true_temp": 15.303896368910024,
+    "excursion_rows": 52
+  },
+  {
+    "shipment_id": "STRESS_SHIP_231",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.9349730075605147,
+    "max_true_temp": 17.07621882122917,
+    "excursion_rows": 56
+  },
+  {
+    "shipment_id": "STRESS_SHIP_232",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.777152879268272,
+    "max_true_temp": 20.260385390429423,
+    "excursion_rows": 73
+  },
+  {
+    "shipment_id": "STRESS_SHIP_233",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.008352870465224,
+    "max_true_temp": 17.927064300649533,
+    "excursion_rows": 73
+  },
+  {
+    "shipment_id": "STRESS_SHIP_234",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.594179201569974,
+    "max_true_temp": 17.545325281608026,
+    "excursion_rows": 67
+  },
+  {
+    "shipment_id": "STRESS_SHIP_235",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.5718398195479604,
+    "max_true_temp": 23.182188835442613,
+    "excursion_rows": 106
+  },
+  {
+    "shipment_id": "STRESS_SHIP_236",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.788209745027582,
+    "max_true_temp": 19.62292811776827,
+    "excursion_rows": 62
+  },
+  {
+    "shipment_id": "STRESS_SHIP_237",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.7315214497091054,
+    "max_true_temp": 21.108765297126137,
+    "excursion_rows": 84
+  },
+  {
+    "shipment_id": "STRESS_SHIP_238",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.542258576808948,
+    "max_true_temp": 16.62518813483099,
+    "excursion_rows": 54
+  },
+  {
+    "shipment_id": "STRESS_SHIP_239",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.9874892436570024,
+    "max_true_temp": 14.625619341606708,
+    "excursion_rows": 45
+  },
+  {
+    "shipment_id": "STRESS_SHIP_240",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.6605451147510095,
+    "max_true_temp": 14.69493406430537,
+    "excursion_rows": 44
+  },
+  {
+    "shipment_id": "STRESS_SHIP_241",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.03980477978122,
+    "max_true_temp": 16.186388987623193,
+    "excursion_rows": 52
+  },
+  {
+    "shipment_id": "STRESS_SHIP_242",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.139215579648588,
+    "max_true_temp": 14.865691159326461,
+    "excursion_rows": 54
+  },
+  {
+    "shipment_id": "STRESS_SHIP_243",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.9167082932862898,
+    "max_true_temp": 17.388955966261882,
+    "excursion_rows": 54
+  },
+  {
+    "shipment_id": "STRESS_SHIP_244",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.6111373065942995,
+    "max_true_temp": 16.04127758309748,
+    "excursion_rows": 59
+  },
+  {
+    "shipment_id": "STRESS_SHIP_245",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.5622271551387936,
+    "max_true_temp": 17.61094552359134,
+    "excursion_rows": 59
+  },
+  {
+    "shipment_id": "STRESS_SHIP_246",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.7059703063674885,
+    "max_true_temp": 17.546641449222527,
+    "excursion_rows": 65
+  },
+  {
+    "shipment_id": "STRESS_SHIP_247",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.8825485414706375,
+    "max_true_temp": 15.663877363330725,
+    "excursion_rows": 48
+  },
+  {
+    "shipment_id": "STRESS_SHIP_248",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.8448305880460105,
+    "max_true_temp": 13.574975752173204,
+    "excursion_rows": 37
+  },
+  {
+    "shipment_id": "STRESS_SHIP_249",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.5855803834387237,
+    "max_true_temp": 21.84637979698793,
+    "excursion_rows": 100
+  },
+  {
+    "shipment_id": "STRESS_SHIP_250",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.175337122951298,
+    "max_true_temp": 16.796391275082655,
+    "excursion_rows": 59
+  },
+  {
+    "shipment_id": "STRESS_SHIP_251",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.228961843462163,
+    "max_true_temp": 21.05171820266428,
+    "excursion_rows": 87
+  },
+  {
+    "shipment_id": "STRESS_SHIP_252",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.347576723381067,
+    "max_true_temp": 15.524836094406167,
+    "excursion_rows": 57
+  },
+  {
+    "shipment_id": "STRESS_SHIP_253",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.7025476000331845,
+    "max_true_temp": 16.767486169549944,
+    "excursion_rows": 54
+  },
+  {
+    "shipment_id": "STRESS_SHIP_254",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.0391883081793845,
+    "max_true_temp": 20.04254465681428,
+    "excursion_rows": 61
+  },
+  {
+    "shipment_id": "STRESS_SHIP_255",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.385558818236163,
+    "max_true_temp": 15.840822323513633,
+    "excursion_rows": 59
+  },
+  {
+    "shipment_id": "STRESS_SHIP_256",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.364469646358142,
+    "max_true_temp": 17.285098096633398,
+    "excursion_rows": 56
+  },
+  {
+    "shipment_id": "STRESS_SHIP_257",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.6105910633749874,
+    "max_true_temp": 17.316147255736507,
+    "excursion_rows": 50
+  },
+  {
+    "shipment_id": "STRESS_SHIP_258",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.070488087643329,
+    "max_true_temp": 18.55301329258697,
+    "excursion_rows": 64
+  },
+  {
+    "shipment_id": "STRESS_SHIP_259",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.073597473589456,
+    "max_true_temp": 14.786931934246342,
+    "excursion_rows": 50
+  },
+  {
+    "shipment_id": "STRESS_SHIP_260",
+    "scenario": "DOOR_PLUS_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.1321910265436093,
+    "max_true_temp": 12.37152512938331,
+    "excursion_rows": 39
+  },
+  {
+    "shipment_id": "STRESS_SHIP_261",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.139137671666276,
+    "max_true_temp": 2.045860631862793,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_262",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.049905940200742,
+    "max_true_temp": 2.4801227025784365,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_263",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.074712362320687,
+    "max_true_temp": 2.0434776379055792,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_264",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.2685248320455083,
+    "max_true_temp": 2.0624336995041235,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_265",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.9491148274689545,
+    "max_true_temp": 2.585090452313577,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_266",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.3977228103905888,
+    "max_true_temp": 2.0512437392008227,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_267",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.5889130204632393,
+    "max_true_temp": 2.0513299845175412,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_268",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.557385614811736,
+    "max_true_temp": 2.04575696185856,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_269",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.531941179945268,
+    "max_true_temp": 2.057010895571521,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_270",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.6050614533138872,
+    "max_true_temp": 2.040425715101566,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_271",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.1876079420418195,
+    "max_true_temp": 2.0511298399348896,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_272",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.143917700970615,
+    "max_true_temp": 2.603462587188467,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_273",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.995474847888248,
+    "max_true_temp": 2.0471047181432867,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_274",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.6558113404047918,
+    "max_true_temp": 2.0474923171660913,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_275",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.5173378040871692,
+    "max_true_temp": 2.964658093685456,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_276",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.1898285473601993,
+    "max_true_temp": 2.761540600002911,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_277",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.773046181358504,
+    "max_true_temp": 2.1924858417581574,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_278",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.57177196571466,
+    "max_true_temp": 2.919336089634971,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_279",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.601645656861325,
+    "max_true_temp": 2.0484362213762477,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_280",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.4584972525003073,
+    "max_true_temp": 2.82821601184643,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_281",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.5056663449315288,
+    "max_true_temp": 2.056427757172418,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_282",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.003851765725419,
+    "max_true_temp": 2.042791188890834,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_283",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.680062637816173,
+    "max_true_temp": 2.0427757500343504,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_284",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.8238331573041013,
+    "max_true_temp": 2.0501471698661753,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_285",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.3922416366541714,
+    "max_true_temp": 2.7972959769180146,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_286",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.836435604291891,
+    "max_true_temp": 2.29384273412619,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_287",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.2361570468022345,
+    "max_true_temp": 2.0414470742806796,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_288",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.0889059652631223,
+    "max_true_temp": 2.578890379060913,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_289",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.3331685161001277,
+    "max_true_temp": 2.060278838409448,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_290",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.8765595746255317,
+    "max_true_temp": 2.047298504159645,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_291",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 3.256274320609079,
+    "max_true_temp": 2.7070468936044962,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_292",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.428100389145175,
+    "max_true_temp": 2.0443032363384552,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_293",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.6077925739213703,
+    "max_true_temp": 2.0897598729343536,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_294",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 1.7776854232822203,
+    "max_true_temp": 2.0424730895513044,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_295",
+    "scenario": "HEAVY_TRAFFIC_HEALTHY_COOLING",
+    "rows": 144,
+    "initial_temp": 2.3827008201822464,
+    "max_true_temp": 2.0499805050021513,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_296",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.2982440041395202,
+    "max_true_temp": 3.0587237819976445,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_297",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.7084544772305628,
+    "max_true_temp": 2.0494880282241525,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_298",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.9293373256706863,
+    "max_true_temp": 2.682200983881715,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_299",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.023033010107313,
+    "max_true_temp": 2.0940106981772346,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_300",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.6149405606025136,
+    "max_true_temp": 2.461256171297277,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_301",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.4200152271989523,
+    "max_true_temp": 2.6003302081780673,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_302",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.807864569323184,
+    "max_true_temp": 2.9460402428276753,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_303",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.4920815992004814,
+    "max_true_temp": 2.1833424152566288,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_304",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.7339701621960284,
+    "max_true_temp": 3.531581870162828,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_305",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.8320404441393727,
+    "max_true_temp": 2.0418886756514154,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_306",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.6480762444170924,
+    "max_true_temp": 3.1113216529268386,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_307",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.7351791815136606,
+    "max_true_temp": 2.141206624577841,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_308",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.7204796992180091,
+    "max_true_temp": 4.245409454898953,
+    "excursion_rows": 6
+  },
+  {
+    "shipment_id": "STRESS_SHIP_309",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.1523870337439384,
+    "max_true_temp": 3.617025909073774,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_310",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.897769052600352,
+    "max_true_temp": 2.6385314312908994,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_311",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.2754334117773354,
+    "max_true_temp": 2.0601419177801876,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_312",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.6057918371120956,
+    "max_true_temp": 2.8367535231085172,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_313",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.135003142258448,
+    "max_true_temp": 2.124511335769606,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_314",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.974382542729049,
+    "max_true_temp": 2.692786421668495,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_315",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.6759324983642134,
+    "max_true_temp": 2.406242083391018,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_316",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.7252497967123506,
+    "max_true_temp": 2.9131052161650084,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_317",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.4373022654424794,
+    "max_true_temp": 3.1383488524915037,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_318",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.6335533703382468,
+    "max_true_temp": 3.4058812627994013,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_319",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.419987968574696,
+    "max_true_temp": 3.2210242028142644,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_320",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.90875554427529,
+    "max_true_temp": 2.05821734452527,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_321",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.8527765352735353,
+    "max_true_temp": 2.972478590386134,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_322",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.600113839789625,
+    "max_true_temp": 2.0625966850669144,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_323",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.0380507311021763,
+    "max_true_temp": 2.7807680708200326,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_324",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.344770152530023,
+    "max_true_temp": 2.146156151271453,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_325",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.614026710569492,
+    "max_true_temp": 2.282727782125807,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_326",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.401237350738292,
+    "max_true_temp": 3.219643880766613,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_327",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.0534934316456064,
+    "max_true_temp": 3.7022998584477267,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_328",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 2.450092031633318,
+    "max_true_temp": 2.655744054069432,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_329",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 1.9560797547942812,
+    "max_true_temp": 2.048638226603607,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_330",
+    "scenario": "HEAVY_TRAFFIC_WEAK_COOLING",
+    "rows": 144,
+    "initial_temp": 3.309146123736179,
+    "max_true_temp": 3.216053542501017,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_331",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.2374540091542725,
+    "max_true_temp": 3.5323599527805603,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_332",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.1192626289403584,
+    "max_true_temp": 4.827388402647586,
+    "excursion_rows": 43
+  },
+  {
+    "shipment_id": "STRESS_SHIP_333",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.1502820085174665,
+    "max_true_temp": 2.0803511854574555,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_334",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.2537089676690485,
+    "max_true_temp": 4.908993508807629,
+    "excursion_rows": 39
+  },
+  {
+    "shipment_id": "STRESS_SHIP_335",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.758032187147115,
+    "max_true_temp": 3.557886035380991,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_336",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.552566691495012,
+    "max_true_temp": 3.8151089280125743,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_337",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.627886640081078,
+    "max_true_temp": 4.224831446994358,
+    "excursion_rows": 44
+  },
+  {
+    "shipment_id": "STRESS_SHIP_338",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.0991445731177745,
+    "max_true_temp": 5.848727616227202,
+    "excursion_rows": 52
+  },
+  {
+    "shipment_id": "STRESS_SHIP_339",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.532506236752178,
+    "max_true_temp": 2.5094253027020472,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_340",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.6307476961090934,
+    "max_true_temp": 3.3220537021007885,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_341",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.2575335069877873,
+    "max_true_temp": 3.4937865815663285,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_342",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.41031874374172,
+    "max_true_temp": 3.1139272854547237,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_343",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.577482320811736,
+    "max_true_temp": 3.3302158178396497,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_344",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.520515309273032,
+    "max_true_temp": 4.449984045095939,
+    "excursion_rows": 55
+  },
+  {
+    "shipment_id": "STRESS_SHIP_345",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.36538764434643,
+    "max_true_temp": 2.2395002542693003,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_346",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.2202269127818752,
+    "max_true_temp": 4.577558182393631,
+    "excursion_rows": 26
+  },
+  {
+    "shipment_id": "STRESS_SHIP_347",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.5049158294983007,
+    "max_true_temp": 4.616136404229881,
+    "excursion_rows": 33
+  },
+  {
+    "shipment_id": "STRESS_SHIP_348",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.0661256561252257,
+    "max_true_temp": 7.646239450458688,
+    "excursion_rows": 81
+  },
+  {
+    "shipment_id": "STRESS_SHIP_349",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 1.6832025538849986,
+    "max_true_temp": 4.030225190782559,
+    "excursion_rows": 1
+  },
+  {
+    "shipment_id": "STRESS_SHIP_350",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.140821386348807,
+    "max_true_temp": 3.958116930590049,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_351",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.4383427253807533,
+    "max_true_temp": 3.1424900599867756,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_352",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.577056054108869,
+    "max_true_temp": 3.310448960901815,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_353",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.6813831587256916,
+    "max_true_temp": 2.6246881114112557,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_354",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.574431118530531,
+    "max_true_temp": 3.75109736910427,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_355",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.4350407812192403,
+    "max_true_temp": 5.271905335380571,
+    "excursion_rows": 47
+  },
+  {
+    "shipment_id": "STRESS_SHIP_356",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.098683208006816,
+    "max_true_temp": 2.7991308373629358,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_357",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.484386534421328,
+    "max_true_temp": 2.190162439673926,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_358",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.516764513238716,
+    "max_true_temp": 3.147467091645386,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_359",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.0597127348694815,
+    "max_true_temp": 2.7353176658530463,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_360",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.4706201866420066,
+    "max_true_temp": 2.283189849868558,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_361",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.1991809688702353,
+    "max_true_temp": 2.0773788060591736,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_362",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.220932652967329,
+    "max_true_temp": 3.8888529440165023,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_363",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.0162767576699907,
+    "max_true_temp": 6.732603373896824,
+    "excursion_rows": 74
+  },
+  {
+    "shipment_id": "STRESS_SHIP_364",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.097496875572462,
+    "max_true_temp": 2.6882646437365083,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_365",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.3243418735256327,
+    "max_true_temp": 4.663785897604123,
+    "excursion_rows": 28
+  },
+  {
+    "shipment_id": "STRESS_SHIP_366",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.194363206661399,
+    "max_true_temp": 2.7332555409924497,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_367",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 3.186666005258663,
+    "max_true_temp": 3.2922416183522194,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_368",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 2.8425602059593857,
+    "max_true_temp": 4.915623814033355,
+    "excursion_rows": 45
+  },
+  {
+    "shipment_id": "STRESS_SHIP_369",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 1.9988292425400518,
+    "max_true_temp": 7.641132307177049,
+    "excursion_rows": 92
+  },
+  {
+    "shipment_id": "STRESS_SHIP_370",
+    "scenario": "COOLING_DEGRADATION",
+    "rows": 144,
+    "initial_temp": 1.573495029596951,
+    "max_true_temp": 6.7814245236119355,
+    "excursion_rows": 80
+  },
+  {
+    "shipment_id": "STRESS_SHIP_371",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.0002162850746172,
+    "max_true_temp": 20.09151931949843,
+    "excursion_rows": 140
+  },
+  {
+    "shipment_id": "STRESS_SHIP_372",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.6481525754213493,
+    "max_true_temp": 21.69374812733595,
+    "excursion_rows": 140
+  },
+  {
+    "shipment_id": "STRESS_SHIP_373",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 1.5974481965235365,
+    "max_true_temp": 15.249318528126459,
+    "excursion_rows": 130
+  },
+  {
+    "shipment_id": "STRESS_SHIP_374",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.197708848393061,
+    "max_true_temp": 14.754387086283812,
+    "excursion_rows": 140
+  },
+  {
+    "shipment_id": "STRESS_SHIP_375",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 1.937975482951787,
+    "max_true_temp": 12.854974989850023,
+    "excursion_rows": 129
+  },
+  {
+    "shipment_id": "STRESS_SHIP_376",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.1703036914551146,
+    "max_true_temp": 17.839085347789904,
+    "excursion_rows": 137
+  },
+  {
+    "shipment_id": "STRESS_SHIP_377",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.6179167025270442,
+    "max_true_temp": 16.650491981149212,
+    "excursion_rows": 143
+  },
+  {
+    "shipment_id": "STRESS_SHIP_378",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.3276955196443048,
+    "max_true_temp": 17.7760484216308,
+    "excursion_rows": 142
+  },
+  {
+    "shipment_id": "STRESS_SHIP_379",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.7092772853546827,
+    "max_true_temp": 17.82941693755702,
+    "excursion_rows": 143
+  },
+  {
+    "shipment_id": "STRESS_SHIP_380",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.9936763010769694,
+    "max_true_temp": 16.688197733553153,
+    "excursion_rows": 139
+  },
+  {
+    "shipment_id": "STRESS_SHIP_381",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.6368351836868635,
+    "max_true_temp": 19.66355528907514,
+    "excursion_rows": 143
+  },
+  {
+    "shipment_id": "STRESS_SHIP_382",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.066884554814423,
+    "max_true_temp": 14.762573991712824,
+    "excursion_rows": 135
+  },
+  {
+    "shipment_id": "STRESS_SHIP_383",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.5703009645199524,
+    "max_true_temp": 17.899629030655642,
+    "excursion_rows": 139
+  },
+  {
+    "shipment_id": "STRESS_SHIP_384",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.3647670321218417,
+    "max_true_temp": 15.435260944966533,
+    "excursion_rows": 141
+  },
+  {
+    "shipment_id": "STRESS_SHIP_385",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.2838923880567856,
+    "max_true_temp": 16.527253774353845,
+    "excursion_rows": 135
+  },
+  {
+    "shipment_id": "STRESS_SHIP_386",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.08949760250821,
+    "max_true_temp": 14.78564301960874,
+    "excursion_rows": 139
+  },
+  {
+    "shipment_id": "STRESS_SHIP_387",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.8800167683119984,
+    "max_true_temp": 16.254920107534357,
+    "excursion_rows": 139
+  },
+  {
+    "shipment_id": "STRESS_SHIP_388",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.2777137149835305,
+    "max_true_temp": 17.636665410380488,
+    "excursion_rows": 141
+  },
+  {
+    "shipment_id": "STRESS_SHIP_389",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.648081248871376,
+    "max_true_temp": 18.826893964236213,
+    "excursion_rows": 143
+  },
+  {
+    "shipment_id": "STRESS_SHIP_390",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.5529661885452386,
+    "max_true_temp": 16.801926752434568,
+    "excursion_rows": 142
+  },
+  {
+    "shipment_id": "STRESS_SHIP_391",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.87065012249524,
+    "max_true_temp": 16.27391738514748,
+    "excursion_rows": 138
+  },
+  {
+    "shipment_id": "STRESS_SHIP_392",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.0268289543525553,
+    "max_true_temp": 17.68408664967642,
+    "excursion_rows": 141
+  },
+  {
+    "shipment_id": "STRESS_SHIP_393",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 1.5553255290065549,
+    "max_true_temp": 13.970302084357886,
+    "excursion_rows": 130
+  },
+  {
+    "shipment_id": "STRESS_SHIP_394",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.585270948410712,
+    "max_true_temp": 15.660232462152084,
+    "excursion_rows": 136
+  },
+  {
+    "shipment_id": "STRESS_SHIP_395",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.0770798054163016,
+    "max_true_temp": 15.406765506408828,
+    "excursion_rows": 134
+  },
+  {
+    "shipment_id": "STRESS_SHIP_396",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.1696476774055187,
+    "max_true_temp": 16.502100057678533,
+    "excursion_rows": 140
+  },
+  {
+    "shipment_id": "STRESS_SHIP_397",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.955677840795036,
+    "max_true_temp": 15.961942045470936,
+    "excursion_rows": 139
+  },
+  {
+    "shipment_id": "STRESS_SHIP_398",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.4146632773435863,
+    "max_true_temp": 14.974651105923577,
+    "excursion_rows": 141
+  },
+  {
+    "shipment_id": "STRESS_SHIP_399",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 1.9588566883004883,
+    "max_true_temp": 17.712684399287188,
+    "excursion_rows": 134
+  },
+  {
+    "shipment_id": "STRESS_SHIP_400",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.802197802913831,
+    "max_true_temp": 14.289188346224439,
+    "excursion_rows": 137
+  },
+  {
+    "shipment_id": "STRESS_SHIP_401",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.1074547556839454,
+    "max_true_temp": 15.385242141013947,
+    "excursion_rows": 134
+  },
+  {
+    "shipment_id": "STRESS_SHIP_402",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 3.435381691514059,
+    "max_true_temp": 17.022674173050742,
+    "excursion_rows": 142
+  },
+  {
+    "shipment_id": "STRESS_SHIP_403",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 1.6936139031110595,
+    "max_true_temp": 14.902395063787255,
+    "excursion_rows": 132
+  },
+  {
+    "shipment_id": "STRESS_SHIP_404",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 1.5462013304077886,
+    "max_true_temp": 17.66905239187194,
+    "excursion_rows": 133
+  },
+  {
+    "shipment_id": "STRESS_SHIP_405",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 1.6195621942988894,
+    "max_true_temp": 16.728712108205258,
+    "excursion_rows": 134
+  },
+  {
+    "shipment_id": "STRESS_SHIP_406",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.941792638792849,
+    "max_true_temp": 16.89059327960679,
+    "excursion_rows": 139
+  },
+  {
+    "shipment_id": "STRESS_SHIP_407",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 1.8624030325907102,
+    "max_true_temp": 16.844010735498095,
+    "excursion_rows": 136
+  },
+  {
+    "shipment_id": "STRESS_SHIP_408",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.787552243401251,
+    "max_true_temp": 16.27030877127346,
+    "excursion_rows": 138
+  },
+  {
+    "shipment_id": "STRESS_SHIP_409",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 1.509264708087709,
+    "max_true_temp": 15.602770644928741,
+    "excursion_rows": 131
+  },
+  {
+    "shipment_id": "STRESS_SHIP_410",
+    "scenario": "COOLING_FAILURE",
+    "rows": 144,
+    "initial_temp": 2.2194745363649,
+    "max_true_temp": 17.391528283565922,
+    "excursion_rows": 137
+  },
+  {
+    "shipment_id": "STRESS_SHIP_411",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.754823359445294,
+    "max_true_temp": 3.214940322802279,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_412",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 1.5153631452579943,
+    "max_true_temp": 2.0439446915117268,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_413",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.6606805852247484,
+    "max_true_temp": 3.0734593517876467,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_414",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.7070903996404483,
+    "max_true_temp": 3.186987759666591,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_415",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.1235549321371447,
+    "max_true_temp": 2.624995047497375,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_416",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.708311211652991,
+    "max_true_temp": 3.1965033093484347,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_417",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.071575827207128,
+    "max_true_temp": 2.6053635873174597,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_418",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.169787078713203,
+    "max_true_temp": 2.4923438497614154,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_419",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.34365731785808,
+    "max_true_temp": 2.048883779899839,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_420",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.596581656488069,
+    "max_true_temp": 2.1433339135028375,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_421",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 1.8443757241442107,
+    "max_true_temp": 2.0560374627977582,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_422",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.712177243808979,
+    "max_true_temp": 2.338200644105514,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_423",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.0533992788008963,
+    "max_true_temp": 2.5385978181603974,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_424",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.661376426743213,
+    "max_true_temp": 2.0752804748029585,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_425",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.191109617362617,
+    "max_true_temp": 2.043732751252179,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_426",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 1.9254937923440958,
+    "max_true_temp": 2.0596693212032733,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_427",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.457303474028846,
+    "max_true_temp": 2.045383478338317,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_428",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.4052834670470027,
+    "max_true_temp": 2.783272334761748,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_429",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.7206895397523416,
+    "max_true_temp": 2.271652545296331,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_430",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.1114672600773803,
+    "max_true_temp": 2.58077473170447,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_431",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.8619595769247033,
+    "max_true_temp": 2.253478370300093,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_432",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 1.7084297706296363,
+    "max_true_temp": 2.0461397489137627,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_433",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.1212408442512287,
+    "max_true_temp": 2.040985929138245,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_434",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.427595568848477,
+    "max_true_temp": 2.825240202444894,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_435",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.526897925574077,
+    "max_true_temp": 2.059770013032359,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_436",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.0867852064742793,
+    "max_true_temp": 2.4836886115056034,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_437",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 3.0338428701080353,
+    "max_true_temp": 2.590106492080269,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_438",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.6570801214227733,
+    "max_true_temp": 2.0870318931794,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_439",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.1493741889607287,
+    "max_true_temp": 2.0564371030627946,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_440",
+    "scenario": "AMBIENT_SPIKE",
+    "rows": 144,
+    "initial_temp": 2.1582819098291623,
+    "max_true_temp": 2.0565521968913623,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_441",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.789329515546557,
+    "max_true_temp": 2.4499368297072,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_442",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.0875712754362983,
+    "max_true_temp": 2.0468965753803503,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_443",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.6141438246283912,
+    "max_true_temp": 3.2148408809369617,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_444",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.313380661557987,
+    "max_true_temp": 2.848332581570659,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_445",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.5145011627914102,
+    "max_true_temp": 2.941186905070444,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_446",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 1.8057381176972567,
+    "max_true_temp": 2.052431821733242,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_447",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.4676071386356404,
+    "max_true_temp": 2.789405133480156,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_448",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.148149678774669,
+    "max_true_temp": 2.068641260349167,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_449",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.980834281614962,
+    "max_true_temp": 2.4157034740938617,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_450",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 1.693418072419897,
+    "max_true_temp": 2.0545306805471806,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_451",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 1.7089247618435983,
+    "max_true_temp": 2.0653715817765876,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_452",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.6877664406414943,
+    "max_true_temp": 3.248954644211894,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_453",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.8962762163131925,
+    "max_true_temp": 2.3349599876062266,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_454",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.2923169349058217,
+    "max_true_temp": 2.047180625787184,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_455",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 1.5066288002174912,
+    "max_true_temp": 2.0469835176105726,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_456",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 1.5540296333976469,
+    "max_true_temp": 2.0487192260366425,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_457",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 1.6386868460229065,
+    "max_true_temp": 2.038093365368866,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_458",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 1.945499365991957,
+    "max_true_temp": 2.055484928085342,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_459",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.3507880165264092,
+    "max_true_temp": 2.7973424426867153,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_460",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.3935685700686156,
+    "max_true_temp": 2.9748268644723526,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_461",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 1.7804136671231636,
+    "max_true_temp": 2.06197939966967,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_462",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.1783089776528035,
+    "max_true_temp": 2.6881940595693754,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_463",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.778070245806842,
+    "max_true_temp": 3.2371915840389045,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_464",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.4796016077840597,
+    "max_true_temp": 2.046752055443623,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_465",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.358681276128415,
+    "max_true_temp": 2.9386700836270405,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_466",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.1002080889960855,
+    "max_true_temp": 2.0637560502615213,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_467",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.8385031903863007,
+    "max_true_temp": 2.245988734333601,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_468",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.9807349014213598,
+    "max_true_temp": 2.572805300269655,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_469",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 2.617297708452062,
+    "max_true_temp": 2.051234862849897,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_470",
+    "scenario": "SENSOR_NOISE",
+    "rows": 144,
+    "initial_temp": 3.025128660717337,
+    "max_true_temp": 2.5093075854461326,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_471",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 1.6556119455016154,
+    "max_true_temp": 2.0613423963464372,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_472",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.4509357964360876,
+    "max_true_temp": 2.983196928692114,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_473",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.031473447853612,
+    "max_true_temp": 2.4135813034271663,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_474",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.0883213672395495,
+    "max_true_temp": 2.603137435549311,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_475",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.058891217545279,
+    "max_true_temp": 2.077605337527426,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_476",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.6269319746272206,
+    "max_true_temp": 2.965414175932225,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_477",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.263448338166377,
+    "max_true_temp": 2.043301642856878,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_478",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.312089457176907,
+    "max_true_temp": 2.6440305620604523,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_479",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.3250392308261327,
+    "max_true_temp": 2.6941792701384784,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_480",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.5536628322658332,
+    "max_true_temp": 2.0378030539646965,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_481",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.6287681298035754,
+    "max_true_temp": 3.0203753839866545,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_482",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.6174693453819433,
+    "max_true_temp": 2.1039289732663615,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_483",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.187331960874463,
+    "max_true_temp": 2.0487681945772933,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_484",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.110720966757258,
+    "max_true_temp": 2.6103538122587846,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_485",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.199350887317779,
+    "max_true_temp": 2.0668480645968295,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_486",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.7381569455661054,
+    "max_true_temp": 2.2667146422428863,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_487",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 1.6342363052000115,
+    "max_true_temp": 2.056416008933797,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_488",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.334816530886641,
+    "max_true_temp": 2.0580718171906796,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_489",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.62439677856453,
+    "max_true_temp": 2.1907624877310217,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_490",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 1.7408932469868126,
+    "max_true_temp": 2.054934979239264,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_491",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.2365016842897747,
+    "max_true_temp": 2.0516733225260078,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_492",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 1.9856744059289537,
+    "max_true_temp": 2.0639670475934118,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_493",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.6511666691311486,
+    "max_true_temp": 3.202347475828601,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_494",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.480773668285231,
+    "max_true_temp": 2.8221118723419814,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_495",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.3480454800637536,
+    "max_true_temp": 2.079304920446626,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_496",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.1271789137205137,
+    "max_true_temp": 2.050045797597587,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_497",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 1.8469024965791303,
+    "max_true_temp": 2.0595962507312464,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_498",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.2481894710325223,
+    "max_true_temp": 2.061382338400808,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_499",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 2.541403547088919,
+    "max_true_temp": 2.0514085543974785,
+    "excursion_rows": 0
+  },
+  {
+    "shipment_id": "STRESS_SHIP_500",
+    "scenario": "SENSOR_DROPOUT",
+    "rows": 144,
+    "initial_temp": 3.7894769381283893,
+    "max_true_temp": 3.2511760105550667,
+    "excursion_rows": 0
+  }
+]

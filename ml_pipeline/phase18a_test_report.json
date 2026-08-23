@@ -1,0 +1,88 @@
+{
+  "phase": "18A",
+  "all_tests_passed": true,
+  "tests_passed_count": 15,
+  "total_tests": 15,
+  "results": {
+    "1_normal_telemetry_no_event": {
+      "passed": true,
+      "event_count": 0
+    },
+    "2_causal_rapid_warming": {
+      "passed": true,
+      "events": [
+        "RAPID_WARMING",
+        "CORRELATED_WARMING"
+      ]
+    },
+    "3_single_noisy_probe_suppression": {
+      "passed": true,
+      "correlated_triggered": false
+    },
+    "4_multi_probe_correlated_warming": {
+      "passed": true,
+      "events": [
+        "CORRELATED_WARMING"
+      ]
+    },
+    "5_probe_dropout_degradation": {
+      "passed": true,
+      "active_count": 7
+    },
+    "6_all_probes_missing_fail_closed": {
+      "passed": true,
+      "status": "ERROR_ALL_PROBES_MISSING"
+    },
+    "7_stale_telemetry_detection": {
+      "passed": true,
+      "events": [
+        "STALE_TELEMETRY"
+      ]
+    },
+    "8_actual_door_signal_open": {
+      "passed": true,
+      "events": [
+        "DOOR_OPEN"
+      ]
+    },
+    "9_no_door_signal_no_fabrication": {
+      "passed": true,
+      "door_monitoring": false
+    },
+    "10_fast_event_plus_low_ml_risk": {
+      "passed": true,
+      "door_fused_state": "OBSERVED_EVENT",
+      "corr_alone_fused_state": "SAFE"
+    },
+    "11_no_event_plus_high_ml_risk": {
+      "passed": true,
+      "fused_state": "PREDICTED_RISK"
+    },
+    "12_fast_event_plus_high_ml_risk": {
+      "passed": true,
+      "fused_state": "EVENT_AND_PREDICTED_RISK"
+    },
+    "13_gateway_cold_start_no_v2": {
+      "passed": true,
+      "fused_state": "COLD_START"
+    },
+    "14_gateway_warmed_v2_allowed": {
+      "passed": true,
+      "fused_state": "SAFE",
+      "prob": 0.00026657062699086964
+    },
+    "15_shap_explains_xgboost_only": {
+      "passed": true,
+      "shap_factor_count": 5
+    }
+  },
+  "latencies_ms": {
+    "validation_ms": 0.04789989907294512,
+    "event_detection_ms": 0.1178000820800662,
+    "history_buffer_ms": 0.024499953724443913,
+    "feature_engineering_ms": 18.970999983139336,
+    "inference_and_shap_ms": 11.887299944646657,
+    "risk_fusion_ms": 0.09119999594986439,
+    "total_pipeline_ms": 31.183499959297478
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "phase": "20",
+  "description": "Hardware-Format ML Stress Test (500 shipments, 72,000 packets)",
+  "dataset_summary": {
+    "total_shipments": 500,
+    "total_packets": 72000,
+    "warmed_evaluated_observations": 66500,
+    "positive_events": 10491,
+    "negative_events": 56009
+  },
+  "overall_metrics": {
+    "confusion_matrix": {
+      "tn": 55862,
+      "fp": 147,
+      "fn": 3081,
+      "tp": 7410
+    },
+    "precision": 0.9805478364430329,
+    "recall": 0.7063197026022305,
+    "f1_score": 0.8211436170212766,
+    "pr_auc": 0.9406569208178184,
+    "roc_auc": 0.964672256679529,
+    "accuracy": 0.9514586466165413,
+    "specificity": 0.9973754218072095,
+    "fpr": 0.0026245781927904444,
+    "npv": 0.9477291620718321,
+    "false_alarms_per_1000_safe": 2.6245781927904446,
+    "operating_threshold": 0.575
+  },
+  "scenario_metrics": {
+    "AMBIENT_SPIKE": {
+      "samples": 3990,
+      "positives": 0,
+      "predicted_positives": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 3990,
+      "precision_pct": 0.0,
+      "recall_pct": 0.0
+    },
+    "COOLING_DEGRADATION": {
+      "samples": 5320,
+      "positives": 747,
+      "predicted_positives": 801,
+      "tp": 704,
+      "fp": 97,
+      "fn": 43,
+      "tn": 4476,
+      "precision_pct": 87.89013732833958,
+      "recall_pct": 94.24364123159303
+    },
+    "COOLING_FAILURE": {
+      "samples": 5320,
+      "positives": 5307,
+      "predicted_positives": 5313,
+      "tp": 5305,
+      "fp": 8,
+      "fn": 2,
+      "tn": 5,
+      "precision_pct": 99.84942593638246,
+      "recall_pct": 99.96231392500471
+    },
+    "DOOR_PLUS_WEAK_COOLING": {
+      "samples": 4655,
+      "positives": 2285,
+      "predicted_positives": 545,
+      "tp": 545,
+      "fp": 0,
+      "fn": 1740,
+      "tn": 2370,
+      "precision_pct": 100.0,
+      "recall_pct": 23.851203501094094
+    },
+    "HEAVY_TRAFFIC_HEALTHY_COOLING": {
+      "samples": 4655,
+      "positives": 0,
+      "predicted_positives": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4655,
+      "precision_pct": 0.0,
+      "recall_pct": 0.0
+    },
+    "HEAVY_TRAFFIC_WEAK_COOLING": {
+      "samples": 4655,
+      "positives": 11,
+      "predicted_positives": 41,
+      "tp": 10,
+      "fp": 31,
+      "fn": 1,
+      "tn": 4613,
+      "precision_pct": 24.390243902439025,
+      "recall_pct": 90.9090909090909
+    },
+    "HIGH_AMBIENT_DEGRADED_COOLING": {
+      "samples": 4655,
+      "positives": 0,
+      "predicted_positives": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4655,
+      "precision_pct": 0.0,
+      "recall_pct": 0.0
+    },
+    "HIGH_AMBIENT_HEALTHY_COOLING": {
+      "samples": 5320,
+      "positives": 0,
+      "predicted_positives": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 5320,
+      "precision_pct": 0.0,
+      "recall_pct": 0.0
+    },
+    "LONG_DOOR_OPENING": {
+      "samples": 5320,
+      "positives": 1512,
+      "predicted_positives": 599,
+      "tp": 599,
+      "fp": 0,
+      "fn": 913,
+      "tn": 3808,
+      "precision_pct": 100.0,
+      "recall_pct": 39.616402116402114
+    },
+    "NORMAL": {
+      "samples": 9310,
+      "positives": 0,
+      "predicted_positives": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 9310,
+      "precision_pct": 0.0,
+      "recall_pct": 0.0
+    },
+    "SENSOR_DROPOUT": {
+      "samples": 3990,
+      "positives": 0,
+      "predicted_positives": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 3990,
+      "precision_pct": 0.0,
+      "recall_pct": 0.0
+    },
+    "SENSOR_NOISE": {
+      "samples": 3990,
+      "positives": 0,
+      "predicted_positives": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 3990,
+      "precision_pct": 0.0,
+      "recall_pct": 0.0
+    },
+    "SHORT_DOOR_OPENING": {
+      "samples": 5320,
+      "positives": 629,
+      "predicted_positives": 258,
+      "tp": 247,
+      "fp": 11,
+      "fn": 382,
+      "tn": 4680,
+      "precision_pct": 95.73643410852713,
+      "recall_pct": 39.268680445151034
+    }
+  },
+  "fast_event_counts": {
+    "CORRELATED_WARMING": 5969,
+    "DOOR_OPEN": 1166,
+    "RAPID_WARMING": 1162,
+    "SENSOR_DISAGREEMENT": 3,
+    "SENSOR_DROPOUT": 2917
+  },
+  "fused_state_counts": {
+    "COLD_START": 2493,
+    "SAFE": 58534,
+    "EVENT_AND_PREDICTED_RISK": 1167,
+    "PREDICTED_RISK": 6727,
+    "OBSERVED_EVENT": 162,
+    "DEGRADED": 2917
+  },
+  "cold_start_verified": true,
+  "causality_no_lookahead_verified": true,
+  "data_integrity_verified": true,
+  "shap_additivity_verified": true,
+  "model_checksums_verified": true,
+  "measured_latencies_ms": {
+    "validation_ms": 0.05889998283237219,
+    "event_detection_ms": 0.22759998682886362,
+    "history_buffer_ms": 0.02819998189806938,
+    "feature_engineering_ms": 31.065299990586936,
+    "inference_and_shap_ms": 12.57160003297031,
+    "risk_fusion_ms": 0.13369997031986713,
+    "total_pipeline_ms": 44.13749999366701
+  }
+}

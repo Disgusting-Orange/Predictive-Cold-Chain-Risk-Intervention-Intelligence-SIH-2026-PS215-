@@ -1,0 +1,417 @@
+{
+  "TRUE_POSITIVE": {
+    "case_description": "True Positive: True impending excursion correctly alerted.",
+    "shipment_id": "S3",
+    "timestamp": "2019-07-10 15:00:00",
+    "true_label": 1,
+    "predicted_binary": 1,
+    "predicted_risk_probability": 0.9784075617790222,
+    "base_value_log_odds": -3.022737503051758,
+    "actual_margin_log_odds": 3.813584566116333,
+    "reconstructed_margin_log_odds": 3.813584804534912,
+    "additivity_error": 2.384185791015625e-07,
+    "top_risk_increasing_factors": [
+      {
+        "feature_name": "hot_ratio_t",
+        "display_name": "Hot Probe Ratio",
+        "unit": "ratio",
+        "observed_value": 0.1111111111111111,
+        "shap_value": 1.3187952041625977,
+        "abs_shap": 1.3187952041625977,
+        "feature_group": "thermal_state"
+      },
+      {
+        "feature_name": "W60_spatial_range_mean",
+        "display_name": "60m Average Spatial Range",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 3.166666746139526,
+        "shap_value": 0.9161854982376099,
+        "abs_shap": 0.9161854982376099,
+        "feature_group": "spatial_gradient"
+      },
+      {
+        "feature_name": "v4_p95_t",
+        "display_name": "Instantaneous 95th Percentile Probe Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 3.6,
+        "shap_value": 0.773393452167511,
+        "abs_shap": 0.773393452167511,
+        "feature_group": "thermal_state"
+      },
+      {
+        "feature_name": "v4_slope_long_t",
+        "display_name": "Long-Term Temperature Slope (v4)",
+        "unit": "\u00c2\u00b0C/min",
+        "observed_value": 0.0012962962962962,
+        "shap_value": 0.5171228051185608,
+        "abs_shap": 0.5171228051185608,
+        "feature_group": "thermal_dynamics"
+      },
+      {
+        "feature_name": "spatial_std_t",
+        "display_name": "Spatial Thermal Variance",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 0.9116529554118228,
+        "shap_value": 0.3626368045806885,
+        "abs_shap": 0.3626368045806885,
+        "feature_group": "spatial_gradient"
+      }
+    ],
+    "top_risk_reducing_factors": [
+      {
+        "feature_name": "v4_p90_t",
+        "display_name": "Instantaneous 90th Percentile Probe Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 3.0,
+        "shap_value": -0.05946338176727295,
+        "abs_shap": 0.05946338176727295,
+        "feature_group": "thermal_state"
+      },
+      {
+        "feature_name": "T_mean_t",
+        "display_name": "Instantaneous Mean Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 2.233333333333333,
+        "shap_value": -0.046136803925037384,
+        "abs_shap": 0.046136803925037384,
+        "feature_group": "thermal_state"
+      },
+      {
+        "feature_name": "mask_ratio_t",
+        "display_name": "Active Sensor Mask Ratio",
+        "unit": "ratio",
+        "observed_value": 0.0,
+        "shap_value": -0.00800180435180664,
+        "abs_shap": 0.00800180435180664,
+        "feature_group": "sensor_quality"
+      },
+      {
+        "feature_name": "W60_over_auc_mean",
+        "display_name": "60m Average Excursion Area",
+        "unit": "\u00c2\u00b0C\u00c2\u00b7min",
+        "observed_value": 0.2222222238779068,
+        "shap_value": -0.005374000407755375,
+        "abs_shap": 0.005374000407755375,
+        "feature_group": "thermal_history"
+      },
+      {
+        "feature_name": "sconf",
+        "display_name": "Telemetry Health Score (sconf)",
+        "unit": "score [0-1]",
+        "observed_value": 1.0,
+        "shap_value": -0.00247885100543499,
+        "abs_shap": 0.00247885100543499,
+        "feature_group": "sensor_quality"
+      }
+    ]
+  },
+  "TRUE_NEGATIVE": {
+    "case_description": "True Negative: Safe baseline correctly classified without alarm.",
+    "shipment_id": "S5",
+    "timestamp": "2019-07-16 06:30:00",
+    "true_label": 0,
+    "predicted_binary": 0,
+    "predicted_risk_probability": 0.0003032068780157715,
+    "base_value_log_odds": -3.022737503051758,
+    "actual_margin_log_odds": -8.100791931152344,
+    "reconstructed_margin_log_odds": -8.100793838500977,
+    "additivity_error": 1.9073486328125e-06,
+    "top_risk_increasing_factors": [
+      {
+        "feature_name": "W60_T_max",
+        "display_name": "60m Trailing Maximum Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 2.599999904632568,
+        "shap_value": 0.06582866609096527,
+        "abs_shap": 0.06582866609096527,
+        "feature_group": "thermal_history"
+      },
+      {
+        "feature_name": "W60_hot_ratio_max",
+        "display_name": "60m Peak Hot Probe Fraction",
+        "unit": "ratio",
+        "observed_value": 0.0,
+        "shap_value": 0.003409828059375286,
+        "abs_shap": 0.003409828059375286,
+        "feature_group": "thermal_history"
+      },
+      {
+        "feature_name": "W60_over_auc_mean",
+        "display_name": "60m Average Excursion Area",
+        "unit": "\u00c2\u00b0C\u00c2\u00b7min",
+        "observed_value": 0.0,
+        "shap_value": 0.0016848782543092966,
+        "abs_shap": 0.0016848782543092966,
+        "feature_group": "thermal_history"
+      },
+      {
+        "feature_name": "T_mean_t",
+        "display_name": "Instantaneous Mean Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 2.6,
+        "shap_value": 0.0007113742176443338,
+        "abs_shap": 0.0007113742176443338,
+        "feature_group": "thermal_state"
+      }
+    ],
+    "top_risk_reducing_factors": [
+      {
+        "feature_name": "v4_p95_t",
+        "display_name": "Instantaneous 95th Percentile Probe Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 3.02,
+        "shap_value": -1.4351894855499268,
+        "abs_shap": 1.4351894855499268,
+        "feature_group": "thermal_state"
+      },
+      {
+        "feature_name": "W60_spatial_range_max",
+        "display_name": "60m Peak Spatial Range",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 1.100000023841858,
+        "shap_value": -0.9202053546905518,
+        "abs_shap": 0.9202053546905518,
+        "feature_group": "spatial_gradient"
+      },
+      {
+        "feature_name": "W60_spatial_range_mean",
+        "display_name": "60m Average Spatial Range",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 0.9666666388511658,
+        "shap_value": -0.34873348474502563,
+        "abs_shap": 0.34873348474502563,
+        "feature_group": "spatial_gradient"
+      },
+      {
+        "feature_name": "v4_iqr_t",
+        "display_name": "Instantaneous Spatial IQR (v4)",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 0.3999999999999999,
+        "shap_value": -0.3188488185405731,
+        "abs_shap": 0.3188488185405731,
+        "feature_group": "spatial_gradient"
+      },
+      {
+        "feature_name": "W60_T_mean",
+        "display_name": "60m Trailing Average Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 2.59074068069458,
+        "shap_value": -0.27075040340423584,
+        "abs_shap": 0.27075040340423584,
+        "feature_group": "thermal_history"
+      }
+    ]
+  },
+  "FALSE_POSITIVE": {
+    "case_description": "False Positive: Alert fired on non-excursion transition.",
+    "shipment_id": "S1",
+    "timestamp": "2019-03-18 02:30:00",
+    "true_label": 0,
+    "predicted_binary": 1,
+    "predicted_risk_probability": 0.5710979104042053,
+    "base_value_log_odds": -3.022737503051758,
+    "actual_margin_log_odds": 0.2863321006298065,
+    "reconstructed_margin_log_odds": 0.2863318920135498,
+    "additivity_error": 2.086162567138672e-07,
+    "top_risk_increasing_factors": [
+      {
+        "feature_name": "hot_ratio_t",
+        "display_name": "Hot Probe Ratio",
+        "unit": "ratio",
+        "observed_value": 0.1428571428571428,
+        "shap_value": 1.163124680519104,
+        "abs_shap": 1.163124680519104,
+        "feature_group": "thermal_state"
+      },
+      {
+        "feature_name": "v4_p95_t",
+        "display_name": "Instantaneous 95th Percentile Probe Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 4.479999999999999,
+        "shap_value": 1.1227573156356812,
+        "abs_shap": 1.1227573156356812,
+        "feature_group": "thermal_state"
+      },
+      {
+        "feature_name": "v4_slope_long_t",
+        "display_name": "Long-Term Temperature Slope (v4)",
+        "unit": "\u00c2\u00b0C/min",
+        "observed_value": 0.0078571428571428,
+        "shap_value": 0.39349761605262756,
+        "abs_shap": 0.39349761605262756,
+        "feature_group": "thermal_dynamics"
+      },
+      {
+        "feature_name": "spatial_std_t",
+        "display_name": "Spatial Thermal Variance",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 1.349527506127948,
+        "shap_value": 0.350003182888031,
+        "abs_shap": 0.350003182888031,
+        "feature_group": "spatial_gradient"
+      },
+      {
+        "feature_name": "v4_shock_t",
+        "display_name": "Thermal Shock Metric (v4)",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 0.4857142857142858,
+        "shap_value": 0.2692852318286896,
+        "abs_shap": 0.2692852318286896,
+        "feature_group": "thermal_dynamics"
+      }
+    ],
+    "top_risk_reducing_factors": [
+      {
+        "feature_name": "W60_slope",
+        "display_name": "60m Temperature Slope",
+        "unit": "\u00c2\u00b0C/min",
+        "observed_value": 0.0604081638157367,
+        "shap_value": -0.31634196639060974,
+        "abs_shap": 0.31634196639060974,
+        "feature_group": "thermal_dynamics"
+      },
+      {
+        "feature_name": "W60_spatial_std_mean",
+        "display_name": "60m Average Spatial Standard Deviation",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 0.7907924056053162,
+        "shap_value": -0.28339242935180664,
+        "abs_shap": 0.28339242935180664,
+        "feature_group": "spatial_gradient"
+      },
+      {
+        "feature_name": "W60_hot_ratio_max",
+        "display_name": "60m Peak Hot Probe Fraction",
+        "unit": "ratio",
+        "observed_value": 0.1428571492433548,
+        "shap_value": -0.20456713438034058,
+        "abs_shap": 0.20456713438034058,
+        "feature_group": "thermal_history"
+      },
+      {
+        "feature_name": "W60_T_mean",
+        "display_name": "60m Trailing Average Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 2.0,
+        "shap_value": -0.11219002306461334,
+        "abs_shap": 0.11219002306461334,
+        "feature_group": "thermal_history"
+      },
+      {
+        "feature_name": "W60_T_std",
+        "display_name": "60m Trailing Temperature Variance",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 0.173401340842247,
+        "shap_value": -0.08152393996715546,
+        "abs_shap": 0.08152393996715546,
+        "feature_group": "thermal_history"
+      }
+    ]
+  },
+  "FALSE_NEGATIVE": {
+    "case_description": "False Negative: Impending excursion missed by model.",
+    "shipment_id": "S4",
+    "timestamp": "2019-07-13 02:30:00",
+    "true_label": 1,
+    "predicted_binary": 0,
+    "predicted_risk_probability": 0.01826506480574608,
+    "base_value_log_odds": -3.022737503051758,
+    "actual_margin_log_odds": -3.9843311309814453,
+    "reconstructed_margin_log_odds": -3.9843289852142334,
+    "additivity_error": 2.1457672119140625e-06,
+    "top_risk_increasing_factors": [
+      {
+        "feature_name": "W60_T_std",
+        "display_name": "60m Trailing Temperature Variance",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 0.0084862513467669,
+        "shap_value": 0.38845330476760864,
+        "abs_shap": 0.38845330476760864,
+        "feature_group": "thermal_history"
+      },
+      {
+        "feature_name": "W60_spatial_range_max",
+        "display_name": "60m Peak Spatial Range",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 2.700000047683716,
+        "shap_value": 0.2669631838798523,
+        "abs_shap": 0.2669631838798523,
+        "feature_group": "spatial_gradient"
+      },
+      {
+        "feature_name": "v4_iqr_t",
+        "display_name": "Instantaneous Spatial IQR (v4)",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 1.0,
+        "shap_value": 0.22548116743564606,
+        "abs_shap": 0.22548116743564606,
+        "feature_group": "spatial_gradient"
+      },
+      {
+        "feature_name": "v4_slope_short_t",
+        "display_name": "10-Minute Short Slope",
+        "unit": "\u00c2\u00b0C/min",
+        "observed_value": 0.0011111111111111,
+        "shap_value": 0.18563269078731537,
+        "abs_shap": 0.18563269078731537,
+        "feature_group": "thermal_dynamics"
+      },
+      {
+        "feature_name": "W60_T_min",
+        "display_name": "60m Trailing Minimum Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 1.544444441795349,
+        "shap_value": 0.1703851819038391,
+        "abs_shap": 0.1703851819038391,
+        "feature_group": "thermal_history"
+      }
+    ],
+    "top_risk_reducing_factors": [
+      {
+        "feature_name": "v4_p95_t",
+        "display_name": "Instantaneous 95th Percentile Probe Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 2.88,
+        "shap_value": -1.3209450244903564,
+        "abs_shap": 1.3209450244903564,
+        "feature_group": "thermal_state"
+      },
+      {
+        "feature_name": "spatial_std_t",
+        "display_name": "Spatial Thermal Variance",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 0.7944250191875323,
+        "shap_value": -0.3037692606449127,
+        "abs_shap": 0.3037692606449127,
+        "feature_group": "spatial_gradient"
+      },
+      {
+        "feature_name": "W60_T_max",
+        "display_name": "60m Trailing Maximum Temperature",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 1.566666722297668,
+        "shap_value": -0.266278475522995,
+        "abs_shap": 0.266278475522995,
+        "feature_group": "thermal_history"
+      },
+      {
+        "feature_name": "W60_spatial_std_mean",
+        "display_name": "60m Average Spatial Standard Deviation",
+        "unit": "\u00c2\u00b0C",
+        "observed_value": 0.7973305583000183,
+        "shap_value": -0.19277796149253845,
+        "abs_shap": 0.19277796149253845,
+        "feature_group": "spatial_gradient"
+      },
+      {
+        "feature_name": "hot_ratio_t",
+        "display_name": "Hot Probe Ratio",
+        "unit": "ratio",
+        "observed_value": 0.0,
+        "shap_value": -0.138067364692688,
+        "abs_shap": 0.138067364692688,
+        "feature_group": "thermal_state"
+      }
+    ]
+  }
+}

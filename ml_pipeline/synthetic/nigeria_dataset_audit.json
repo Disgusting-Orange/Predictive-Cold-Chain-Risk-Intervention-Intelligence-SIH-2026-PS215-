@@ -1,0 +1,37 @@
+{
+  "dataset_file": "nigeria_cold_chain.csv",
+  "total_rows": 180000,
+  "total_columns": 9,
+  "column_names": [
+    "timestamp",
+    "trip_id",
+    "lat",
+    "lon",
+    "temp_c",
+    "humidity",
+    "door_open",
+    "excursion",
+    "Time_dt"
+  ],
+  "unique_trips": 178264,
+  "single_ping_trips_pct": 99.03009020329398,
+  "max_trip_observations": 3,
+  "trips_with_ge_6_rows": 0,
+  "timestamp_min": "2024-10-12 10:03:35",
+  "timestamp_max": "2025-10-12 10:00:21",
+  "temperature_stats": {
+    "mean": 5.001483166666667,
+    "std": 1.506189846649207,
+    "min": -1.54,
+    "max": 12.33,
+    "median": 5.0
+  },
+  "humidity_stats": {
+    "mean": 64.98743944444445,
+    "std": 11.959115888980717,
+    "min": 20.0,
+    "max": 100.0
+  },
+  "excursion_prevalence_pct": 4.701111111111111,
+  "provenance_verdict": "SYNTHETIC / TABULAR MOCK LOGS (98.8% Single-Ping Snapshot Rows)"
+}

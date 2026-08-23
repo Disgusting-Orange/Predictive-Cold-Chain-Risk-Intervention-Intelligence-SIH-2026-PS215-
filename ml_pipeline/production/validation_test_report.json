@@ -1,0 +1,64 @@
+{
+  "all_tests_passed": true,
+  "tests_passed_count": 10,
+  "total_tests": 10,
+  "results": {
+    "1_schema_structure": {
+      "passed": true,
+      "version": "1.0.0",
+      "feature_count": 35
+    },
+    "2_units_and_groups": {
+      "passed": true,
+      "total_registered": 35
+    },
+    "3_chronological_ordering": {
+      "passed": true
+    },
+    "4_anti_leakage_future_isolation": {
+      "passed": true,
+      "diff": 0.0
+    },
+    "5_causal_backward_window": {
+      "passed": true,
+      "manual": 28.004761904761907,
+      "pipeline": 28.004761904761903
+    },
+    "6_explicit_missingness": {
+      "passed": true
+    },
+    "7_stale_sensor_tracking": {
+      "passed": true
+    },
+    "8_deterministic_ordering": {
+      "passed": true,
+      "feature_order": [
+        "T_current",
+        "T_spatial_range",
+        "T_spatial_std",
+        "10m_delta",
+        "10m_slope",
+        "30m_delta",
+        "30m_slope",
+        "60m_delta",
+        "60m_slope",
+        "thermal_acceleration",
+        "W60_mean",
+        "W60_std",
+        "W60_range",
+        "time_above_warning_threshold_60m",
+        "temp_sensor_valid",
+        "temp_sensor_age_seconds"
+      ]
+    },
+    "9_schema_version_stamping": {
+      "passed": true,
+      "stamped_version": "1.0.0"
+    },
+    "10_backward_compatibility": {
+      "passed": true,
+      "cohort_size": 2523,
+      "positives": 116
+    }
+  }
+}

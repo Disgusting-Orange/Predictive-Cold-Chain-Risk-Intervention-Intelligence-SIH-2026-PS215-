@@ -1,0 +1,45 @@
+{
+  "contract_version": "1.0.0",
+  "contract_name": "FrostLink Raw Telemetry to ML Feature Engineering Contract",
+  "raw_input_specification": {
+    "required_fields": ["shipment_id", "timestamp", "probes"],
+    "optional_fields": ["sconf", "coverage_time", "ambient_temp", "door_open", "speed_kmh", "battery_voltage"],
+    "probes_format": "Key-value mapping of probe identifier (string) to Celsius temperature (float64 or null)",
+    "cadence_minutes": 10.0,
+    "plausible_temperature_range_celsius": [-50.0, 80.0]
+  },
+  "output_specification": {
+    "feature_count": 40,
+    "feature_schema_reference": "ml_pipeline/model_artifacts/frostlink_xgb_v1/feature_schema.json",
+    "enforced_ordering": "Strict deterministic index order matching model training schema"
+  },
+  "temporal_window_rules": {
+    "backward_window_length_steps": 6,
+    "backward_window_duration_minutes": 50.0,
+    "window_slice": "[t - 50 minutes, t]",
+    "lookahead_policy": "STRICTLY CAUSAL: No observation at tau > t is ever accessed.",
+    "centered_rolling_allowed": false
+  },
+  "cold_start_policy": {
+    "description": "During the first 50 minutes of a shipment (< 6 telemetry packets), rolling features use expanding causal slices with min_periods=1. Delta slopes use available historical difference. Missing long slopes default to short slopes or NaN. The model handles early-trip NaNs natively through default tree branches."
+  },
+  "unit_definitions": {
+    "temperature": "°C",
+    "temporal_duration": "minutes",
+    "temperature_slope": "°C/min",
+    "thermal_acceleration": "°C/min²",
+    "thermal_excursion_area": "°C·min",
+    "ratios_and_scores": "fraction [0.0, 1.0]",
+    "counts": "integer / float count"
+  },
+  "hardware_mapping": {
+    "cargo_probes": "Multi-point DS18B20 1-Wire Digital Thermometer Mesh or RTD Pt100 Sensors (5 to 9 probe nodes)",
+    "telemetry_gateway": "ESP32 Cellular/NB-IoT Telematics Gateway transmitting ISO-8601 packet frames",
+    "confidence_score": "Computed on gateway based on CRC-8 packet validity and probe checksums"
+  },
+  "failure_modes": {
+    "all_probes_null": "Feature vector emits NaN for spatial metrics; sconf drops to 0.0.",
+    "out_of_order_packets": "Packets are automatically sorted by timestamp ascending before extraction.",
+    "duplicate_timestamps": "Deduplicated by keeping the latest received packet for that timestamp."
+  }
+}

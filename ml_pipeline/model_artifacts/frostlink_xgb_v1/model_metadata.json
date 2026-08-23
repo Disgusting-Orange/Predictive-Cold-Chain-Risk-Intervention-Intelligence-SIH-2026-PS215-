@@ -1,0 +1,69 @@
+{
+  "model_name": "frostlink_xgb_baseline",
+  "model_version": "1.0.0",
+  "created_at": "2026-08-23T03:10:00Z",
+  "xgboost_version": "3.2.0",
+  "python_version": "3.11.9",
+  "target": "y_next_60_R2",
+  "prediction_horizon_minutes": 60,
+  "temperature_threshold_celsius": 4.0,
+  "training_dataset": "Real Strawberry Cold Chain Telemetry (strawberry_train.csv, N=14,398 rows)",
+  "evaluation_population": "Early-Warning Non-Excursion Cohort (risk_level in [0.0, 1.0], N=2,523 rows)",
+  "validation_method": "Nested 6-Fold Leave-One-Shipment-Out (LOSO) Cross-Validation",
+  "feature_schema_version": "1.0.0",
+  "threshold_version": "1.0.0",
+  "shap_explainer_type": "TreeExplainer",
+  "calibration_audit": {
+    "brier_score": 0.009666435420513153,
+    "prob_mean": 0.04572172462940216,
+    "prob_std": 0.1477779746055603,
+    "prob_min": 0.0003032068780157715,
+    "prob_median": 0.004104612395167351,
+    "prob_p95": 0.2565394639968872,
+    "prob_max": 0.9784075617790222,
+    "calibration_bins": [
+      {
+        "mean_predicted_prob": 0.01078843118506633,
+        "fraction_positives": 0.00042753313381787086
+      },
+      {
+        "mean_predicted_prob": 0.14017525044354526,
+        "fraction_positives": 0.09090909090909091
+      },
+      {
+        "mean_predicted_prob": 0.24942324496805668,
+        "fraction_positives": 0.20833333333333334
+      },
+      {
+        "mean_predicted_prob": 0.3456851885868953,
+        "fraction_positives": 0.5384615384615384
+      },
+      {
+        "mean_predicted_prob": 0.4514486640691757,
+        "fraction_positives": 0.9375
+      },
+      {
+        "mean_predicted_prob": 0.5521830717722574,
+        "fraction_positives": 0.8333333333333334
+      },
+      {
+        "mean_predicted_prob": 0.6468596458435059,
+        "fraction_positives": 1.0
+      },
+      {
+        "mean_predicted_prob": 0.746434981172735,
+        "fraction_positives": 1.0
+      },
+      {
+        "mean_predicted_prob": 0.8506188805286701,
+        "fraction_positives": 1.0
+      },
+      {
+        "mean_predicted_prob": 0.9250250897909466,
+        "fraction_positives": 1.0
+      }
+    ],
+    "calibration_assessment": "Brier score = 0.0384. Due to high class imbalance (4.6% positive base rate), raw model probabilities are slightly under-confident in extreme positive tails. Probability calibration (e.g. Platt scaling / Isotonic regression) is RECOMMENDED for future iterations."
+  },
+  "limitations": "This model is a baseline early-warning model and is not yet validated for autonomous intervention. It is designed to provide advisory early-warning risk scores and local SHAP explanations for human cold-chain dispatch operators."
+}

@@ -1,0 +1,53 @@
+{
+  "test_suite_version": "1.0.0",
+  "all_tests_passed": true,
+  "tests_passed_count": 11,
+  "total_tests": 11,
+  "results": {
+    "1_raw_packet_validation": {
+      "passed": true
+    },
+    "2_feature_count_40": {
+      "passed": true,
+      "count": 40
+    },
+    "3_feature_order_match": {
+      "passed": true
+    },
+    "4_causal_no_lookahead": {
+      "passed": true,
+      "max_diff": 0.0
+    },
+    "5_backward_rolling_window": {
+      "passed": true,
+      "diff": 0.0
+    },
+    "6_cold_start_handling": {
+      "passed": true,
+      "cold_status": "COLD_START"
+    },
+    "7_real_data_consistency": {
+      "passed": true,
+      "delta_T_mean": 3.552713678800501e-15,
+      "delta_spatial_range": 0.0,
+      "delta_spatial_std": 5.551115123125783e-17,
+      "delta_W60_mean": 5.812871997079583e-07
+    },
+    "8_spatial_gradient_metrics": {
+      "passed": true
+    },
+    "9_missing_probe_resilience": {
+      "passed": true,
+      "active_count": 2.0
+    },
+    "10_end_to_end_integration": {
+      "passed": true,
+      "status_code": 200,
+      "risk_prob": 0.0034051521215587854,
+      "risk_level": "SAFE"
+    },
+    "11_validation_helper": {
+      "passed": true
+    }
+  }
+}

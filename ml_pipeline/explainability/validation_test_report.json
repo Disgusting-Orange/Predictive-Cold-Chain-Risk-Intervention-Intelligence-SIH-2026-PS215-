@@ -1,0 +1,51 @@
+{
+  "all_tests_passed": true,
+  "tests_passed_count": 10,
+  "total_tests": 10,
+  "results": {
+    "1_model_loading": {
+      "passed": true,
+      "model_type": "<class 'xgboost.sklearn.XGBClassifier'>"
+    },
+    "2_tree_explainer_loading": {
+      "passed": true
+    },
+    "3_feature_ordering": {
+      "passed": true,
+      "feature_count": 40
+    },
+    "4_shap_dimensions": {
+      "passed": true,
+      "shape": [
+        50,
+        40
+      ]
+    },
+    "5_additivity_check": {
+      "passed": true,
+      "max_error": 2.86102294921875e-06
+    },
+    "6_target_absence": {
+      "passed": true
+    },
+    "7_anti_leakage_whitelist": {
+      "passed": true
+    },
+    "8_local_explanation_schema": {
+      "passed": true,
+      "quadrants_present": [
+        "TRUE_POSITIVE",
+        "TRUE_NEGATIVE",
+        "FALSE_POSITIVE",
+        "FALSE_NEGATIVE"
+      ]
+    },
+    "9_directionality_separation": {
+      "passed": true
+    },
+    "10_realtime_engine_execution": {
+      "passed": true,
+      "prob": 0.19582368433475494
+    }
+  }
+}

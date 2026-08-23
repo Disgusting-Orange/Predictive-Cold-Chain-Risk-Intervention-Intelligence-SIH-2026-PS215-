@@ -1,0 +1,366 @@
+{
+  "schema_version": "1.0.0",
+  "feature_count": 40,
+  "features": [
+    {
+      "feature_order": 0,
+      "feature_name": "T_mean_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "Instantaneous Mean Temperature",
+      "description": "Mean cargo core temperature across active container probes at current timestamp.",
+      "feature_group": "thermal_state"
+    },
+    {
+      "feature_order": 1,
+      "feature_name": "spatial_range_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "Instantaneous Spatial Thermal Range",
+      "description": "Difference between hottest and coldest probe in the cargo container at current timestamp.",
+      "feature_group": "spatial_gradient"
+    },
+    {
+      "feature_order": 2,
+      "feature_name": "spatial_std_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "Spatial Thermal Variance",
+      "description": "Standard deviation across active spatial cargo probes at current timestamp.",
+      "feature_group": "spatial_gradient"
+    },
+    {
+      "feature_order": 3,
+      "feature_name": "hot_ratio_t",
+      "data_type": "float64",
+      "unit": "ratio",
+      "display_name": "Hot Probe Ratio",
+      "description": "Fraction of active probes measuring elevated temperatures.",
+      "feature_group": "thermal_state"
+    },
+    {
+      "feature_order": 4,
+      "feature_name": "cold_ratio_t",
+      "data_type": "float64",
+      "unit": "ratio",
+      "display_name": "Cold Probe Ratio",
+      "description": "Fraction of active probes measuring sub-optimal low temperatures.",
+      "feature_group": "thermal_state"
+    },
+    {
+      "feature_order": 5,
+      "feature_name": "mask_ratio_t",
+      "data_type": "float64",
+      "unit": "ratio",
+      "display_name": "Active Sensor Mask Ratio",
+      "description": "Ratio of valid active sensors relative to total channel capacity.",
+      "feature_group": "sensor_quality"
+    },
+    {
+      "feature_order": 6,
+      "feature_name": "W60_T_mean",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "60m Trailing Average Temperature",
+      "description": "Rolling mean temperature over the backward 60-minute window [t-50m, t].",
+      "feature_group": "thermal_history"
+    },
+    {
+      "feature_order": 7,
+      "feature_name": "W60_T_std",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "60m Trailing Temperature Variance",
+      "description": "Rolling standard deviation of temperature over the backward 60-minute window.",
+      "feature_group": "thermal_history"
+    },
+    {
+      "feature_order": 8,
+      "feature_name": "W60_T_min",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "60m Trailing Minimum Temperature",
+      "description": "Minimum temperature recorded in the cargo container over the past hour.",
+      "feature_group": "thermal_history"
+    },
+    {
+      "feature_order": 9,
+      "feature_name": "W60_T_max",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "60m Trailing Maximum Temperature",
+      "description": "Peak temperature reached in the cargo container over the past hour.",
+      "feature_group": "thermal_history"
+    },
+    {
+      "feature_order": 10,
+      "feature_name": "W60_T_range",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "60m Trailing Thermal Spread",
+      "description": "Difference between maximum and minimum temperature in past hour.",
+      "feature_group": "thermal_history"
+    },
+    {
+      "feature_order": 11,
+      "feature_name": "W60_delta",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "60m Net Temperature Drift",
+      "description": "Net temperature change from t-50m to t: T(t) - T(t-50m).",
+      "feature_group": "thermal_dynamics"
+    },
+    {
+      "feature_order": 12,
+      "feature_name": "W60_slope",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C/min",
+      "display_name": "60m Temperature Slope",
+      "description": "Linear rate of warming or cooling over the past hour: Delta / 50 min.",
+      "feature_group": "thermal_dynamics"
+    },
+    {
+      "feature_order": 13,
+      "feature_name": "W60_spatial_range_mean",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "60m Average Spatial Range",
+      "description": "Rolling mean of container spatial temperature range over past hour.",
+      "feature_group": "spatial_gradient"
+    },
+    {
+      "feature_order": 14,
+      "feature_name": "W60_spatial_range_max",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "60m Peak Spatial Range",
+      "description": "Maximum spatial temperature spread across probes observed in past hour.",
+      "feature_group": "spatial_gradient"
+    },
+    {
+      "feature_order": 15,
+      "feature_name": "W60_spatial_std_mean",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "60m Average Spatial Standard Deviation",
+      "description": "Rolling mean of spatial temperature standard deviation over past hour.",
+      "feature_group": "spatial_gradient"
+    },
+    {
+      "feature_order": 16,
+      "feature_name": "W60_hot_ratio_mean",
+      "data_type": "float64",
+      "unit": "ratio",
+      "display_name": "60m Average Hot Probe Fraction",
+      "description": "Rolling average proportion of hot probe readings in past hour.",
+      "feature_group": "thermal_history"
+    },
+    {
+      "feature_order": 17,
+      "feature_name": "W60_hot_ratio_max",
+      "data_type": "float64",
+      "unit": "ratio",
+      "display_name": "60m Peak Hot Probe Fraction",
+      "description": "Maximum proportion of probes concurrently in elevated state in past hour.",
+      "feature_group": "thermal_history"
+    },
+    {
+      "feature_order": 18,
+      "feature_name": "W60_over_auc_mean",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C\u00c2\u00b7min",
+      "display_name": "60m Average Excursion Area",
+      "description": "Rolling cumulative thermal area above warning threshold in past hour.",
+      "feature_group": "thermal_history"
+    },
+    {
+      "feature_order": 19,
+      "feature_name": "W60_over_auc_max",
+      "data_type": "float64",
+      "unit": "",
+      "display_name": "W60_over_auc_max",
+      "description": "",
+      "feature_group": "thermal"
+    },
+    {
+      "feature_order": 20,
+      "feature_name": "W60_under_auc_mean",
+      "data_type": "float64",
+      "unit": "",
+      "display_name": "W60_under_auc_mean",
+      "description": "",
+      "feature_group": "thermal"
+    },
+    {
+      "feature_order": 21,
+      "feature_name": "W60_under_auc_max",
+      "data_type": "float64",
+      "unit": "",
+      "display_name": "W60_under_auc_max",
+      "description": "",
+      "feature_group": "thermal"
+    },
+    {
+      "feature_order": 22,
+      "feature_name": "W60_over_dur_mean",
+      "data_type": "float64",
+      "unit": "",
+      "display_name": "W60_over_dur_mean",
+      "description": "",
+      "feature_group": "thermal"
+    },
+    {
+      "feature_order": 23,
+      "feature_name": "W60_under_dur_mean",
+      "data_type": "float64",
+      "unit": "",
+      "display_name": "W60_under_dur_mean",
+      "description": "",
+      "feature_group": "thermal"
+    },
+    {
+      "feature_order": 24,
+      "feature_name": "v4_slope_short_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C/min",
+      "display_name": "10-Minute Short Slope",
+      "description": "Instantaneous 10-minute rate of temperature change.",
+      "feature_group": "thermal_dynamics"
+    },
+    {
+      "feature_order": 25,
+      "feature_name": "v4_slope_long_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C/min",
+      "display_name": "Long-Term Temperature Slope (v4)",
+      "description": "Extended-window linear rate of temperature change across container probes.",
+      "feature_group": "thermal_dynamics"
+    },
+    {
+      "feature_order": 26,
+      "feature_name": "v4_accel_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C/min\u00c2\u00b2",
+      "display_name": "Short-Term Thermal Acceleration",
+      "description": "Instantaneous rate of change of 10-minute slope.",
+      "feature_group": "thermal_dynamics"
+    },
+    {
+      "feature_order": 27,
+      "feature_name": "v4_shock_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "Thermal Shock Metric (v4)",
+      "description": "Sudden temperature shift metric capturing thermal shocks.",
+      "feature_group": "thermal_dynamics"
+    },
+    {
+      "feature_order": 28,
+      "feature_name": "v4_median_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "Instantaneous Median Probe Temperature",
+      "description": "Median temperature across active container probes at current timestamp.",
+      "feature_group": "thermal_state"
+    },
+    {
+      "feature_order": 29,
+      "feature_name": "v4_iqr_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "Instantaneous Spatial IQR (v4)",
+      "description": "Instantaneous interquartile range across spatial probes.",
+      "feature_group": "spatial_gradient"
+    },
+    {
+      "feature_order": 30,
+      "feature_name": "v4_p90_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "Instantaneous 90th Percentile Probe Temperature",
+      "description": "90th percentile temperature across container probes at current timestamp.",
+      "feature_group": "thermal_state"
+    },
+    {
+      "feature_order": 31,
+      "feature_name": "v4_p95_t",
+      "data_type": "float64",
+      "unit": "\u00c2\u00b0C",
+      "display_name": "Instantaneous 95th Percentile Probe Temperature",
+      "description": "95th percentile temperature across container probes at current timestamp.",
+      "feature_group": "thermal_state"
+    },
+    {
+      "feature_order": 32,
+      "feature_name": "v4_over_auc_t",
+      "data_type": "float64",
+      "unit": "",
+      "display_name": "v4_over_auc_t",
+      "description": "",
+      "feature_group": "thermal"
+    },
+    {
+      "feature_order": 33,
+      "feature_name": "v4_under_auc_t",
+      "data_type": "float64",
+      "unit": "",
+      "display_name": "v4_under_auc_t",
+      "description": "",
+      "feature_group": "thermal"
+    },
+    {
+      "feature_order": 34,
+      "feature_name": "v4_over_max_t",
+      "data_type": "float64",
+      "unit": "",
+      "display_name": "v4_over_max_t",
+      "description": "",
+      "feature_group": "thermal"
+    },
+    {
+      "feature_order": 35,
+      "feature_name": "v4_under_max_t",
+      "data_type": "float64",
+      "unit": "",
+      "display_name": "v4_under_max_t",
+      "description": "",
+      "feature_group": "thermal"
+    },
+    {
+      "feature_order": 36,
+      "feature_name": "sconf",
+      "data_type": "float64",
+      "unit": "score [0-1]",
+      "display_name": "Telemetry Health Score (sconf)",
+      "description": "Composite sensor health and packet completeness score.",
+      "feature_group": "sensor_quality"
+    },
+    {
+      "feature_order": 37,
+      "feature_name": "coverage_points",
+      "data_type": "float64",
+      "unit": "count",
+      "display_name": "Active Spatial Probe Points",
+      "description": "Number of reporting temperature probes at current timestamp.",
+      "feature_group": "sensor_quality"
+    },
+    {
+      "feature_order": 38,
+      "feature_name": "coverage_time",
+      "data_type": "float64",
+      "unit": "fraction [0-1]",
+      "display_name": "Temporal Packet Coverage",
+      "description": "Fraction of expected packet transmissions successfully received.",
+      "feature_group": "sensor_quality"
+    },
+    {
+      "feature_order": 39,
+      "feature_name": "N_valid",
+      "data_type": "float64",
+      "unit": "count",
+      "display_name": "Valid Sensor Measurement Count",
+      "description": "Total count of valid non-corrupt probe measurements.",
+      "feature_group": "sensor_quality"
+    }
+  ]
+}

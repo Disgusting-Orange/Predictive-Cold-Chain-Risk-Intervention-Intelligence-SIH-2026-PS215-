@@ -1,0 +1,310 @@
+{
+  "phase": "16D",
+  "model_version": "frostlink_xgb_v2",
+  "threshold": 0.575,
+  "test_cohort_size": 9948,
+  "global_importance_top5_share_pct": 54.15730285644531,
+  "local_explanations": {
+    "A. True Positive (TP)": {
+      "shipment_id": "SYN_SHIP_078",
+      "scenario": "SHORT_DOOR_OPENING",
+      "time": "2026-06-01 22:00:00",
+      "true_label": 1,
+      "prediction": 1,
+      "probability": 0.6351876854896545,
+      "threshold": 0.575,
+      "additivity_delta": 2.384185791015625e-07,
+      "prob_delta": 4.9152056869061767e-08,
+      "top_increasing": [
+        {
+          "feature": "spatial_range_t",
+          "value": 1.975,
+          "shap": 3.0604488849639893
+        },
+        {
+          "feature": "W60_spatial_std_mean",
+          "value": 0.47794023742102515,
+          "shap": 0.8326972723007202
+        },
+        {
+          "feature": "v4_median_t",
+          "value": 2.352,
+          "shap": 0.5508898496627808
+        }
+      ],
+      "top_reducing": [
+        {
+          "feature": "W60_T_std",
+          "value": 0.09936133709165915,
+          "shap": -0.4376451075077057
+        },
+        {
+          "feature": "W60_T_range",
+          "value": 0.26811111111111074,
+          "shap": -0.379822313785553
+        },
+        {
+          "feature": "W60_T_max",
+          "value": 2.3237777777777775,
+          "shap": -0.31054428219795227
+        }
+      ]
+    },
+    "B. True Negative (TN)": {
+      "shipment_id": "SYN_SHIP_018",
+      "scenario": "NORMAL",
+      "time": "2026-06-01 08:00:00",
+      "true_label": 0,
+      "prediction": 0,
+      "probability": 0.000295002682833001,
+      "threshold": 0.575,
+      "additivity_delta": 3.0994415283203125e-06,
+      "prob_delta": 9.103777296359979e-10,
+      "top_increasing": [
+        {
+          "feature": "W60_spatial_range_mean",
+          "value": 1.246,
+          "shap": 0.21722030639648438
+        },
+        {
+          "feature": "v4_iqr_t",
+          "value": 0.742,
+          "shap": 0.20894424617290497
+        },
+        {
+          "feature": "mask_ratio_t",
+          "value": 0.0,
+          "shap": 0.005598209332674742
+        }
+      ],
+      "top_reducing": [
+        {
+          "feature": "W60_T_range",
+          "value": 0.0,
+          "shap": -0.7044023275375366
+        },
+        {
+          "feature": "W60_T_max",
+          "value": 2.619666666666667,
+          "shap": -0.5036844611167908
+        },
+        {
+          "feature": "W60_spatial_range_max",
+          "value": 1.246,
+          "shap": -0.4810212552547455
+        }
+      ]
+    },
+    "C. False Positive (FP)": {
+      "shipment_id": "SYN_SHIP_178",
+      "scenario": "COOLING_DEGRADATION",
+      "time": "2026-06-02 12:50:00",
+      "true_label": 0,
+      "prediction": 1,
+      "probability": 0.6191667914390564,
+      "threshold": 0.575,
+      "additivity_delta": 1.2218952178955078e-06,
+      "prob_delta": 2.7899289156696483e-07,
+      "top_increasing": [
+        {
+          "feature": "v4_median_t",
+          "value": 3.834,
+          "shap": 1.5243428945541382
+        },
+        {
+          "feature": "W60_T_min",
+          "value": 3.734666666666666,
+          "shap": 1.4732848405838013
+        },
+        {
+          "feature": "T_mean_t",
+          "value": 3.8901111111111115,
+          "shap": 1.1750534772872925
+        }
+      ],
+      "top_reducing": [
+        {
+          "feature": "v4_shock_t",
+          "value": 0.1285555555555562,
+          "shap": -0.3325427770614624
+        },
+        {
+          "feature": "v4_accel_t",
+          "value": 0.014177777777777845,
+          "shap": -0.1926569640636444
+        },
+        {
+          "feature": "W60_spatial_range_max",
+          "value": 1.2590000000000003,
+          "shap": -0.08367031812667847
+        }
+      ]
+    },
+    "D. False Negative (FN)": {
+      "shipment_id": "SYN_SHIP_078",
+      "scenario": "SHORT_DOOR_OPENING",
+      "time": "2026-06-01 21:10:00",
+      "true_label": 1,
+      "prediction": 0,
+      "probability": 0.004996496718376875,
+      "threshold": 0.575,
+      "additivity_delta": 1.430511474609375e-06,
+      "prob_delta": 6.918813031178694e-09,
+      "top_increasing": [
+        {
+          "feature": "W60_T_min",
+          "value": 2.0938888888888894,
+          "shap": 0.9908635020256042
+        },
+        {
+          "feature": "W60_T_mean",
+          "value": 2.111555555555556,
+          "shap": 0.28694528341293335
+        },
+        {
+          "feature": "v4_iqr_t",
+          "value": 0.7210000000000001,
+          "shap": 0.1776471734046936
+        }
+      ],
+      "top_reducing": [
+        {
+          "feature": "W60_spatial_std_mean",
+          "value": 0.4253277731611618,
+          "shap": -0.5875349640846252
+        },
+        {
+          "feature": "T_mean_t",
+          "value": 2.0938888888888894,
+          "shap": -0.2897806763648987
+        },
+        {
+          "feature": "spatial_range_t",
+          "value": 1.4600000000000002,
+          "shap": -0.23964549601078033
+        }
+      ]
+    }
+  },
+  "scenario_behavioral_audit": {
+    "AMBIENT_SPIKE": {
+      "test_shipments": 3,
+      "positive_windows": 0,
+      "predicted_positive_windows": 0,
+      "mean_probability": 0.0030174697749316692,
+      "max_probability": 0.12012530863285065,
+      "fp_count": 0,
+      "tp_count": 0
+    },
+    "COOLING_DEGRADATION": {
+      "test_shipments": 3,
+      "positive_windows": 23,
+      "predicted_positive_windows": 17,
+      "mean_probability": 0.04414258897304535,
+      "max_probability": 0.9865973591804504,
+      "fp_count": 2,
+      "tp_count": 15
+    },
+    "COOLING_FAILURE": {
+      "test_shipments": 3,
+      "positive_windows": 18,
+      "predicted_positive_windows": 16,
+      "mean_probability": 0.053696196526288986,
+      "max_probability": 0.9934172630310059,
+      "fp_count": 0,
+      "tp_count": 16
+    },
+    "DOOR_PLUS_WEAK_COOLING": {
+      "test_shipments": 3,
+      "positive_windows": 18,
+      "predicted_positive_windows": 3,
+      "mean_probability": 0.018919289112091064,
+      "max_probability": 0.9230872392654419,
+      "fp_count": 0,
+      "tp_count": 3
+    },
+    "HEAVY_TRAFFIC_HEALTHY_COOLING": {
+      "test_shipments": 3,
+      "positive_windows": 0,
+      "predicted_positive_windows": 0,
+      "mean_probability": 0.00631089648231864,
+      "max_probability": 0.3979035019874573,
+      "fp_count": 0,
+      "tp_count": 0
+    },
+    "HEAVY_TRAFFIC_WEAK_COOLING": {
+      "test_shipments": 3,
+      "positive_windows": 0,
+      "predicted_positive_windows": 0,
+      "mean_probability": 0.0062426235526800156,
+      "max_probability": 0.279731810092926,
+      "fp_count": 0,
+      "tp_count": 0
+    },
+    "HIGH_AMBIENT_DEGRADED_COOLING": {
+      "test_shipments": 3,
+      "positive_windows": 0,
+      "predicted_positive_windows": 0,
+      "mean_probability": 0.001071388367563486,
+      "max_probability": 0.07325948774814606,
+      "fp_count": 0,
+      "tp_count": 0
+    },
+    "HIGH_AMBIENT_HEALTHY_COOLING": {
+      "test_shipments": 3,
+      "positive_windows": 0,
+      "predicted_positive_windows": 0,
+      "mean_probability": 0.0006803926662541926,
+      "max_probability": 0.03372136130928993,
+      "fp_count": 0,
+      "tp_count": 0
+    },
+    "LONG_DOOR_OPENING": {
+      "test_shipments": 3,
+      "positive_windows": 18,
+      "predicted_positive_windows": 3,
+      "mean_probability": 0.005343381781131029,
+      "max_probability": 0.9667032361030579,
+      "fp_count": 0,
+      "tp_count": 3
+    },
+    "NORMAL": {
+      "test_shipments": 3,
+      "positive_windows": 0,
+      "predicted_positive_windows": 0,
+      "mean_probability": 0.007441860623657703,
+      "max_probability": 0.2789968252182007,
+      "fp_count": 0,
+      "tp_count": 0
+    },
+    "SENSOR_DROPOUT": {
+      "test_shipments": 3,
+      "positive_windows": 0,
+      "predicted_positive_windows": 0,
+      "mean_probability": 0.0009590268018655479,
+      "max_probability": 0.051318466663360596,
+      "fp_count": 0,
+      "tp_count": 0
+    },
+    "SENSOR_NOISE": {
+      "test_shipments": 3,
+      "positive_windows": 0,
+      "predicted_positive_windows": 0,
+      "mean_probability": 0.0006378538091666996,
+      "max_probability": 0.11028940975666046,
+      "fp_count": 0,
+      "tp_count": 0
+    },
+    "SHORT_DOOR_OPENING": {
+      "test_shipments": 3,
+      "positive_windows": 18,
+      "predicted_positive_windows": 3,
+      "mean_probability": 0.006697687320411205,
+      "max_probability": 0.8485756516456604,
+      "fp_count": 0,
+      "tp_count": 3
+    }
+  },
+  "false_positives_count": 2,
+  "false_negatives_count": 55
+}

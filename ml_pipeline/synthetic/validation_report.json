@@ -1,0 +1,49 @@
+{
+  "validation_report_version": "1.0.0",
+  "all_checks_passed": true,
+  "checks_passed_count": 8,
+  "total_checks": 8,
+  "results": {
+    "1_file_integrity_and_row_counts": {
+      "passed": true,
+      "total_rows": 74880,
+      "shipments": 260
+    },
+    "2_shipment_disjointness": {
+      "passed": true,
+      "train_count": 182,
+      "val_count": 39,
+      "test_count": 39
+    },
+    "3_temporal_monotonicity": {
+      "passed": true
+    },
+    "4_temperature_plausibility": {
+      "passed": true,
+      "probe_min": 0.275,
+      "probe_max": 22.818,
+      "ambient_min": 16.45,
+      "ambient_max": 41.94
+    },
+    "5_target_causality_verification": {
+      "passed": true
+    },
+    "6_scenario_coverage": {
+      "passed": true,
+      "scenarios_count": 13
+    },
+    "7_class_distribution": {
+      "passed": true,
+      "cohort_size": 66474,
+      "positive_excursions": 643,
+      "safe_cases": 65831,
+      "pos_rate": 0.009672954839486115
+    },
+    "8_sensor_dropout_validation": {
+      "passed": true,
+      "missing_probe_readings": 7552,
+      "dropout_rate": 0.01120607787274454,
+      "mean_sconf": 0.9888046340811967
+    }
+  }
+}

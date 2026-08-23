@@ -1,0 +1,123 @@
+{
+  "phase": "18B",
+  "empirical_distributions": {
+    "rate_of_change_c_per_min": {
+      "min": -0.075011111111111,
+      "P1": -0.03590744444444447,
+      "P5": -0.011433333333333363,
+      "P25": -0.0034777777777777854,
+      "median": 0.0001777777777777656,
+      "P75": 0.0038666666666666016,
+      "P95": 0.011377777777777756,
+      "P99": 0.025466666666666696,
+      "max": 0.40886666666666666
+    },
+    "per_probe_delta_c": {
+      "min": -2.186,
+      "P1": -0.6370000000000002,
+      "P5": -0.2560000000000002,
+      "P25": -0.08799999999999963,
+      "median": 0.0019999999999997797,
+      "P75": 0.09000000000000008,
+      "P95": 0.24499999999999744,
+      "P99": 0.6699999999999999,
+      "max": 4.299
+    },
+    "spatial_range_c": {
+      "min": 0.2489999999999999,
+      "P1": 0.8680000000000018,
+      "P5": 1.0210000000000001,
+      "P25": 1.18,
+      "median": 1.284,
+      "P75": 1.4140000000000001,
+      "P95": 1.6840000000000002,
+      "P99": 2.1022100000000066,
+      "max": 3.033
+    },
+    "active_probes_count": {
+      "min": 3.0,
+      "P1": 7.0,
+      "P5": 8.0,
+      "P25": 9.0,
+      "median": 9.0,
+      "P75": 9.0,
+      "P95": 9.0,
+      "P99": 9.0,
+      "max": 9.0
+    },
+    "timestamp_gap_minutes": {
+      "min": 10.0,
+      "P1": 10.0,
+      "P5": 10.0,
+      "P25": 10.0,
+      "median": 10.0,
+      "P75": 10.0,
+      "P95": 10.0,
+      "P99": 10.0,
+      "max": 10.0
+    }
+  },
+  "scenario_triggers": {
+    "NORMAL": {
+      "CORRELATED_WARMING": 145
+    },
+    "HIGH_AMBIENT_HEALTHY_COOLING": {
+      "CORRELATED_WARMING": 140
+    },
+    "HIGH_AMBIENT_DEGRADED_COOLING": {
+      "CORRELATED_WARMING": 440
+    },
+    "SHORT_DOOR_OPENING": {
+      "CORRELATED_WARMING": 154,
+      "DOOR_OPEN": 40,
+      "RAPID_WARMING": 40
+    },
+    "LONG_DOOR_OPENING": {
+      "DOOR_OPEN": 120,
+      "RAPID_WARMING": 120,
+      "CORRELATED_WARMING": 246
+    },
+    "DOOR_PLUS_WEAK_COOLING": {
+      "CORRELATED_WARMING": 277,
+      "DOOR_OPEN": 60,
+      "RAPID_WARMING": 60
+    },
+    "HEAVY_TRAFFIC_HEALTHY_COOLING": {
+      "CORRELATED_WARMING": 138
+    },
+    "HEAVY_TRAFFIC_WEAK_COOLING": {
+      "CORRELATED_WARMING": 185
+    },
+    "COOLING_DEGRADATION": {
+      "CORRELATED_WARMING": 458
+    },
+    "COOLING_FAILURE": {
+      "CORRELATED_WARMING": 1679,
+      "RAPID_WARMING": 43
+    },
+    "AMBIENT_SPIKE": {
+      "CORRELATED_WARMING": 129
+    },
+    "SENSOR_NOISE": {
+      "RAPID_WARMING": 217,
+      "CORRELATED_WARMING": 1780,
+      "SENSOR_DISAGREEMENT": 97
+    },
+    "SENSOR_DROPOUT": {
+      "SENSOR_DROPOUT": 4370,
+      "CORRELATED_WARMING": 152
+    }
+  },
+  "causality_verified": true,
+  "silent_fallbacks_count": 0,
+  "model_checksums_verified": true,
+  "measured_latencies_ms": {
+    "validation_ms": 0.05289993714541197,
+    "event_detection_ms": 0.12820004485547543,
+    "history_buffer_ms": 0.022600055672228336,
+    "feature_engineering_ms": 18.03679997101426,
+    "inference_and_shap_ms": 14.98039998114109,
+    "risk_fusion_ms": 0.28470007237046957,
+    "total_pipeline_ms": 33.55079994071275
+  }
+}

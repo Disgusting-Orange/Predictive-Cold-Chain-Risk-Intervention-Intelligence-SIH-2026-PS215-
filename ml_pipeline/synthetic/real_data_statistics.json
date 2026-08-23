@@ -1,0 +1,101 @@
+{
+  "source_dataset": "strawberry_train.csv + strawberry_test.csv (deduplicated)",
+  "total_rows": 14398,
+  "total_shipments": 6,
+  "temperature_stats": {
+    "mean": 14.964838948376425,
+    "std": 9.381097698127487,
+    "min": -0.4000000000000001,
+    "max": 39.7,
+    "median": 18.973333333333336,
+    "p25": 2.912152777777778,
+    "p75": 22.73333333333333,
+    "p01": 1.0666666666666662,
+    "p99": 29.7
+  },
+  "step_change_and_slope_stats": {
+    "mean_10m_delta": -0.0006072158441844766,
+    "std_10m_delta": 0.2785561744445631,
+    "min_10m_delta": -8.91111111111111,
+    "max_10m_delta": 7.199999999999999,
+    "p05_10m_delta": -0.15000000000000213,
+    "p95_10m_delta": 0.20000000000000018,
+    "mean_slope": -6.072158441844777e-05,
+    "std_slope": 0.02785561744445631,
+    "p05_slope": -0.015000000000000213,
+    "p95_slope": 0.020000000000000018
+  },
+  "sampling_interval_stats": {
+    "median_interval_min": 10.0,
+    "pct_exact_10m": 99.95832754549244,
+    "min_interval_min": 10.0,
+    "max_interval_min": 10.0
+  },
+  "risk_distribution_pct": {
+    "2.0": 74.17696902347548,
+    "0.0": 16.800944575635505,
+    "nan": 8.299763856091124,
+    "1.0": 0.7223225447978886
+  },
+  "episode_duration_stats": {
+    "R0_episodes_count": 19,
+    "R0_mean_duration_min": 1273.157894736842,
+    "R0_median_duration_min": 1010.0,
+    "R1_episodes_count": 40,
+    "R1_mean_duration_min": 26.0,
+    "R1_median_duration_min": 20.0,
+    "R2_episodes_count": 41,
+    "R2_mean_duration_min": 2604.878048780488,
+    "R2_median_duration_min": 190.0
+  },
+  "per_shipment_summary": {
+    "S1": {
+      "row_count": 3146,
+      "duration_hours": 524.1666666666666,
+      "temp_mean": 13.940578953556733,
+      "temp_min": 0.3142857142857143,
+      "temp_max": 39.7,
+      "temp_std": 9.62780999699876
+    },
+    "S2": {
+      "row_count": 2616,
+      "duration_hours": 435.8333333333333,
+      "temp_mean": 19.053703022757546,
+      "temp_min": 0.1111111111111111,
+      "temp_max": 33.0,
+      "temp_std": 7.45647502454755
+    },
+    "S3": {
+      "row_count": 2162,
+      "duration_hours": 360.1666666666667,
+      "temp_mean": 12.860983161534735,
+      "temp_min": -0.4000000000000001,
+      "temp_max": 26.78,
+      "temp_std": 9.331703330385823
+    },
+    "S4": {
+      "row_count": 2162,
+      "duration_hours": 360.1666666666667,
+      "temp_mean": 15.797533533765034,
+      "temp_min": -0.3444444444444444,
+      "temp_max": 28.975,
+      "temp_std": 10.119293078120156
+    },
+    "S5": {
+      "row_count": 2039,
+      "duration_hours": 339.6666666666667,
+      "temp_mean": 10.85739912966985,
+      "temp_min": 0.1555555555555556,
+      "temp_max": 30.06666666666667,
+      "temp_std": 9.113005955522457
+    },
+    "S6": {
+      "row_count": 2273,
+      "duration_hours": 378.6666666666667,
+      "temp_mean": 16.333171163904776,
+      "temp_min": 0.0222222222222222,
+      "temp_max": 29.9625,
+      "temp_std": 8.357877194417178
+    }
+  }
+}

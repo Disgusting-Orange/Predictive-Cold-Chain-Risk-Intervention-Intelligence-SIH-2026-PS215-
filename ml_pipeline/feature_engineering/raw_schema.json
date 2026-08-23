@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FrostLinkRawTelemetryPacket",
+  "description": "Schema for raw multi-probe telemetry packets ingested from hardware gateways or simulator.",
+  "type": "object",
+  "required": ["shipment_id", "timestamp", "probes"],
+  "properties": {
+    "shipment_id": {
+      "type": "string",
+      "description": "Unique journey / shipment identifier"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 observation timestamp"
+    },
+    "probes": {
+      "type": "object",
+      "description": "Map of probe identifier to temperature reading in °C (or null if faulty)",
+      "additionalProperties": {
+        "type": ["number", "null"],
+        "minimum": -50.0,
+        "maximum": 80.0
+      }
+    },
+    "sconf": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "default": 1.0,
+      "description": "Packet confidence / sensor health score"
+    },
+    "coverage_time": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "default": 1.0,
+      "description": "Temporal packet completeness score"
+    },
+    "ambient_temp": {
+      "type": ["number", "null"],
+      "description": "External ambient temperature in °C"
+    },
+    "door_open": {
+      "type": ["boolean", "null"],
+      "description": "Container door status (true=open, false=closed)"
+    },
+    "speed_kmh": {
+      "type": ["number", "null"],
+      "description": "Vehicle speed in km/h"
+    },
+    "battery_voltage": {
+      "type": ["number", "null"],
+      "description": "Refrigeration battery voltage in V"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "phase": "19",
+  "hardware_status": "HARDWARE NOT CONNECTED \u2014 SOFTWARE SIMULATION OF FIRMWARE PAYLOAD",
+  "all_tests_passed": true,
+  "tests_passed_count": 12,
+  "total_tests": 12,
+  "results": {
+    "1_firmware_packet_ingest_http": {
+      "passed": true,
+      "status_code": 200,
+      "http_ms": 114.18089992366731
+    },
+    "2_malformed_missing_id_rejection": {
+      "passed": true,
+      "status_code": 422
+    },
+    "3_invalid_timestamp_rejection": {
+      "passed": true,
+      "status_code": 422
+    },
+    "4_fault_code_sanitization": {
+      "passed": true,
+      "active_probes": 8,
+      "state": "DEGRADED"
+    },
+    "5_all_probes_dead_fail_closed": {
+      "passed": true,
+      "status_code": 422
+    },
+    "6_cold_start_non_inference": {
+      "passed": true,
+      "status": "COLD_START",
+      "prob": null
+    },
+    "7_warmed_sixth_observation_ml": {
+      "passed": true,
+      "prob": 0.00026657062699086964,
+      "threshold": 0.575
+    },
+    "8_fast_event_http_rapid_warming": {
+      "passed": true,
+      "fused_state": "EVENT_AND_PREDICTED_RISK"
+    },
+    "9_correlated_warming_no_alone_alert": {
+      "passed": true,
+      "fused_state": "SAFE"
+    },
+    "10_data_integrity_chain": {
+      "passed": true,
+      "sent_temp": 2.47
+    },
+    "11_shap_explains_xgboost_only": {
+      "passed": true,
+      "increasing_count": 5
+    },
+    "12_monotonic_latency_profile": {
+      "passed": true,
+      "latencies_ms": {
+        "validation_ms": 0.05859998054802418,
+        "event_detection_ms": 0.10810000821948051,
+        "history_buffer_ms": 0.015500001609325409,
+        "feature_engineering_ms": 25.842399918474257,
+        "inference_and_shap_ms": 12.465600040741265,
+        "risk_fusion_ms": 0.10910001583397388,
+        "total_pipeline_ms": 38.64289994817227
+      }
+    }
+  },
+  "measured_latencies_ms": {
+    "validation_ms": 0.05859998054802418,
+    "event_detection_ms": 0.10810000821948051,
+    "history_buffer_ms": 0.015500001609325409,
+    "feature_engineering_ms": 25.842399918474257,
+    "inference_and_shap_ms": 12.465600040741265,
+    "risk_fusion_ms": 0.10910001583397388,
+    "total_pipeline_ms": 38.64289994817227
+  }
+}

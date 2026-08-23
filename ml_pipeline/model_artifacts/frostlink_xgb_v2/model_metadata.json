@@ -1,0 +1,54 @@
+{
+  "model_name": "frostlink_xgb_v2",
+  "version": "2.0.0",
+  "trained_at": "2026-08-23T04:25:00Z",
+  "training_data": "FrostLink_Physics_Informed_Stratified_Synthetic_Fleet_v2",
+  "features_count": 40,
+  "test_metrics_v2": {
+    "pr_auc": 0.5404988044868361,
+    "roc_auc": 0.928956716362102,
+    "precision": 0.9523809523809523,
+    "recall": 0.42105263157894735,
+    "f1": 0.583941605839416,
+    "fpr": 0.00020298386278290876,
+    "specificity": 0.999797016137217,
+    "tp": 40,
+    "fp": 2,
+    "tn": 9851,
+    "fn": 55
+  },
+  "test_event_metrics_v2": {
+    "total_event_steps": 95,
+    "detected_event_steps": 40,
+    "event_level_recall": 0.42105263157894735,
+    "total_distressed_shipments": 15,
+    "detected_distressed_shipments": 15,
+    "shipment_detection_rate": 1.0,
+    "mean_lead_time_minutes": 24.25,
+    "lead_time_samples_count": 40
+  },
+  "test_metrics_v1": {
+    "pr_auc": 0.11703236581038885,
+    "roc_auc": 0.757338667891692,
+    "precision": 0.13178294573643412,
+    "recall": 0.17894736842105263,
+    "f1": 0.15178571428571427,
+    "fpr": 0.01136709631584289,
+    "specificity": 0.9886329036841571,
+    "tp": 17,
+    "fp": 112,
+    "tn": 9741,
+    "fn": 78
+  },
+  "test_event_metrics_v1": {
+    "total_event_steps": 95,
+    "detected_event_steps": 17,
+    "event_level_recall": 0.17894736842105263,
+    "total_distressed_shipments": 15,
+    "detected_distressed_shipments": 8,
+    "shipment_detection_rate": 0.5333333333333333,
+    "mean_lead_time_minutes": 25.88235294117647,
+    "lead_time_samples_count": 17
+  },
+  "shap_additivity_verified": true
+}

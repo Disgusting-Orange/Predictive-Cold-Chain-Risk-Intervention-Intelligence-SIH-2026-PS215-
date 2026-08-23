@@ -1,0 +1,66 @@
+{
+  "hardware_test_suite_version": "1.0.0",
+  "all_tests_passed": true,
+  "tests_passed_count": 12,
+  "total_tests": 12,
+  "results": {
+    "1_real_packet_format": {
+      "passed": true,
+      "active_probes": 9
+    },
+    "2_packet_validation_fail_safe": {
+      "passed": true,
+      "error": "Raw packet validation failed: 2 validation errors for RawTelemetryPacket\ntimestamp\n  Value error, Invalid ISO-8601 timestamp: 'invalid_date'. Error: Invalid isoformat string: 'invalid_date' [type=value_error, input_value='invalid_date', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error\nprobes\n  Value error, Raw telemetry packet must contain at least one probe reading. [type=value_error, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+    },
+    "3_sensor_disconnect_degradation": {
+      "passed": true,
+      "active_probes": 7
+    },
+    "4_invalid_range_sanitization": {
+      "passed": true,
+      "active_probes": 7
+    },
+    "5_history_buffering_dedup": {
+      "passed": true,
+      "buffer_length": 3
+    },
+    "6_cold_start_status": {
+      "passed": true,
+      "status": "COLD_START"
+    },
+    "7_warmed_feature_generation": {
+      "passed": true,
+      "status": "WARMED"
+    },
+    "8_feature_order_alignment": {
+      "passed": true
+    },
+    "9_prediction_generation": {
+      "passed": true,
+      "prob": 0.0002974444651044905,
+      "risk_level": "SAFE"
+    },
+    "10_shap_explanation": {
+      "passed": true,
+      "features_whitelisted": true,
+      "directional_signs_valid": true,
+      "additivity_delta": 1.9073486328125e-06,
+      "prob_consistency_delta": 5.810871037820187e-10,
+      "inc_count": 5,
+      "dec_count": 5
+    },
+    "11_end_to_end_gateway": {
+      "passed": true
+    },
+    "12_latency_profiling": {
+      "passed": true,
+      "total_pipeline_ms": 33.73919997829944,
+      "validation_ms": 0.053799943998456,
+      "history_buffer_ms": 0.024099950678646564,
+      "feature_engineering_ms": 20.80320008099079,
+      "inference_and_shap_ms": 12.574599939398468,
+      "latency_target_ms": 500.0,
+      "latency_target_met": true
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "dataset_name": "FrostLink_Physics_Informed_Stratified_Synthetic_Fleet_v2",
+  "generated_at": "2026-08-23T04:20:00Z",
+  "random_seed": 42,
+  "sampling_interval_minutes": 10.0,
+  "shipment_duration_hours": 48.0,
+  "total_shipments": 260,
+  "total_observations": 74880,
+  "split_counts": {
+    "train_shipments": 182,
+    "train_rows": 52416,
+    "validation_shipments": 39,
+    "validation_rows": 11232,
+    "test_shipments": 39,
+    "test_rows": 11232
+  },
+  "scenario_allocation": {
+    "NORMAL": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "HIGH_AMBIENT_HEALTHY_COOLING": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "HIGH_AMBIENT_DEGRADED_COOLING": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "SHORT_DOOR_OPENING": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "LONG_DOOR_OPENING": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "DOOR_PLUS_WEAK_COOLING": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "HEAVY_TRAFFIC_HEALTHY_COOLING": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "HEAVY_TRAFFIC_WEAK_COOLING": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "COOLING_DEGRADATION": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "COOLING_FAILURE": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "AMBIENT_SPIKE": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "SENSOR_NOISE": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    },
+    "SENSOR_DROPOUT": {
+      "train": 14,
+      "val": 3,
+      "test": 3
+    }
+  },
+  "early_warning_cohort": {
+    "total_cohort_rows": 66474,
+    "positive_excursion_transitions": 643,
+    "negative_safe_rows": 65831,
+    "base_excursion_rate": 0.0097
+  },
+  "temperature_statistics_celsius": {
+    "probe_min": 0.275,
+    "probe_mean": 3.093,
+    "probe_median": 2.274,
+    "probe_max": 22.818,
+    "ambient_min": 16.45,
+    "ambient_mean": 25.63,
+    "ambient_max": 41.94
+  }
+}

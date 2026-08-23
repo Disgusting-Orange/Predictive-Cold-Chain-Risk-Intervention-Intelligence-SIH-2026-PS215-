@@ -1,0 +1,76 @@
+{
+  "random_seed": 42,
+  "n_shipments": 100,
+  "shipment_duration_hours": 48,
+  "sampling_interval_min": 10,
+  "scenario_distribution": {
+    "SCENARIO_1_NORMAL": 0.15,
+    "SCENARIO_2_HOT_AMBIENT_HEALTHY": 0.1,
+    "SCENARIO_3_TRAFFIC_HEALTHY": 0.1,
+    "SCENARIO_4_DOOR_OPENING": 0.1,
+    "SCENARIO_5_COMPRESSOR_DEGRADATION": 0.08,
+    "SCENARIO_6_COMPRESSOR_FAILURE": 0.08,
+    "SCENARIO_7_POWER_INTERRUPTION": 0.07,
+    "SCENARIO_8_DOOR_HOT_AMBIENT": 0.08,
+    "SCENARIO_9_TRAFFIC_HOT_HEALTHY": 0.08,
+    "SCENARIO_10_TRAFFIC_HOT_DEGRADED": 0.06,
+    "SCENARIO_11_RECOVERY": 0.05,
+    "SCENARIO_12_COMBINED_FAILURE": 0.05
+  },
+  "scenario_counts": {
+    "SCENARIO_1_NORMAL": 19,
+    "SCENARIO_3_TRAFFIC_HEALTHY": 12,
+    "SCENARIO_9_TRAFFIC_HOT_HEALTHY": 11,
+    "SCENARIO_2_HOT_AMBIENT_HEALTHY": 10,
+    "SCENARIO_4_DOOR_OPENING": 8,
+    "SCENARIO_6_COMPRESSOR_FAILURE": 8,
+    "SCENARIO_5_COMPRESSOR_DEGRADATION": 8,
+    "SCENARIO_8_DOOR_HOT_AMBIENT": 7,
+    "SCENARIO_12_COMBINED_FAILURE": 5,
+    "SCENARIO_10_TRAFFIC_HOT_DEGRADED": 4,
+    "SCENARIO_7_POWER_INTERRUPTION": 4,
+    "SCENARIO_11_RECOVERY": 4
+  },
+  "thermal_parameters": {
+    "setpoint_temp": 2.0,
+    "k_ambient": 0.0012,
+    "k_door": 0.015,
+    "k_traffic": 0.001,
+    "max_cooling_rate": 0.08,
+    "ambient_normal_range": [
+      18.0,
+      28.0
+    ],
+    "ambient_hot_range": [
+      32.0,
+      42.0
+    ],
+    "battery_voltage_healthy": [
+      12.4,
+      13.8
+    ],
+    "battery_voltage_fault": [
+      9.5,
+      11.2
+    ],
+    "current_active_cooling": [
+      12.0,
+      18.0
+    ],
+    "current_idle": [
+      0.5,
+      1.5
+    ]
+  },
+  "noise_parameters": {
+    "temp_noise_std": 0.15,
+    "ambient_noise_std": 0.3,
+    "humidity_noise_std": 1.0,
+    "voltage_noise_std": 0.05,
+    "current_noise_std": 0.2,
+    "gps_dropout_prob": 0.02,
+    "door_sensor_dropout_prob": 0.01,
+    "compressor_telemetry_dropout_prob": 0.01
+  },
+  "output_combined_file": "ml_pipeline/synthetic/data\\synthetic_fleet_100.csv"
+}

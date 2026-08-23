@@ -1,0 +1,402 @@
+{
+  "aligned_features": [
+    "feat_T_current",
+    "feat_W60_mean",
+    "feat_W60_min",
+    "feat_W60_max",
+    "feat_W60_std",
+    "feat_W60_range",
+    "feat_W60_delta",
+    "feat_W60_slope",
+    "feat_10m_delta",
+    "feat_10m_slope",
+    "feat_accel"
+  ],
+  "models_comparison": {
+    "Model_A_Real_Only": {
+      "name": "Model A: Real Only (Ratio 0.0x)",
+      "synth_ratio": 0.0,
+      "thresholds": {
+        "S1": 0.4,
+        "S2": 0.375,
+        "S3": 0.24,
+        "S4": 0.2,
+        "S5": 0.21500000000000002,
+        "S6": 0.28
+      },
+      "mean_threshold": 0.28500000000000003,
+      "metrics": {
+        "pr_auc": 0.1244229677156267,
+        "roc_auc": 0.6150917582338867,
+        "precision": 0.226890756302521,
+        "recall": 0.23275862068965517,
+        "f1": 0.2297872340425532,
+        "fpr": 0.03822185292895721,
+        "specificity": 0.9617781470710428,
+        "accuracy": 0.928260007927071,
+        "tp": 27,
+        "fp": 92,
+        "fn": 89,
+        "tn": 2315
+      },
+      "alert_burden": {
+        "total_alerts": 119,
+        "false_alerts": 92,
+        "fa_per_shipment": 15.333333333333334,
+        "fa_per_1000": 36.4645263575109
+      },
+      "event_metrics": {
+        "total_events": 21,
+        "detected_events": 11,
+        "missed_events": 10,
+        "detection_rate": 52.38095238095239,
+        "mean_lead": 30.90909090909091,
+        "median_lead": 30.0,
+        "min_lead": 10.0,
+        "max_lead": 60.0,
+        "pct_ge_10": 100.0,
+        "pct_ge_20": 81.81818181818183,
+        "pct_ge_30": 63.63636363636363,
+        "pct_ge_45": 9.090909090909092
+      },
+      "feature_importances": {
+        "feat_T_current": 0.07156573235988617,
+        "feat_W60_mean": 0.10103447735309601,
+        "feat_W60_min": 0.09541478008031845,
+        "feat_W60_max": 0.09771116077899933,
+        "feat_W60_std": 0.06876878440380096,
+        "feat_W60_range": 0.11596116423606873,
+        "feat_W60_delta": 0.07957419008016586,
+        "feat_W60_slope": 0.19132567942142487,
+        "feat_10m_delta": 0.0661800280213356,
+        "feat_10m_slope": 0.06612634658813477,
+        "feat_accel": 0.04633760079741478
+      }
+    },
+    "Model_C_Hybrid_025": {
+      "name": "Model C: Hybrid (0.25x Synthetic)",
+      "synth_ratio": 0.25,
+      "thresholds": {
+        "S1": 0.195,
+        "S2": 0.175,
+        "S3": 0.175,
+        "S4": 0.13,
+        "S5": 0.14500000000000002,
+        "S6": 0.2
+      },
+      "mean_threshold": 0.17,
+      "metrics": {
+        "pr_auc": 0.10384276409557638,
+        "roc_auc": 0.5945124135065828,
+        "precision": 0.13302752293577982,
+        "recall": 0.25,
+        "f1": 0.17365269461077845,
+        "fpr": 0.0785209804736186,
+        "specificity": 0.9214790195263813,
+        "accuracy": 0.8906064209274673,
+        "tp": 29,
+        "fp": 189,
+        "fn": 87,
+        "tn": 2218
+      },
+      "alert_burden": {
+        "total_alerts": 218,
+        "false_alerts": 189,
+        "fa_per_shipment": 31.5,
+        "fa_per_1000": 74.91082045184304
+      },
+      "event_metrics": {
+        "total_events": 21,
+        "detected_events": 10,
+        "missed_events": 11,
+        "detection_rate": 47.61904761904761,
+        "mean_lead": 43.0,
+        "median_lead": 45.0,
+        "min_lead": 20.0,
+        "max_lead": 60.0,
+        "pct_ge_10": 100.0,
+        "pct_ge_20": 100.0,
+        "pct_ge_30": 80.0,
+        "pct_ge_45": 50.0
+      },
+      "feature_importances": {
+        "feat_T_current": 0.09551984816789627,
+        "feat_W60_mean": 0.09382162988185883,
+        "feat_W60_min": 0.09509597718715668,
+        "feat_W60_max": 0.10292501747608185,
+        "feat_W60_std": 0.06143129616975784,
+        "feat_W60_range": 0.10539408028125763,
+        "feat_W60_delta": 0.1000889465212822,
+        "feat_W60_slope": 0.13481535017490387,
+        "feat_10m_delta": 0.06893369555473328,
+        "feat_10m_slope": 0.06791207194328308,
+        "feat_accel": 0.07406213879585266
+      }
+    },
+    "Model_C_Hybrid_050": {
+      "name": "Model C: Hybrid (0.50x Synthetic)",
+      "synth_ratio": 0.5,
+      "thresholds": {
+        "S1": 0.235,
+        "S2": 0.28,
+        "S3": 0.2,
+        "S4": 0.14500000000000002,
+        "S5": 0.125,
+        "S6": 0.245
+      },
+      "mean_threshold": 0.205,
+      "metrics": {
+        "pr_auc": 0.1011816825342289,
+        "roc_auc": 0.5895287451828718,
+        "precision": 0.13218390804597702,
+        "recall": 0.19827586206896552,
+        "f1": 0.15862068965517243,
+        "fpr": 0.06273369339426672,
+        "specificity": 0.9372663066057333,
+        "accuracy": 0.9032897344431232,
+        "tp": 23,
+        "fp": 151,
+        "fn": 93,
+        "tn": 2256
+      },
+      "alert_burden": {
+        "total_alerts": 174,
+        "false_alerts": 151,
+        "fa_per_shipment": 25.166666666666668,
+        "fa_per_1000": 59.84938565200158
+      },
+      "event_metrics": {
+        "total_events": 21,
+        "detected_events": 8,
+        "missed_events": 13,
+        "detection_rate": 38.095238095238095,
+        "mean_lead": 40.0,
+        "median_lead": 35.0,
+        "min_lead": 20.0,
+        "max_lead": 60.0,
+        "pct_ge_10": 100.0,
+        "pct_ge_20": 100.0,
+        "pct_ge_30": 87.5,
+        "pct_ge_45": 37.5
+      },
+      "feature_importances": {
+        "feat_T_current": 0.10224198549985886,
+        "feat_W60_mean": 0.08538491278886795,
+        "feat_W60_min": 0.09432939440011978,
+        "feat_W60_max": 0.10983634740114212,
+        "feat_W60_std": 0.07641445100307465,
+        "feat_W60_range": 0.09982544928789139,
+        "feat_W60_delta": 0.08625421673059464,
+        "feat_W60_slope": 0.1506045162677765,
+        "feat_10m_delta": 0.07228493690490723,
+        "feat_10m_slope": 0.05595017224550247,
+        "feat_accel": 0.06687367707490921
+      }
+    },
+    "Model_C_Hybrid_100": {
+      "name": "Model C: Hybrid (1.00x Synthetic)",
+      "synth_ratio": 1.0,
+      "thresholds": {
+        "S1": 0.245,
+        "S2": 0.2,
+        "S3": 0.21500000000000002,
+        "S4": 0.245,
+        "S5": 0.08,
+        "S6": 0.14
+      },
+      "mean_threshold": 0.1875,
+      "metrics": {
+        "pr_auc": 0.10937731091385547,
+        "roc_auc": 0.5890112172829248,
+        "precision": 0.14516129032258066,
+        "recall": 0.23275862068965517,
+        "f1": 0.17880794701986755,
+        "fpr": 0.06605733277939344,
+        "specificity": 0.9339426672206066,
+        "accuracy": 0.9017043202536663,
+        "tp": 27,
+        "fp": 159,
+        "fn": 89,
+        "tn": 2248
+      },
+      "alert_burden": {
+        "total_alerts": 186,
+        "false_alerts": 159,
+        "fa_per_shipment": 26.5,
+        "fa_per_1000": 63.02021403091558
+      },
+      "event_metrics": {
+        "total_events": 21,
+        "detected_events": 9,
+        "missed_events": 12,
+        "detection_rate": 42.857142857142854,
+        "mean_lead": 37.77777777777778,
+        "median_lead": 40.0,
+        "min_lead": 10.0,
+        "max_lead": 60.0,
+        "pct_ge_10": 100.0,
+        "pct_ge_20": 88.88888888888889,
+        "pct_ge_30": 77.77777777777779,
+        "pct_ge_45": 33.33333333333333
+      },
+      "feature_importances": {
+        "feat_T_current": 0.1211053729057312,
+        "feat_W60_mean": 0.07223396748304367,
+        "feat_W60_min": 0.08199073374271393,
+        "feat_W60_max": 0.11532806605100632,
+        "feat_W60_std": 0.08004240691661835,
+        "feat_W60_range": 0.11886698007583618,
+        "feat_W60_delta": 0.09036417305469513,
+        "feat_W60_slope": 0.11049243062734604,
+        "feat_10m_delta": 0.07266835868358612,
+        "feat_10m_slope": 0.0705273449420929,
+        "feat_accel": 0.06638023257255554
+      }
+    },
+    "Model_C_Hybrid_200": {
+      "name": "Model C: Hybrid (2.00x Synthetic)",
+      "synth_ratio": 2.0,
+      "thresholds": {
+        "S1": 0.25,
+        "S2": 0.19,
+        "S3": 0.185,
+        "S4": 0.085,
+        "S5": 0.175,
+        "S6": 0.22500000000000003
+      },
+      "mean_threshold": 0.18500000000000003,
+      "metrics": {
+        "pr_auc": 0.1072034309640138,
+        "roc_auc": 0.6039568499921206,
+        "precision": 0.11734693877551021,
+        "recall": 0.19827586206896552,
+        "f1": 0.14743589743589744,
+        "fpr": 0.07187370170336518,
+        "specificity": 0.9281262982966348,
+        "accuracy": 0.8945699564011098,
+        "tp": 23,
+        "fp": 173,
+        "fn": 93,
+        "tn": 2234
+      },
+      "alert_burden": {
+        "total_alerts": 196,
+        "false_alerts": 173,
+        "fa_per_shipment": 28.833333333333332,
+        "fa_per_1000": 68.56916369401506
+      },
+      "event_metrics": {
+        "total_events": 21,
+        "detected_events": 10,
+        "missed_events": 11,
+        "detection_rate": 47.61904761904761,
+        "mean_lead": 34.0,
+        "median_lead": 30.0,
+        "min_lead": 10.0,
+        "max_lead": 60.0,
+        "pct_ge_10": 100.0,
+        "pct_ge_20": 90.0,
+        "pct_ge_30": 80.0,
+        "pct_ge_45": 20.0
+      },
+      "feature_importances": {
+        "feat_T_current": 0.1898139864206314,
+        "feat_W60_mean": 0.07457025349140167,
+        "feat_W60_min": 0.08646940439939499,
+        "feat_W60_max": 0.11498956382274628,
+        "feat_W60_std": 0.06992962211370468,
+        "feat_W60_range": 0.09717513620853424,
+        "feat_W60_delta": 0.08686080574989319,
+        "feat_W60_slope": 0.09708327054977417,
+        "feat_10m_delta": 0.06717921048402786,
+        "feat_10m_slope": 0.056943945586681366,
+        "feat_accel": 0.05898470804095268
+      }
+    },
+    "Model_B_Synth_Only": {
+      "name": "Model B: Synthetic Only (Trained on 100% Synth, Tested on Real)",
+      "synth_ratio": "only",
+      "thresholds": {
+        "S1": 0.05,
+        "S2": 0.05,
+        "S3": 0.065,
+        "S4": 0.05,
+        "S5": 0.05,
+        "S6": 0.05
+      },
+      "mean_threshold": 0.0525,
+      "metrics": {
+        "pr_auc": 0.11650717806965256,
+        "roc_auc": 0.6616871767689068,
+        "precision": 0.10204081632653061,
+        "recall": 0.04310344827586207,
+        "f1": 0.06060606060606061,
+        "fpr": 0.018280016618196927,
+        "specificity": 0.9817199833818031,
+        "accuracy": 0.9385652001585414,
+        "tp": 5,
+        "fp": 44,
+        "fn": 111,
+        "tn": 2363
+      },
+      "alert_burden": {
+        "total_alerts": 49,
+        "false_alerts": 44,
+        "fa_per_shipment": 7.333333333333333,
+        "fa_per_1000": 17.43955608402695
+      },
+      "event_metrics": {
+        "total_events": 21,
+        "detected_events": 4,
+        "missed_events": 17,
+        "detection_rate": 19.047619047619047,
+        "mean_lead": 25.0,
+        "median_lead": 15.0,
+        "min_lead": 10.0,
+        "max_lead": 60.0,
+        "pct_ge_10": 100.0,
+        "pct_ge_20": 50.0,
+        "pct_ge_30": 25.0,
+        "pct_ge_45": 25.0
+      },
+      "feature_importances": {
+        "feat_T_current": 0.1708950400352478,
+        "feat_W60_mean": 0.110639788210392,
+        "feat_W60_min": 0.040242139250040054,
+        "feat_W60_max": 0.21087075769901276,
+        "feat_W60_std": 0.030233481898903847,
+        "feat_W60_range": 0.03253176435828209,
+        "feat_W60_delta": 0.05150695890188217,
+        "feat_W60_slope": 0.27802765369415283,
+        "feat_10m_delta": 0.022339239716529846,
+        "feat_10m_slope": 0.026685982942581177,
+        "feat_accel": 0.026027219370007515
+      }
+    }
+  },
+  "scenario_held_out_generalization": {
+    "train_scenarios": [
+      "SCENARIO_1_NORMAL",
+      "SCENARIO_2_HOT_AMBIENT_HEALTHY",
+      "SCENARIO_3_TRAFFIC_HEALTHY",
+      "SCENARIO_4_DOOR_OPENING",
+      "SCENARIO_5_COMPRESSOR_DEGRADATION",
+      "SCENARIO_6_COMPRESSOR_FAILURE",
+      "SCENARIO_7_POWER_INTERRUPTION"
+    ],
+    "test_scenarios": [
+      "SCENARIO_8_DOOR_HOT_AMBIENT",
+      "SCENARIO_9_TRAFFIC_HOT_HEALTHY",
+      "SCENARIO_10_TRAFFIC_HOT_DEGRADED",
+      "SCENARIO_11_RECOVERY",
+      "SCENARIO_12_COMBINED_FAILURE"
+    ],
+    "n_train_rows": 16960,
+    "n_test_rows": 5674,
+    "pr_auc": 0.20601982306454958,
+    "roc_auc": 0.9026797503300924,
+    "precision": 0.4838709677419355,
+    "recall": 0.125,
+    "f1": 0.1986754966887417
+  }
+}

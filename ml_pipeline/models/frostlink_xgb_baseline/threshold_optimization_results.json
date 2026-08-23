@@ -1,0 +1,194 @@
+{
+  "Strategy_F1_Max": {
+    "name": "1. Inner F1-Maximizing Threshold",
+    "thresholds": {
+      "S1": 0.495,
+      "S2": 0.335,
+      "S3": 0.8300000000000001,
+      "S4": 0.36000000000000004,
+      "S5": 0.38,
+      "S6": 0.365
+    },
+    "th_stats": {
+      "mean": 0.46083333333333326,
+      "median": 0.3725,
+      "min": 0.335,
+      "max": 0.8300000000000001,
+      "std": 0.17280568727780796
+    },
+    "row_metrics": {
+      "precision": 0.453125,
+      "recall": 0.25,
+      "f1": 0.32222222222222224,
+      "accuracy": 0.9516448672215616,
+      "fpr": 0.014540922309929373,
+      "specificity": 0.9854590776900706,
+      "tp": 29,
+      "fp": 35,
+      "fn": 87,
+      "tn": 2372
+    },
+    "alert_burden": {
+      "total_alerts": 64,
+      "false_alerts": 35,
+      "fa_per_1000": 13.87237415774871,
+      "fa_per_shipment": 5.833333333333333
+    },
+    "event_metrics": {
+      "total_events": 21,
+      "detected_events": 13,
+      "missed_events": 8,
+      "detection_rate": 61.904761904761905,
+      "mean_lead": 23.076923076923077,
+      "median_lead": 20.0,
+      "pct_ge_10": 100.0,
+      "pct_ge_20": 84.61538461538461,
+      "pct_ge_30": 30.76923076923077,
+      "pct_ge_45": 0.0
+    }
+  },
+  "Strategy_High_Prec": {
+    "name": "2. High-Precision Threshold (Inner Train Precision >= 50%)",
+    "thresholds": {
+      "S1": 0.605,
+      "S2": 0.675,
+      "S3": 0.925,
+      "S4": 0.745,
+      "S5": 0.92,
+      "S6": 0.6
+    },
+    "th_stats": {
+      "mean": 0.745,
+      "median": 0.71,
+      "min": 0.6,
+      "max": 0.925,
+      "std": 0.13450526631573453
+    },
+    "row_metrics": {
+      "precision": 0.6086956521739131,
+      "recall": 0.1206896551724138,
+      "f1": 0.2014388489208633,
+      "accuracy": 0.9560047562425684,
+      "fpr": 0.003739094308267553,
+      "specificity": 0.9962609056917324,
+      "tp": 14,
+      "fp": 9,
+      "fn": 102,
+      "tn": 2398
+    },
+    "alert_burden": {
+      "total_alerts": 23,
+      "false_alerts": 9,
+      "fa_per_1000": 3.5671819262782405,
+      "fa_per_shipment": 1.5
+    },
+    "event_metrics": {
+      "total_events": 21,
+      "detected_events": 7,
+      "missed_events": 14,
+      "detection_rate": 33.33333333333333,
+      "mean_lead": 21.428571428571427,
+      "median_lead": 20.0,
+      "pct_ge_10": 100.0,
+      "pct_ge_20": 85.71428571428571,
+      "pct_ge_30": 14.285714285714285,
+      "pct_ge_45": 0.0
+    }
+  },
+  "Strategy_Low_FPR": {
+    "name": "3. Low False-Alarm Threshold (Inner Train FPR <= 1.0%)",
+    "thresholds": {
+      "S1": 0.64,
+      "S2": 0.625,
+      "S3": 0.86,
+      "S4": 0.745,
+      "S5": 0.765,
+      "S6": 0.78
+    },
+    "th_stats": {
+      "mean": 0.7358333333333333,
+      "median": 0.755,
+      "min": 0.625,
+      "max": 0.86,
+      "std": 0.0814154298780165
+    },
+    "row_metrics": {
+      "precision": 0.5384615384615384,
+      "recall": 0.1206896551724138,
+      "f1": 0.19718309859154928,
+      "accuracy": 0.9548156956004756,
+      "fpr": 0.004985459077690071,
+      "specificity": 0.9950145409223099,
+      "tp": 14,
+      "fp": 12,
+      "fn": 102,
+      "tn": 2395
+    },
+    "alert_burden": {
+      "total_alerts": 26,
+      "false_alerts": 12,
+      "fa_per_1000": 4.756242568370986,
+      "fa_per_shipment": 2.0
+    },
+    "event_metrics": {
+      "total_events": 21,
+      "detected_events": 8,
+      "missed_events": 13,
+      "detection_rate": 38.095238095238095,
+      "mean_lead": 18.75,
+      "median_lead": 20.0,
+      "pct_ge_10": 100.0,
+      "pct_ge_20": 87.5,
+      "pct_ge_30": 0.0,
+      "pct_ge_45": 0.0
+    }
+  },
+  "Strategy_Baseline_05": {
+    "name": "4. Hardcoded Default 0.50 (Benchmark)",
+    "thresholds": {
+      "S1": 0.5,
+      "S2": 0.5,
+      "S3": 0.5,
+      "S4": 0.5,
+      "S5": 0.5,
+      "S6": 0.5
+    },
+    "th_stats": {
+      "mean": 0.5,
+      "median": 0.5,
+      "min": 0.5,
+      "max": 0.5,
+      "std": 0.0
+    },
+    "row_metrics": {
+      "precision": 0.36486486486486486,
+      "recall": 0.23275862068965517,
+      "f1": 0.28421052631578947,
+      "accuracy": 0.9460959175584621,
+      "fpr": 0.019526381387619442,
+      "specificity": 0.9804736186123806,
+      "tp": 27,
+      "fp": 47,
+      "fn": 89,
+      "tn": 2360
+    },
+    "alert_burden": {
+      "total_alerts": 74,
+      "false_alerts": 47,
+      "fa_per_1000": 18.6286167261197,
+      "fa_per_shipment": 7.833333333333333
+    },
+    "event_metrics": {
+      "total_events": 21,
+      "detected_events": 13,
+      "missed_events": 8,
+      "detection_rate": 61.904761904761905,
+      "mean_lead": 23.846153846153847,
+      "median_lead": 20.0,
+      "pct_ge_10": 100.0,
+      "pct_ge_20": 100.0,
+      "pct_ge_30": 15.384615384615385,
+      "pct_ge_45": 7.6923076923076925
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "package_name": "frostlink_xgb_v1",
+  "package_version": "1.0.0",
+  "generated_at": "2026-08-23T03:10:00Z",
+  "files": {
+    "model.json": {
+      "sha256": "74051105cbb8bc1ac0567b4d6d285eeced2e53e5bdd469b8d764f6fde283d2b3",
+      "size_bytes": 181410
+    },
+    "feature_schema.json": {
+      "sha256": "cb1fe48a7b292344e4a79d34122c08e30adfa6607f6fb13ee6d947878fc7ca49",
+      "size_bytes": 12587
+    },
+    "threshold.json": {
+      "sha256": "c4153f8594c353a5574a98c97dc013943cefba037d189fc875e73b12eefbf720",
+      "size_bytes": 1528
+    },
+    "model_metadata.json": {
+      "sha256": "e7bcdcd5602c4ddd9d1344d1fac9e0a3c4393ae797ed27b5bd66fac75dd370ed",
+      "size_bytes": 2726
+    },
+    "backend_contract.json": {
+      "sha256": "af9076f1714ee01388a7bbadce81aa8b1a0bfcbf04496b6ea658cef9484198df",
+      "size_bytes": 4450
+    }
+  }
+}

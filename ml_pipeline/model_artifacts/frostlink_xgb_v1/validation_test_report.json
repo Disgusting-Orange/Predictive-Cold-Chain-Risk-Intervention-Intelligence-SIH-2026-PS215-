@@ -1,0 +1,75 @@
+{
+  "all_tests_passed": true,
+  "tests_passed_count": 8,
+  "total_tests": 8,
+  "results": {
+    "1_artifact_loading": {
+      "passed": true,
+      "files_checked": [
+        "model.json",
+        "feature_schema.json",
+        "threshold.json",
+        "model_metadata.json",
+        "backend_contract.json",
+        "model_manifest.json"
+      ]
+    },
+    "2_prediction_equivalence": {
+      "passed": true,
+      "max_delta": 0.0
+    },
+    "3_feature_ordering": {
+      "passed": true,
+      "feature_count": 40
+    },
+    "4_threshold_loading": {
+      "passed": true,
+      "operating_threshold": 0.46083333333333326,
+      "sample_alert": true
+    },
+    "5_probability_bounds": {
+      "passed": true,
+      "min_prob": 0.0003032068780157715,
+      "max_prob": 0.9803903698921204
+    },
+    "6_shap_compatibility": {
+      "passed": true,
+      "shap_dimensions": 40,
+      "additivity_error": 1.0728836059570312e-06
+    },
+    "7_invalid_input_handling": {
+      "passed": true,
+      "nan_prob": 0.8161209225654602
+    },
+    "8_manifest_integrity": {
+      "passed": true,
+      "files_audited": {
+        "model.json": {
+          "recorded": "74051105cbb8",
+          "computed": "74051105cbb8",
+          "match": true
+        },
+        "feature_schema.json": {
+          "recorded": "cb1fe48a7b29",
+          "computed": "cb1fe48a7b29",
+          "match": true
+        },
+        "threshold.json": {
+          "recorded": "c4153f8594c3",
+          "computed": "c4153f8594c3",
+          "match": true
+        },
+        "model_metadata.json": {
+          "recorded": "e7bcdcd5602c",
+          "computed": "e7bcdcd5602c",
+          "match": true
+        },
+        "backend_contract.json": {
+          "recorded": "af9076f1714e",
+          "computed": "af9076f1714e",
+          "match": true
+        }
+      }
+    }
+  }
+}

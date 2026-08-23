@@ -1,0 +1,39 @@
+{
+  "threshold_artifact_version": "1.0.0",
+  "default_operating_strategy": "Strategy_F1_Max",
+  "operating_threshold": 0.46083333333333326,
+  "operating_threshold_median": 0.3725,
+  "validation_method": "Nested 6-Fold Leave-One-Shipment-Out (LOSO) Cross-Validation",
+  "supported_strategies": {
+    "F1_MAX": {
+      "name": "Nested F1-Maximizing Threshold",
+      "threshold_mean": 0.46083333333333326,
+      "threshold_median": 0.3725,
+      "expected_precision": 0.453125,
+      "expected_recall": 0.25,
+      "expected_fpr": 0.014540922309929373,
+      "expected_event_detection": 61.904761904761905,
+      "expected_median_lead_time_min": 20.0
+    },
+    "HIGH_PRECISION": {
+      "name": "High-Precision Operational Threshold (Inner Train Precision >= 50%)",
+      "threshold_mean": 0.745,
+      "threshold_median": 0.71,
+      "expected_precision": 0.6086956521739131,
+      "expected_recall": 0.1206896551724138,
+      "expected_fpr": 0.003739094308267553,
+      "expected_event_detection": 33.33333333333333,
+      "expected_median_lead_time_min": 20.0
+    },
+    "LOW_FPR": {
+      "name": "Low False-Alert Operational Threshold (Inner Train FPR <= 1.0%)",
+      "threshold_mean": 0.7358333333333333,
+      "threshold_median": 0.755,
+      "expected_precision": 0.5384615384615384,
+      "expected_recall": 0.1206896551724138,
+      "expected_fpr": 0.004985459077690071,
+      "expected_event_detection": 38.095238095238095,
+      "expected_median_lead_time_min": 20.0
+    }
+  }
+}
