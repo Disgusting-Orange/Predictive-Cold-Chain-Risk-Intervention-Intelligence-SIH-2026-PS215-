@@ -1,69 +1,189 @@
-# AI Cold Chain Optimisation Platform
-
-SIH 2026 Prototype — Problem Statement #215 (Cold Chain)
-
-Working prototype for an AI-powered cold-chain intelligence platform: shipment monitoring, risk views, and role-based workspaces.
-
-## Tech Stack
-- **Frontend**: React, Vite, TypeScript, Tailwind CSS
-- **Backend**: Python, FastAPI, WebSocket
-- **Data**: SQLite by default (PostgreSQL optional)
-
-## Prerequisites
-- Node.js (v18+)
-- Python (3.10+)
-- pnpm
-
-## Running the Prototype
-
-Backend and frontend run as separate processes and are wired through the Vite `/api` and `/ws` proxy in development.
-
-### 1. Start the Backend
-```bash
-cd backend
-python -m venv .venv
-# Windows: .\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-```
-API docs: http://localhost:8000/docs  
-Health: http://localhost:8000/health
-
-### 2. Start the Frontend
-From the **repo root** (not the `frontend/` folder):
-```bash
-pnpm install
-pnpm dev
-```
-Open http://localhost:3000
 # Cold Chain AI
 
-## Integrated deployment
+SIH 2026, Problem Statement 215
 
-The repository now uses the modular FastAPI backend in `backend/` and the Vite frontend in `frontend/`. The AI/ML service and FrostLink model contract from the `aiml` branch live under `ml_pipeline/` and can be enabled by the backend service layer without exposing model files to the browser.
+Cold Chain AI monitors temperature-sensitive shipments, estimates spoilage risk, and gives operations teams an action path before cargo is lost.
 
-### Local development
+## Current release status
+
+| Area | Status | Notes |
+|---|---|---|
+| Frontend | Deployed | React, Vite, TypeScript, Tailwind CSS on Vercel |
+| Backend | Deployed | FastAPI Python function on Vercel |
+| Database | Connected | Supabase PostgreSQL through the transaction pooler |
+| Authentication | Working | JWT login with Admin, Field Agent, and Client roles |
+| Telemetry ingestion | Working | ESP32 or simulator can send JSON over HTTP |
+| Risk scoring | Working | Deterministic temperature, trend, delay, door, and speed scorer |
+| FrostLink XGBoost model | Packaged, not active in the main API | It requires a 40-feature engineered input vector and a separate runtime bridge |
+| WebSocket telemetry | Available in the FastAPI code | Vercel is not the recommended runtime for persistent WebSocket connections |
+
+The production API currently returns risk scores and explanation factors from `backend/app/services/risk_service.py`. The XGBoost model package under `ml_pipeline/model_artifacts/` is not yet called by the main telemetry endpoint.
+
+## Repository layout
+
+| Path | Purpose |
+|---|---|
+| `frontend/` | React user interface and role workspaces |
+| `backend/app/` | FastAPI application, authentication, database models, routes, and services |
+| `backend/app/services/risk_service.py` | Current production heuristic risk scorer |
+| `ml_pipeline/service/` | Isolated FrostLink XGBoost and SHAP inference service |
+| `ml_pipeline/model_artifacts/frostlink_xgb_v2/` | Frozen model, feature schema, threshold, and integrity manifest |
+| `api/index.py` | Vercel entrypoint for FastAPI |
+| `docs/ESP32_INTEGRATION.md` | Hardware setup and telemetry contract |
+| `docs/PITCH_5_MINUTES.md` | Five minute presentation script |
+| `vercel.json` | Frontend build, Python function, and API routing configuration |
+
+## Local setup
+
+### Requirements
+
+| Tool | Recommended version |
+|---|---|
+| Node.js | 18 or newer |
+| npm or pnpm | Current stable version |
+| Python | 3.12 or newer |
+| PostgreSQL | Supabase project or local PostgreSQL |
+
+### Start the backend
 
 ```bash
 cd backend
+python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+cp .env.example .env
 PYTHONPATH=. uvicorn app.main:app --reload --port 8000
 ```
 
-In another terminal:
+Backend URLs:
+
+| URL | Purpose |
+|---|---|
+| `http://localhost:8000/health` | Health check |
+| `http://localhost:8000/docs` | Interactive API documentation |
+| `http://localhost:8000/api/health` | API health check |
+| `ws://localhost:8000/ws` | Local telemetry WebSocket |
+
+### Start the frontend
+
+From the repository root:
 
 ```bash
 npm install
 npm run dev
 ```
 
-The Vite proxy sends `/api` and `/ws` to `http://127.0.0.1:8000` by default.
+Vite proxies `/api` and `/ws` to `http://127.0.0.1:8000`. For a separate backend host, set:
 
-### Production environment
+```text
+VITE_API_URL=https://your-backend-host.example.com
+VITE_WS_URL=wss://your-backend-host.example.com/ws
+```
 
-Set `DATABASE_URL`, `JWT_SECRET`, and `CORS_ORIGINS` on the FastAPI host. Set `VITE_API_URL` and `VITE_WS_URL` in Vercel to the public backend HTTP and WebSocket URLs. Never put `DATABASE_URL`, the Postgres password, or a service-role key in frontend variables.
+## Production deployment
 
-Vercel is configured for the static Vite frontend through `vercel.json`. Deploy the FastAPI service on a persistent Python host (Render, Railway, Fly.io, or equivalent) so `/ws` and the demo telemetry loop remain available. Vercel serverless functions are not a compatible replacement for that WebSocket service.
+The Vercel project is named `cold-chain-ai-ps215`. The project contains the Vite frontend and the FastAPI HTTP function.
 
-The Supabase password included in the project handoff was exposed in chat and must be rotated before production deployment. Store the replacement only in the backend host's secret manager.
+| Setting | Value |
+|---|---|
+| Build command | `npm run build` |
+| Frontend output | `dist/public` |
+| FastAPI entrypoint | `api/index.py` |
+| API route | `/api/*` |
+| Database | Supabase PostgreSQL transaction pooler |
+| Live socket recommendation | Deploy a persistent FastAPI host if continuous WebSocket telemetry is required |
+
+Set these values in the Vercel project environment. Do not commit any value.
+
+| Variable | Used by | Required |
+|---|---|---|
+| `DATABASE_URL` | FastAPI database connection | Yes |
+| `JWT_SECRET` | JWT signing and verification | Yes |
+| `CORS_ORIGINS` | Browser origin allowlist | Yes |
+| `VERCEL` | Disables the local background demo loop in serverless execution | Yes |
+| `VITE_API_URL` | Optional separate API host | No, leave empty for same-domain API |
+| `VITE_WS_URL` | Optional persistent WebSocket host | No |
+
+The Supabase password supplied during setup was exposed in chat. Rotate it in Supabase and replace the Vercel `DATABASE_URL` secret before treating the deployment as production-ready.
+
+## Authentication
+
+The login screen includes demo buttons for the following seeded accounts.
+
+| Role | Email | Password | Default workspace |
+|---|---|---|---|
+| Admin / Ops | `admin@coldchain.ai` | `admin123` | `/dashboard/admin` |
+| Field Agent | `driver@coldchain.ai` | `driver123` | `/field-agent` |
+| Client View | `client@coldchain.ai` | `client123` | `/client` |
+
+These accounts are for demonstrations only. Replace them with managed accounts and stronger passwords before a real deployment.
+
+## API contract
+
+| Method | Endpoint | Authentication | Purpose |
+|---|---|---|---|
+| `GET` | `/api/health` | None | Backend and database health |
+| `POST` | `/api/auth/login` | None | Return a JWT |
+| `POST` | `/api/auth/register` | None | Create a role account |
+| `GET` | `/api/auth/me` | Bearer token | Return current user |
+| `POST` | `/api/telemetry` | Hardware contract currently accepts direct ingestion | Store sensor reading and calculate risk |
+| `GET` | `/api/shipments` | Bearer token | Fleet overview with latest risk |
+| `GET` | `/api/shipments/{id}` | Bearer token | Shipment details and latest prediction |
+| `GET` | `/api/products` | Bearer token | Product temperature profiles |
+| `POST` | `/api/interventions/{id}/simulate` | Bearer token | Compare intervention scenarios |
+| `POST` | `/api/interventions/{id}/approve` | Admin token | Approve a reroute |
+| `POST` | `/api/interventions/{id}/field-accept` | Field Agent token | Accept a reroute |
+| `POST` | `/api/interventions/{id}/backup-cooling` | Field Agent token | Record backup cooling action |
+| `POST` | `/api/interventions/{id}/handoff` | Field Agent token | Record delivery handoff |
+| `GET` | `/api/public/track/{id}` | None | Public tracking view |
+| `GET` | `/api/audit/{id}` | Bearer token | Compliance history |
+
+## Risk scoring and the XGBoost transition
+
+The current production path is:
+
+```text
+ESP32 JSON
+  -> POST /api/telemetry
+  -> raw telemetry stored in Supabase
+  -> current heuristic risk scorer
+  -> risk_predictions and alerts stored
+  -> JSON returned to the frontend
+```
+
+The FrostLink model expects 40 features such as rolling temperature statistics, slopes, excursion area, sensor coverage, and valid probe count. A single raw ESP32 temperature reading does not contain those features. The safe migration path is:
+
+1. Store a rolling telemetry window per shipment.
+2. Calculate the 40 features in the exact contract order.
+3. Load and verify `frostlink_xgb_v2`.
+4. Run XGBoost probability inference and SHAP explanation.
+5. Map the model result into the existing `RiskPrediction` schema.
+6. Keep the heuristic scorer as a fallback when the model or feature window is unavailable.
+7. Compare both scores on recorded telemetry before changing the production default.
+
+It is possible to make this swap now, but it should be implemented as a staged bridge rather than replacing the current function blindly.
+
+## Hardware overview
+
+The ESP32 should send an HTTP POST to the FastAPI ingestion endpoint. It should not connect directly to PostgreSQL. See `docs/ESP32_INTEGRATION.md` for wiring, payload fields, retry behavior, and a working `curl` example.
+
+## Verification checklist
+
+| Check | Command or action | Expected result |
+|---|---|---|
+| Frontend build | `npm run build` | Vite build completes |
+| Backend import | `PYTHONPATH=backend python -c "from app.main import app"` | No import error |
+| Health | `GET /api/health` | JSON with `status: ok` and `database: connected` |
+| Login | Use any demo button | Redirect to the selected workspace |
+| Telemetry | `POST /api/telemetry` | JSON with `riskScore`, `riskLevel`, and `shapFactors` |
+| Fleet data | `GET /api/shipments` with Bearer token | JSON shipment list |
+| Model status | Not available on the main API yet | Requires the XGBoost bridge described above |
+
+## Branch and deployment history
+
+| Item | Value |
+|---|---|
+| Integration branch | `aiml-supabase-integration` |
+| Latest documentation and demo login commit | `69a364a` |
+| Remote | `origin` on the original GitHub repository |
+
