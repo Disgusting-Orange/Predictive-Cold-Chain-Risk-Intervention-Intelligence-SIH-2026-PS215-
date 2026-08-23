@@ -6,6 +6,7 @@ AI Risk & What-If Engine, 3-Role JWT Auth, and Real-Time WebSockets.
 """
 
 import asyncio
+import os
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -126,9 +127,12 @@ async def lifespan(app: FastAPI):
             
         await session.commit()
 
-    loop_task = asyncio.create_task(run_demo_loop())
+    # Vercel functions are ephemeral; a background task would be cancelled
+    # between invocations. Hardware telemetry remains available via POST /telemetry.
+    loop_task = None if os.getenv("VERCEL") else asyncio.create_task(run_demo_loop())
     yield
-    loop_task.cancel()
+    if loop_task:
+        loop_task.cancel()
     await engine.dispose()
 
 

@@ -1,8 +1,14 @@
 {
-  "buildCommand": "pnpm build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
   "framework": "vite",
+  "functions": {
+    "api/**/*.py": {
+      "excludeFiles": "{backend/tests/**,ml_pipeline/**,docs/**,**/*.test.py,**/__pycache__/**,backend/coldchain.db}"
+    }
+  },
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
