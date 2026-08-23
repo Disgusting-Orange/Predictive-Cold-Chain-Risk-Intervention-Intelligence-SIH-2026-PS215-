@@ -178,6 +178,7 @@ async def health_check():
         "status": "ok",
         "service": "cold-chain-backend",
         "database": "connected",
+        "riskEngine": settings.RISK_ENGINE_MODE,
         "version": settings.VERSION
     }
 

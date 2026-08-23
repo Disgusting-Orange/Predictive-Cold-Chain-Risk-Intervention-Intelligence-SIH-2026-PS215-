@@ -6,6 +6,7 @@ from app.db.models import Telemetry, Shipment, RiskPrediction, Alert, Product
 from app.schemas.telemetry import TelemetryCreate
 from app.services.risk_service import calculate_risk_and_shap
 from app.schemas.risk import RiskPredictionResponse
+from app.core.config import settings
 
 
 async def process_telemetry_ingestion(
@@ -94,7 +95,7 @@ async def process_telemetry_ingestion(
         select(Telemetry)
         .where(Telemetry.shipment_id == telemetry_in.shipmentId)
         .order_by(desc(Telemetry.timestamp))
-        .limit(4)
+        .limit(120)
     )
     hist_res = await db.execute(hist_stmt)
     recent_readings = hist_res.scalars().all()
@@ -105,7 +106,17 @@ async def process_telemetry_ingestion(
         t_last = float(recent_readings[-1].temperature)
         temp_trend = round((t_first - t_last) / max(1, len(recent_readings) - 1), 2)
 
-    # 5. Execute AI Risk & SHAP Engine
+    # 5. Execute the selected risk engine. XGBoost is opt-in and falls back
+    # to the deterministic scorer if its runtime or artifact is unavailable.
+    xgb_result = None
+    if settings.RISK_ENGINE_MODE.lower() == "xgboost":
+        try:
+            from app.services.xgb_bridge import FrostLinkXGBoost, build_feature_vector
+            features = build_feature_vector(recent_readings, telemetry_in.temperature, safe_min, safe_max)
+            xgb_result = FrostLinkXGBoost.instance().predict(features, telemetry_in.temperature, temp_trend, safe_max)
+        except Exception:
+            xgb_result = None
+
     (
         risk_score,
         risk_level,
@@ -126,6 +137,18 @@ async def process_telemetry_ingestion(
         door_open=telemetry_in.doorOpen,
         speed=telemetry_in.speed or 0.0
     )
+    model_version = "heuristic_v1"
+    if xgb_result is not None:
+        risk_score = xgb_result.risk_score
+        risk_level = xgb_result.risk_level
+        spoilage_risk_pct = xgb_result.spoilage_risk_pct
+        remaining_safe_life = xgb_result.remaining_safe_life
+        excursion_prob = xgb_result.excursion_prob
+        ai_conf = xgb_result.ai_confidence
+        shap_factors = xgb_result.shap_factors
+        predicted_points = xgb_result.predicted_points
+        msg = xgb_result.message
+        model_version = xgb_result.model_version
 
     # 6. Save Risk Prediction Record
     risk_record = RiskPrediction(
@@ -139,7 +162,7 @@ async def process_telemetry_ingestion(
         ai_confidence_percent=ai_conf,
         temp_trend_per_tick=temp_trend,
         shap_factors=[f.model_dump() for f in shap_factors],
-        model_version="xgb_v1.0"
+        model_version=model_version
     )
     db.add(risk_record)
 
@@ -177,6 +200,7 @@ async def process_telemetry_ingestion(
         "remainingSafeLifeMinutes": remaining_safe_life,
         "excursionProbability": excursion_prob,
         "aiConfidencePercent": ai_conf,
+        "modelVersion": model_version,
         "shapFactors": [f.model_dump() for f in shap_factors],
         "predictedTemperatures": [p.model_dump() for p in predicted_points],
         "message": msg

@@ -14,10 +14,10 @@ Cold Chain AI monitors temperature-sensitive shipments, estimates spoilage risk,
 | Authentication | Working | JWT login with Admin, Field Agent, and Client roles. Protected routes enforce bearer tokens and write roles |
 | Telemetry ingestion | Working | ESP32 or simulator can send JSON over HTTP |
 | Risk scoring | Working | Deterministic temperature, trend, delay, door, and speed scorer |
-| FrostLink XGBoost model | Packaged, not active in the main API | It requires a 40-feature engineered input vector and a separate runtime bridge |
+| FrostLink XGBoost model | Opt-in bridge implemented | Set `RISK_ENGINE_MODE=xgboost` after validating the model against recorded telemetry. Heuristics remain the fallback |
 | WebSocket telemetry | Available in the FastAPI code | Vercel is not the recommended runtime for persistent WebSocket connections |
 
-The production API currently returns risk scores and explanation factors from `backend/app/services/risk_service.py`. The XGBoost model package under `ml_pipeline/model_artifacts/` is not yet called by the main telemetry endpoint.
+The production API uses `backend/app/services/risk_service.py` by default. `backend/app/services/xgb_bridge.py` can derive the model's 40 features from the rolling telemetry window and call the packaged FrostLink model when `RISK_ENGINE_MODE=xgboost` is enabled. If model loading or inference fails, the request falls back to the heuristic scorer.
 
 ## Repository layout
 
@@ -101,6 +101,7 @@ Set these values in the Vercel project environment. Do not commit any value.
 | `JWT_SECRET` | JWT signing and verification | Yes |
 | `CORS_ORIGINS` | Browser origin allowlist | Yes |
 | `VERCEL` | Disables the local background demo loop in serverless execution | Yes |
+| `RISK_ENGINE_MODE` | `heuristic` by default or `xgboost` for the opt-in FrostLink bridge | No |
 | `VITE_API_URL` | Optional separate API host | No, leave empty for same-domain API |
 | `VITE_WS_URL` | Optional persistent WebSocket host | No |
 
@@ -129,7 +130,7 @@ These accounts are for demonstrations only. Replace them with managed accounts a
 | `POST` | `/api/auth/login` | None | Return a JWT |
 | `POST` | `/api/auth/register` | None | Create a role account |
 | `GET` | `/api/auth/me` | Bearer token | Return current user |
-| `POST` | `/api/telemetry` | Hardware contract currently accepts direct ingestion | Store sensor reading and calculate risk |
+| `POST` | `/api/telemetry` | Hardware contract currently accepts direct ingestion | Store sensor reading and calculate risk. Response includes `modelVersion` |
 | `GET` | `/api/shipments` | Bearer token | Fleet overview with latest risk |
 | `GET` | `/api/shipments/{id}` | Bearer token | Shipment details and latest prediction |
 | `GET` | `/api/products` | Bearer token | Product temperature profiles |
@@ -180,7 +181,7 @@ The ESP32 should send an HTTP POST to the FastAPI ingestion endpoint. It should 
 | Login | Use any demo button | Redirect to the selected workspace |
 | Telemetry | `POST /api/telemetry` | JSON with `riskScore`, `riskLevel`, and `shapFactors` |
 | Fleet data | `GET /api/shipments` with Bearer token | JSON shipment list |
-| Model status | Not available on the main API yet | Requires the XGBoost bridge described above |
+| Model status | Set `RISK_ENGINE_MODE=xgboost`, then send telemetry | Response `modelVersion` should identify the FrostLink model. A fallback response identifies `heuristic_v1` |
 
 ## Branch and deployment history
 

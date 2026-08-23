@@ -4,7 +4,7 @@
   "framework": "vite",
   "functions": {
     "api/**/*.py": {
-      "excludeFiles": "{backend/tests/**,ml_pipeline/**,docs/**,**/*.test.py,**/__pycache__/**,backend/coldchain.db}"
+      "excludeFiles": "{backend/tests/**,ml_pipeline/service/test_*.py,ml_pipeline/hardware/**,docs/**,**/*.test.py,**/__pycache__/**,backend/coldchain.db}"
     }
   },
   "rewrites": [

@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     JWT_SECRET: str = os.getenv("JWT_SECRET", "sih2026_coldchain_secret_key_998877665544332211")
     JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "1440"))
+    RISK_ENGINE_MODE: str = os.getenv("RISK_ENGINE_MODE", "heuristic")
     
     CORS_ORIGINS: Union[List[str], str] = [
         "http://localhost:5173",
