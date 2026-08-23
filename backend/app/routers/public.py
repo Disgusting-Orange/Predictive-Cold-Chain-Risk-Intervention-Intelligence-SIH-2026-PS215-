@@ -69,10 +69,15 @@ async def public_track_shipment(
         "status": client_status,
         "rawStatus": s.status,
         "temperature": temp,
+        "riskScore": round(float(latest_r.risk_score), 1) if latest_r else 0,
+        "riskLevel": risk_level,
         "optimalRange": f"{float(s.product.safe_temp_min) if s.product else 2.0}°C – {float(s.product.safe_temp_max) if s.product else 8.0}°C",
+        "safeMinTemp": float(s.product.safe_temp_min) if s.product else 2.0,
+        "safeMaxTemp": float(s.product.safe_temp_max) if s.product else 8.0,
         "etaMinutes": s.current_eta_minutes,
         "origin": s.origin_name,
         "destination": s.destination_name,
+        "vehicleId": s.vehicle_id or "Unassigned",
         "trustBadge": "Cold Chain Verified (Continuously Monitored)",
         "timeline": timeline_stages
     }

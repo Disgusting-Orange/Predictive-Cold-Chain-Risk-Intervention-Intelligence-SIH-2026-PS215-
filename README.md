@@ -14,10 +14,10 @@ Cold Chain AI monitors temperature-sensitive shipments, estimates spoilage risk,
 | Authentication | Working | JWT login with Admin, Field Agent, and Client roles. Protected routes enforce bearer tokens and write roles |
 | Telemetry ingestion | Working | ESP32 or simulator can send JSON over HTTP |
 | Risk scoring | Working | Deterministic temperature, trend, delay, door, and speed scorer |
-| FrostLink XGBoost model | Opt-in bridge implemented | Set `RISK_ENGINE_MODE=xgboost` after validating the model against recorded telemetry. Heuristics remain the fallback |
-| WebSocket telemetry | Available in the FastAPI code | Vercel is not the recommended runtime for persistent WebSocket connections |
+| FrostLink XGBoost model | Opt-in bridge implemented and locally verified | The main API uses the CPU-only XGBoost package, derives all 40 features, and falls back to heuristics if inference fails |
+| WebSocket telemetry | Available in the FastAPI code | Persistent sockets require a long-running host. Vercel deployments use authenticated HTTP polling if the socket closes |
 
-The production API uses `backend/app/services/risk_service.py` by default. `backend/app/services/xgb_bridge.py` can derive the model's 40 features from the rolling telemetry window and call the packaged FrostLink model when `RISK_ENGINE_MODE=xgboost` is enabled. If model loading or inference fails, the request falls back to the heuristic scorer.
+The production API uses `backend/app/services/risk_service.py` by default. `backend/app/services/xgb_bridge.py` derives the model's 40 features from the rolling telemetry window and calls the packaged FrostLink model when `RISK_ENGINE_MODE=xgboost` is enabled. The bridge uses the native Booster API and `xgboost-cpu`, so the Vercel function does not pull GPU libraries. If model loading or inference fails, the request falls back to the heuristic scorer.
 
 ## Repository layout
 
@@ -60,7 +60,7 @@ Backend URLs:
 | URL | Purpose |
 |---|---|
 | `http://localhost:8000/health` | Health check |
-| `http://localhost:8000/docs` | Interactive API documentation |
+| `http://localhost:8000/api/docs` | Interactive API documentation |
 | `http://localhost:8000/api/health` | API health check |
 | `ws://localhost:8000/ws` | Local telemetry WebSocket |
 
@@ -91,7 +91,7 @@ The Vercel project is named `cold-chain-ai-ps215`. The project contains the Vite
 | FastAPI entrypoint | `api/index.py` |
 | API route | `/api/*` |
 | Database | Supabase PostgreSQL transaction pooler |
-| Live socket recommendation | Deploy a persistent FastAPI host if continuous WebSocket telemetry is required |
+| Live socket recommendation | Deploy a persistent FastAPI host if continuous WebSocket telemetry is required. The Vercel frontend falls back to polling for authenticated dashboards |
 
 Set these values in the Vercel project environment. Do not commit any value.
 
@@ -144,28 +144,28 @@ These accounts are for demonstrations only. Replace them with managed accounts a
 
 ## Risk scoring and the XGBoost transition
 
-The current production path is:
+The default production path is:
 
 ```text
 ESP32 JSON
   -> POST /api/telemetry
   -> raw telemetry stored in Supabase
-  -> current heuristic risk scorer
+  -> configured risk scorer, heuristic by default or FrostLink XGBoost when enabled
   -> risk_predictions and alerts stored
   -> JSON returned to the frontend
 ```
 
-The FrostLink model expects 40 features such as rolling temperature statistics, slopes, excursion area, sensor coverage, and valid probe count. A single raw ESP32 temperature reading does not contain those features. The safe migration path is:
+The FrostLink model expects 40 features such as rolling temperature statistics, slopes, excursion area, sensor coverage, and valid probe count. A single raw ESP32 temperature reading does not contain those features. The implemented migration path is:
 
 1. Store a rolling telemetry window per shipment.
 2. Calculate the 40 features in the exact contract order.
 3. Load and verify `frostlink_xgb_v2`.
-4. Run XGBoost probability inference and SHAP explanation.
+4. Run CPU-only XGBoost probability inference and contribution-based explanations.
 5. Map the model result into the existing `RiskPrediction` schema.
 6. Keep the heuristic scorer as a fallback when the model or feature window is unavailable.
-7. Compare both scores on recorded telemetry before changing the production default.
+7. Set `RISK_ENGINE_MODE=xgboost` in Vercel only after checking live telemetry responses for `modelVersion: frostlink_xgb_v2`.
 
-It is possible to make this swap now, but it should be implemented as a staged bridge rather than replacing the current function blindly.
+The swap is now available as a controlled configuration change. The default remains heuristic so an incomplete or sparse hardware history cannot silently produce an invalid model input.
 
 ## Hardware overview
 
@@ -182,11 +182,13 @@ The ESP32 should send an HTTP POST to the FastAPI ingestion endpoint. It should 
 | Telemetry | `POST /api/telemetry` | JSON with `riskScore`, `riskLevel`, and `shapFactors` |
 | Fleet data | `GET /api/shipments` with Bearer token | JSON shipment list |
 | Model status | Set `RISK_ENGINE_MODE=xgboost`, then send telemetry | Response `modelVersion` should identify the FrostLink model. A fallback response identifies `heuristic_v1` |
+| Public tracking | Open `/track/SHP-1042` while logged out | Data loads through `/api/public/track/{id}` without the protected fleet endpoint |
+| Vercel API docs | Open `/api/docs` on the deployed domain | Swagger UI loads from the FastAPI function |
 
 ## Branch and deployment history
 
 | Item | Value |
 |---|---|
 | Integration branch | `aiml-supabase-integration` |
-| Latest documentation and demo login commit | `69a364a` |
+| Latest documentation and demo login commit | See `git log --oneline main` |
 | Remote | `origin` on the original GitHub repository |

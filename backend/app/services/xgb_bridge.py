@@ -137,7 +137,9 @@ class FrostLinkXGBoost:
         self.feature_names = [item["feature_name"] for item in sorted(json.loads(SCHEMA_PATH.read_text())["features"], key=lambda item: item["feature_order"])]
         self.threshold = float(json.loads(THRESHOLD_PATH.read_text()).get("operating_threshold", 0.575))
         self.model_version = json.loads(METADATA_PATH.read_text()).get("model_version", "frostlink_xgb_v2")
-        self.model = xgb.XGBClassifier()
+        # Use the native Booster API so the production bridge does not require
+        # scikit-learn. This keeps the CPU-only Vercel bundle small.
+        self.model = xgb.Booster()
         self.model.load_model(str(MODEL_PATH))
 
     @classmethod
@@ -149,8 +151,8 @@ class FrostLinkXGBoost:
     def predict(self, features: dict[str, float], temperature: float, temp_trend: float, safe_max: float) -> XGBoostRiskResult:
         vector = [[features[name] for name in self.feature_names]]
         matrix = self.xgb.DMatrix(vector, feature_names=self.feature_names)
-        probability = float(self.model.get_booster().predict(matrix)[0])
-        contributions = self.model.get_booster().predict(matrix, pred_contribs=True)[0][:-1]
+        probability = float(self.model.predict(matrix)[0])
+        contributions = self.model.predict(matrix, pred_contribs=True)[0][:-1]
         if probability >= 0.75:
             level = "CRITICAL"
         elif probability >= self.threshold:
