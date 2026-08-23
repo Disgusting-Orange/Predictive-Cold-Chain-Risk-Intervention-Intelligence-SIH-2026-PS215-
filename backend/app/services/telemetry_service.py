@@ -61,6 +61,33 @@ async def process_telemetry_ingestion(
         cargo_val = float(shipment.estimated_cargo_value)
         current_eta = shipment.current_eta_minutes
         delay_mins = shipment.delay_minutes
+    else:
+        # Auto-create shipment for newly ingested hardware/simulator streams
+        prod_stmt = select(Product).limit(1)
+        p_res = await db.execute(prod_stmt)
+        default_prod = p_res.scalars().first()
+        shipment = Shipment(
+            shipment_code=telemetry_in.shipmentId,
+            product_id=default_prod.id if default_prod else None,
+            device_id=telemetry_in.deviceId or "BOX-01",
+            vehicle_number="TN-07-EXP-1001",
+            origin_name="MediCold Distribution Centre",
+            origin_lat=telemetry_in.latitude or 13.0827,
+            origin_lng=telemetry_in.longitude or 80.2707,
+            destination_name="Apollo Hospital Pharmacy",
+            destination_lat=13.0604,
+            destination_lng=80.2496,
+            current_lat=telemetry_in.latitude or 13.0827,
+            current_lng=telemetry_in.longitude or 80.2707,
+            status="IN_TRANSIT",
+            planned_eta_minutes=45,
+            current_eta_minutes=45,
+            estimated_cargo_value=240000.0
+        )
+        db.add(shipment)
+        if default_prod:
+            safe_min = float(default_prod.safe_temp_min)
+            safe_max = float(default_prod.safe_temp_max)
 
     # 4. Calculate Rate of Climb Trend from Recent History
     hist_stmt = (

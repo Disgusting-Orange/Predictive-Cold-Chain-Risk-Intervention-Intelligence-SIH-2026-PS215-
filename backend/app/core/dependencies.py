@@ -31,7 +31,12 @@ async def get_current_user(
         )
     
     user_id = payload["sub"]
-    result = await db.execute(select(User).where(User.id == user_id))
+    import uuid
+    try:
+        user_uuid = uuid.UUID(str(user_id))
+    except (ValueError, TypeError):
+        user_uuid = user_id
+    result = await db.execute(select(User).where(User.id == user_uuid))
     user = result.scalars().first()
     
     if not user:
