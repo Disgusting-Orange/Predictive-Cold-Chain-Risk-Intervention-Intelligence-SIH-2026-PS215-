@@ -1,0 +1,10 @@
+{
+  "manifest_version": "1.0.0",
+  "hashes": {
+    "model.json": "53fc831b207aa4905304f9fb3e437cbfe2c108758bf853e4f446f4d33e227beb",
+    "threshold.json": "6cd30e38d04be03d4f1f0e6beb9098e2981ababf7606ac050ff310cff4badfb1",
+    "feature_schema.json": "cb1fe48a7b292344e4a79d34122c08e30adfa6607f6fb13ee6d947878fc7ca49",
+    "model_metadata.json": "84f1cc6dd8c77132439eec74bdb8ba53282b9a4acc33c7db55474f44f15ce86f",
+    "backend_contract.json": "6b3159b6c296fe38a104eac879e077a30e2483f8b3d921ba6b9be25621498e60"
+  }
+}

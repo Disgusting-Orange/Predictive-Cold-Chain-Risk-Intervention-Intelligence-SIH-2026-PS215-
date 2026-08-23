@@ -26,7 +26,6 @@ class Settings(BaseSettings):
         "http://127.0.0.1:5173",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        "*"
     ]
     
     class Config:
@@ -35,3 +34,6 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+if isinstance(settings.CORS_ORIGINS, str):
+    settings.CORS_ORIGINS = [origin.strip() for origin in settings.CORS_ORIGINS.split(",") if origin.strip()]
