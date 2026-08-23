@@ -31,3 +31,4 @@ build/
 frontend-old/
 .vite/
 .vercel
+*.db

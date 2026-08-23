@@ -38,7 +38,7 @@ async def list_active_shipments(db: AsyncSession = Depends(get_db)):
         r_res = await db.execute(r_stmt)
         latest_r = r_res.scalars().first()
         
-        temp = float(latest_t.temperature) if latest_t else (float(s.product.safe_temp_min + 2.0) if s.product else 4.0)
+        temp = float(latest_t.temperature) if latest_t else (float(s.product.safe_temp_min) + 2.0 if s.product and s.product.safe_temp_min is not None else 4.0)
         humidity = float(latest_t.humidity) if latest_t else 45.0
         speed = float(latest_t.speed or 40.0) if latest_t else 40.0
         door_open = latest_t.door_open if latest_t else False
@@ -49,8 +49,8 @@ async def list_active_shipments(db: AsyncSession = Depends(get_db)):
         risk_level = latest_r.risk_level if latest_r else "LOW"
         safe_life = latest_r.remaining_safe_life_minutes if latest_r else None
         
-        safe_min = float(s.product.safe_temp_min) if s.product else 2.0
-        safe_max = float(s.product.safe_temp_max) if s.product else 8.0
+        safe_min = float(s.product.safe_temp_min) if s.product and s.product.safe_temp_min is not None else 2.0
+        safe_max = float(s.product.safe_temp_max) if s.product and s.product.safe_temp_max is not None else 8.0
         prod_name = s.product.name if s.product else "Cold-Chain Cargo"
         prod_cat = s.product.category if s.product else "Pharma"
         
