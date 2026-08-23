@@ -77,7 +77,7 @@ async def public_track_shipment(
         "etaMinutes": s.current_eta_minutes,
         "origin": s.origin_name,
         "destination": s.destination_name,
-        "vehicleId": s.vehicle_id or "Unassigned",
+        "vehicleId": s.vehicle_number or "Unassigned",
         "trustBadge": "Cold Chain Verified (Continuously Monitored)",
         "timeline": timeline_stages
     }

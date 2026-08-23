@@ -184,7 +184,7 @@ The ESP32 should send an HTTP POST to the FastAPI ingestion endpoint. It should 
 | Telemetry | `POST /api/telemetry` | JSON with `riskScore`, `riskLevel`, and `shapFactors` |
 | Fleet data | `GET /api/shipments` with Bearer token | JSON shipment list |
 | Model status | On a full backend host, set `RISK_ENGINE_MODE=xgboost`, then send telemetry | Response `modelVersion` should identify `frostlink_xgb_v2`. Vercel currently reports `heuristic_v1` because of the function size limit |
-| Public tracking | Open `/track/SHP-1042` while logged out | Data loads through `/api/public/track/{id}` without the protected fleet endpoint |
+| Public tracking | Open `/track/SHP-1042` while logged out | Data loads through `/api/public/track/{id}` without the protected fleet endpoint, including the vehicle identifier |
 | Vercel API docs | Open `/api/docs` on the deployed domain | Swagger UI loads from the FastAPI function |
 
 ## Branch and deployment history
