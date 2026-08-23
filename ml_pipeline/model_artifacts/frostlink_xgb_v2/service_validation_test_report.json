@@ -1,0 +1,72 @@
+{
+  "service_test_suite_version": "1.0.0",
+  "all_tests_passed": true,
+  "tests_passed_count": 14,
+  "total_tests": 14,
+  "results": {
+    "1_service_startup": {
+      "passed": true
+    },
+    "2_health_endpoint": {
+      "passed": true,
+      "data": {
+        "status": "HEALTHY",
+        "service_name": "FrostLink ML Inference Service",
+        "service_version": "1.0.0",
+        "model_version": "1.0.0",
+        "feature_schema_version": "1.0.0",
+        "artifact_integrity_verified": true,
+        "uptime_seconds": 0.96342
+      }
+    },
+    "3_valid_prediction": {
+      "passed": true,
+      "risk_prob": 0.8741896748542786,
+      "risk_level": "CRITICAL"
+    },
+    "4_missing_feature_rejection": {
+      "passed": true,
+      "status_code": 422
+    },
+    "5_extra_feature_ignored": {
+      "passed": true,
+      "status_code": 200
+    },
+    "6_invalid_numeric_422": {
+      "passed": true,
+      "status_code": 422
+    },
+    "7_infinity_rejection_422": {
+      "passed": true,
+      "status_code": 422
+    },
+    "8_invalid_timestamp_422": {
+      "passed": true,
+      "status_code": 422
+    },
+    "9_probability_bounds": {
+      "passed": true,
+      "prob": 0.8741896748542786
+    },
+    "10_correct_stored_threshold": {
+      "passed": true,
+      "threshold": 0.575
+    },
+    "11_correct_model_version": {
+      "passed": true,
+      "version": "1.0.0"
+    },
+    "12_shap_explanation_populated": {
+      "passed": true,
+      "increasing_count": 5,
+      "reducing_count": 5
+    },
+    "13_integrity_fail_closed": {
+      "passed": true
+    },
+    "14_booster_consistency": {
+      "passed": true,
+      "delta": 0.0
+    }
+  }
+}

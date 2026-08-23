@@ -1,0 +1,245 @@
+{
+  "base_value_margin": -4.648426532745361,
+  "features_ranked": [
+    {
+      "rank": 1,
+      "feature_name": "W60_T_min",
+      "mean_abs_shap": 1.4654408693313599,
+      "importance_share_pct": 26.500043869018555
+    },
+    {
+      "rank": 2,
+      "feature_name": "W60_spatial_std_mean",
+      "mean_abs_shap": 0.5693693161010742,
+      "importance_share_pct": 10.296090126037598
+    },
+    {
+      "rank": 3,
+      "feature_name": "W60_T_max",
+      "mean_abs_shap": 0.3451755940914154,
+      "importance_share_pct": 6.241921901702881
+    },
+    {
+      "rank": 4,
+      "feature_name": "T_mean_t",
+      "mean_abs_shap": 0.3309185206890106,
+      "importance_share_pct": 5.984106540679932
+    },
+    {
+      "rank": 5,
+      "feature_name": "v4_p95_t",
+      "mean_abs_shap": 0.28397104144096375,
+      "importance_share_pct": 5.135140419006348
+    },
+    {
+      "rank": 6,
+      "feature_name": "W60_spatial_range_mean",
+      "mean_abs_shap": 0.23083481192588806,
+      "importance_share_pct": 4.17426061630249
+    },
+    {
+      "rank": 7,
+      "feature_name": "W60_spatial_range_max",
+      "mean_abs_shap": 0.22850379347801208,
+      "importance_share_pct": 4.132108211517334
+    },
+    {
+      "rank": 8,
+      "feature_name": "v4_p90_t",
+      "mean_abs_shap": 0.21084709465503693,
+      "importance_share_pct": 3.8128163814544678
+    },
+    {
+      "rank": 9,
+      "feature_name": "W60_T_range",
+      "mean_abs_shap": 0.20516245067119598,
+      "importance_share_pct": 3.710019111633301
+    },
+    {
+      "rank": 10,
+      "feature_name": "spatial_std_t",
+      "mean_abs_shap": 0.19152164459228516,
+      "importance_share_pct": 3.463347911834717
+    },
+    {
+      "rank": 11,
+      "feature_name": "v4_iqr_t",
+      "mean_abs_shap": 0.1667162925004959,
+      "importance_share_pct": 3.014784574508667
+    },
+    {
+      "rank": 12,
+      "feature_name": "v4_slope_short_t",
+      "mean_abs_shap": 0.16633716225624084,
+      "importance_share_pct": 3.0079288482666016
+    },
+    {
+      "rank": 13,
+      "feature_name": "v4_median_t",
+      "mean_abs_shap": 0.16151586174964905,
+      "importance_share_pct": 2.920743703842163
+    },
+    {
+      "rank": 14,
+      "feature_name": "spatial_range_t",
+      "mean_abs_shap": 0.15743738412857056,
+      "importance_share_pct": 2.8469913005828857
+    },
+    {
+      "rank": 15,
+      "feature_name": "W60_T_mean",
+      "mean_abs_shap": 0.14861555397510529,
+      "importance_share_pct": 2.6874632835388184
+    },
+    {
+      "rank": 16,
+      "feature_name": "W60_T_std",
+      "mean_abs_shap": 0.13084082305431366,
+      "importance_share_pct": 2.366036891937256
+    },
+    {
+      "rank": 17,
+      "feature_name": "W60_slope",
+      "mean_abs_shap": 0.10136810690164566,
+      "importance_share_pct": 1.833072304725647
+    },
+    {
+      "rank": 18,
+      "feature_name": "W60_delta",
+      "mean_abs_shap": 0.08846934884786606,
+      "importance_share_pct": 1.5998198986053467
+    },
+    {
+      "rank": 19,
+      "feature_name": "v4_shock_t",
+      "mean_abs_shap": 0.08579675853252411,
+      "importance_share_pct": 1.5514905452728271
+    },
+    {
+      "rank": 20,
+      "feature_name": "v4_accel_t",
+      "mean_abs_shap": 0.06203936040401459,
+      "importance_share_pct": 1.121877908706665
+    },
+    {
+      "rank": 21,
+      "feature_name": "v4_over_auc_t",
+      "mean_abs_shap": 0.05823806673288345,
+      "importance_share_pct": 1.0531377792358398
+    },
+    {
+      "rank": 22,
+      "feature_name": "W60_over_auc_mean",
+      "mean_abs_shap": 0.03401847183704376,
+      "importance_share_pct": 0.6151670813560486
+    },
+    {
+      "rank": 23,
+      "feature_name": "mask_ratio_t",
+      "mean_abs_shap": 0.03380230441689491,
+      "importance_share_pct": 0.6112580299377441
+    },
+    {
+      "rank": 24,
+      "feature_name": "v4_slope_long_t",
+      "mean_abs_shap": 0.031586188822984695,
+      "importance_share_pct": 0.5711833238601685
+    },
+    {
+      "rank": 25,
+      "feature_name": "W60_over_auc_max",
+      "mean_abs_shap": 0.0165705606341362,
+      "importance_share_pct": 0.29965078830718994
+    },
+    {
+      "rank": 26,
+      "feature_name": "v4_over_max_t",
+      "mean_abs_shap": 0.013270572759211063,
+      "importance_share_pct": 0.23997607827186584
+    },
+    {
+      "rank": 27,
+      "feature_name": "hot_ratio_t",
+      "mean_abs_shap": 0.004870800767093897,
+      "importance_share_pct": 0.0880802720785141
+    },
+    {
+      "rank": 28,
+      "feature_name": "sconf",
+      "mean_abs_shap": 0.003250974463298917,
+      "importance_share_pct": 0.058788422495126724
+    },
+    {
+      "rank": 29,
+      "feature_name": "N_valid",
+      "mean_abs_shap": 0.0025449113454669714,
+      "importance_share_pct": 0.04602045565843582
+    },
+    {
+      "rank": 30,
+      "feature_name": "W60_hot_ratio_mean",
+      "mean_abs_shap": 0.0009224782697856426,
+      "importance_share_pct": 0.016681473702192307
+    },
+    {
+      "rank": 31,
+      "feature_name": "cold_ratio_t",
+      "mean_abs_shap": 0.0,
+      "importance_share_pct": 0.0
+    },
+    {
+      "rank": 32,
+      "feature_name": "W60_under_dur_mean",
+      "mean_abs_shap": 0.0,
+      "importance_share_pct": 0.0
+    },
+    {
+      "rank": 33,
+      "feature_name": "W60_under_auc_mean",
+      "mean_abs_shap": 0.0,
+      "importance_share_pct": 0.0
+    },
+    {
+      "rank": 34,
+      "feature_name": "W60_under_auc_max",
+      "mean_abs_shap": 0.0,
+      "importance_share_pct": 0.0
+    },
+    {
+      "rank": 35,
+      "feature_name": "W60_over_dur_mean",
+      "mean_abs_shap": 0.0,
+      "importance_share_pct": 0.0
+    },
+    {
+      "rank": 36,
+      "feature_name": "W60_hot_ratio_max",
+      "mean_abs_shap": 0.0,
+      "importance_share_pct": 0.0
+    },
+    {
+      "rank": 37,
+      "feature_name": "v4_under_max_t",
+      "mean_abs_shap": 0.0,
+      "importance_share_pct": 0.0
+    },
+    {
+      "rank": 38,
+      "feature_name": "v4_under_auc_t",
+      "mean_abs_shap": 0.0,
+      "importance_share_pct": 0.0
+    },
+    {
+      "rank": 39,
+      "feature_name": "coverage_points",
+      "mean_abs_shap": 0.0,
+      "importance_share_pct": 0.0
+    },
+    {
+      "rank": 40,
+      "feature_name": "coverage_time",
+      "mean_abs_shap": 0.0,
+      "importance_share_pct": 0.0
+    }
+  ]
+}

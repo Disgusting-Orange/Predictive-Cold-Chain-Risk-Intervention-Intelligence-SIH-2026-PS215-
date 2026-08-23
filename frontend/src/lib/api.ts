@@ -3,6 +3,10 @@
  * Transparently wraps HTTP fetch requests with Bearer tokens and handles WebSocket telemetry streams.
  */
 
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+
+const apiUrl = (path: string) => `${API_BASE_URL}${path}`;
+
 const getAuthHeaders = (): HeadersInit => {
   const token = localStorage.getItem("token");
   return token ? { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" } : { "Content-Type": "application/json" };
@@ -89,7 +93,7 @@ export interface WhatIfSimulationResponse {
 export const api = {
   // Authentication
   async login(email: string, password: string): Promise<TokenResponse> {
-    const res = await fetch("/api/auth/login", {
+    const res = await fetch(apiUrl("/api/auth/login"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -106,7 +110,7 @@ export const api = {
   },
 
   async register(payload: { email: string; password_hash?: string; password?: string; full_name: string; role: string; phone?: string }): Promise<TokenResponse> {
-    const res = await fetch("/api/auth/register", {
+    const res = await fetch(apiUrl("/api/auth/register"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -135,7 +139,7 @@ export const api = {
   },
 
   async getProfile(): Promise<UserResponse> {
-    const res = await fetch("/api/auth/me", {
+    const res = await fetch(apiUrl("/api/auth/me"), {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error("Could not fetch profile");
@@ -144,21 +148,21 @@ export const api = {
 
   // Shipments
   async listShipments(): Promise<Shipment[]> {
-    const res = await fetch("/api/shipments", { headers: getAuthHeaders() });
+    const res = await fetch(apiUrl("/api/shipments"), { headers: getAuthHeaders() });
     if (!res.ok) throw new Error("Failed to load shipments");
     const data = await res.json();
     return data.shipments;
   },
 
   async getShipment(code: string): Promise<any> {
-    const res = await fetch(`/api/shipments/${code}`, { headers: getAuthHeaders() });
+    const res = await fetch(apiUrl(`/api/shipments/${code}`), { headers: getAuthHeaders() });
     if (!res.ok) throw new Error("Failed to load shipment details");
     return res.json();
   },
 
   // Products
   async listProducts(): Promise<ProductProfile[]> {
-    const res = await fetch("/api/products", { headers: getAuthHeaders() });
+    const res = await fetch(apiUrl("/api/products"), { headers: getAuthHeaders() });
     if (!res.ok) throw new Error("Failed to load products");
     const data = await res.json();
     return data.products;
@@ -166,7 +170,7 @@ export const api = {
 
   // Interventions
   async simulate(code: string): Promise<WhatIfSimulationResponse> {
-    const res = await fetch(`/api/interventions/${code}/simulate`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/simulate`), {
       method: "POST",
       headers: getAuthHeaders(),
     });
@@ -175,7 +179,7 @@ export const api = {
   },
 
   async approve(code: string): Promise<any> {
-    const res = await fetch(`/api/interventions/${code}/approve`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/approve`), {
       method: "POST",
       headers: getAuthHeaders(),
     });
@@ -184,7 +188,7 @@ export const api = {
   },
 
   async override(code: string, reason: string): Promise<any> {
-    const res = await fetch(`/api/interventions/${code}/override`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/override`), {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify({ overrideReason: reason }),
@@ -194,7 +198,7 @@ export const api = {
   },
 
   async fieldAccept(code: string): Promise<any> {
-    const res = await fetch(`/api/interventions/${code}/field-accept`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/field-accept`), {
       method: "POST",
       headers: getAuthHeaders(),
     });
@@ -203,7 +207,7 @@ export const api = {
   },
 
   async toggleBackupCooling(code: string): Promise<any> {
-    const res = await fetch(`/api/interventions/${code}/backup-cooling`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/backup-cooling`), {
       method: "POST",
       headers: getAuthHeaders(),
     });
@@ -212,7 +216,7 @@ export const api = {
   },
 
   async confirmHandoff(code: string, photoUrl?: string): Promise<any> {
-    const res = await fetch(`/api/interventions/${code}/handoff`, {
+    const res = await fetch(apiUrl(`/api/interventions/${code}/handoff`), {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify({ handoffPhotoUrl: photoUrl || "" }),
@@ -224,8 +228,8 @@ export const api = {
   // WebSockets
   connectTelemetry(onMessage: (data: any) => void): WebSocket {
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const host = window.location.host;
-    const socket = new WebSocket(`${protocol}//${host}/ws`);
+    const configuredWsUrl = import.meta.env.VITE_WS_URL as string | undefined;
+    const socket = new WebSocket(configuredWsUrl || `${protocol}//${window.location.host}/ws`);
     socket.onmessage = (event) => {
       try {
         const payload = JSON.parse(event.data);
