@@ -1,0 +1,106 @@
+/**
+ * Field Agent desktop design: a focused dispatch console with a wide route canvas, a single active assignment, and clear on-site response controls.
+ */
+import { ArrowRight, Bell, Camera, Check, ChevronDown, CloudSnow, LogOut, MapPin, Navigation, PackageCheck, Radio, Route, ShieldCheck, ThermometerSun, Truck } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
+import { api } from "../lib/api";
+
+export default function FieldWorkspace() {
+  const [, setLocation] = useLocation();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const handleSignOut = () => { localStorage.removeItem("token"); setLocation("/login"); };
+  const [shipment, setShipment] = useState<any>(null);
+  const [accepted, setAccepted] = useState(false);
+  const [coolingOn, setCoolingOn] = useState(false);
+  const [photoAdded, setPhotoAdded] = useState(false);
+  const [handoffDone, setHandoffDone] = useState(false);
+
+  const loadShipment = async () => {
+    try {
+      const active = await api.listShipments();
+      const activeDriverShipment = active.find(s => s.shipmentId === "SHP-1042") || active[0];
+      setShipment(activeDriverShipment);
+      if (activeDriverShipment) {
+        setAccepted(activeDriverShipment.status === "DIVERTED" || activeDriverShipment.status === "DELIVERED");
+        setHandoffDone(activeDriverShipment.status === "DELIVERED");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    loadShipment();
+  }, []);
+
+  const handleAccept = async () => {
+    if (!shipment) return;
+    try {
+      await api.fieldAccept(shipment.shipmentId);
+      setAccepted(true);
+      loadShipment();
+    } catch (err: any) {
+      alert("Error: " + err.message);
+    }
+  };
+
+  const handleToggleCooling = async () => {
+    if (!shipment) return;
+    try {
+      await api.toggleBackupCooling(shipment.shipmentId);
+      setCoolingOn(!coolingOn);
+      loadShipment();
+    } catch (err: any) {
+      alert("Error: " + err.message);
+    }
+  };
+
+  const handleConfirmHandoff = async () => {
+    if (!shipment) return;
+    try {
+      await api.confirmHandoff(shipment.shipmentId, "https://coldchain.ai/assets/receipt_demo.jpg");
+      setHandoffDone(true);
+      loadShipment();
+    } catch (err: any) {
+      alert("Error: " + err.message);
+    }
+  };
+
+  if (!shipment) {
+    return (
+      <main className="min-h-screen bg-[#0b1117] text-slate-200 grid place-items-center">
+        <p className="text-sm text-slate-400">Loading active assignment…</p>
+      </main>
+    );
+  }
+
+  const safeLifeStr = shipment.remainingSafeLifeMinutes ? `${shipment.remainingSafeLifeMinutes} min` : "N/A";
+  const statusColor = shipment.riskScore > 70 ? "High risk" : shipment.riskScore > 30 ? "Attention" : "Safe";
+
+  return (
+    <main className="min-h-screen bg-[#0b1117] text-slate-200">
+      <header className="sticky top-0 z-30 flex h-[64px] items-center justify-between border-b border-slate-800 bg-[#0d151d] px-5 lg:px-8">
+        <div className="flex items-center gap-3"><img src="/manus-storage/cold-chain-mark_8a9c38e3.png" alt="Cold Chain AI" className="h-8 w-8" /><div><p className="font-display text-[13px] font-bold uppercase tracking-[0.12em] text-white">Cold Chain <span className="text-[#73c8a7]">AI</span></p><p className="text-[8px] font-bold uppercase tracking-[0.2em] text-slate-500">Field operations</p></div></div>
+        <div className="hidden items-center gap-6 text-sm font-medium text-slate-400 md:flex"><span className="text-[#7bd0af]">My assignment</span><span>Route history</span><span>Help centre</span></div>
+        <div className="flex items-center gap-3"><button type="button" className="relative grid h-9 w-9 place-items-center rounded border border-slate-700 text-slate-300"><Bell className="h-4 w-4" /><span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#d56560]" /></button><div className="relative"><button type="button" onClick={() => setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2"><span className="grid h-8 w-8 place-items-center rounded bg-[#238767] text-[10px] font-bold text-white">RA</span><div className="hidden text-right md:block"><p className="text-xs font-semibold text-white">Rohan A.</p><p className="mt-0.5 text-[10px] text-slate-500">Field Agent</p></div><ChevronDown className={`hidden h-3 w-3 text-slate-500 transition-transform md:block ${userMenuOpen ? "rotate-180" : ""}`} /></button>{userMenuOpen && <div className="absolute right-0 top-full z-50 mt-1 w-48 border border-slate-700 bg-[#111b24] shadow-xl"><div className="border-b border-slate-700 px-4 py-3"><p className="text-xs font-semibold text-white">Ramesh (Field Driver)</p><p className="mt-0.5 text-[10px] text-slate-500">driver@coldchain.ai</p></div><button type="button" onClick={handleSignOut} className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm text-slate-300 hover:bg-slate-800 hover:text-white"><LogOut className="h-3.5 w-3.5" /> Sign out</button></div>}</div></div>
+      </header>
+
+      <div className="grid min-h-[calc(100vh-64px)] lg:grid-cols-[220px_1fr]">
+        <aside className="hidden border-r border-slate-800 bg-[#0d151d] p-4 lg:block"><p className="px-3 text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500">Field workspace</p><nav className="mt-4 space-y-1"><button type="button" className="flex min-h-10 w-full items-center gap-3 rounded bg-[#18362d] px-3 text-left text-sm font-medium text-[#7bd0af]"><Navigation className="h-4 w-4" /> Active assignment</button><button type="button" className="flex min-h-10 w-full items-center gap-3 rounded px-3 text-left text-sm font-medium text-slate-400 hover:bg-slate-800"><Truck className="h-4 w-4" /> My routes</button><button type="button" className="flex min-h-10 w-full items-center gap-3 rounded px-3 text-left text-sm font-medium text-slate-400 hover:bg-slate-800"><PackageCheck className="h-4 w-4" /> Completed handoffs</button></nav><div className="mt-8 border-t border-slate-800 px-3 pt-5"><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Today</p><p className="font-display mt-2 text-3xl font-bold tracking-[-0.06em] text-white">04</p><p className="mt-1 text-xs text-slate-500">assignments completed</p></div></aside>
+
+        <section className="min-w-0 p-5 lg:p-8"><div className="mx-auto max-w-[1500px]"><div className="flex flex-col justify-between gap-4 border-b border-slate-800 pb-5 sm:flex-row sm:items-end"><div><div className="flex items-center gap-3"><span className="h-px w-8 bg-[#278a69]" /><p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#68bfa0]">ACTIVE ASSIGNMENT</p><span className="text-[10px] font-bold tracking-[0.08em] text-slate-600">01 / 01</span></div><h1 className="font-display mt-3 text-4xl font-bold tracking-[-0.06em] text-white">Shipment {shipment.shipmentId}</h1><p className="mt-2 text-sm text-slate-400">{shipment.productName} · Vehicle {shipment.vehicleId} · {shipment.origin.name} → {shipment.destination.name}</p></div><div className="flex items-center gap-2"><span className="rounded border border-[#6e3c3b] bg-[#281819] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-[#e9918d]">{statusColor}</span><span className="text-sm font-semibold text-slate-300">Safe life: <span className="text-white">{safeLifeStr}</span></span></div></div>
+
+          <div className="mt-6 grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
+            <article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-200">Route to {shipment.destination.name}</p><p className="mt-1 text-sm text-slate-500">Nearest approved cold-storage facility.</p></div><span className="flex items-center gap-2 text-xs font-semibold text-[#74c8a7]"><Radio className="h-3.5 w-3.5" /> Tracking live</span></div><div className="relative mt-5 h-[380px] overflow-hidden border border-slate-800 bg-[#111f24]"><div className="absolute left-[14%] top-[58%] h-px w-[67%] -rotate-[27deg] bg-[#239b75]/88" /><div className="absolute left-[38%] top-[44%] h-px w-[34%] rotate-[18deg] bg-slate-600/65" /><div className="absolute -left-10 top-6 h-60 w-[70%] rotate-[-18deg] rounded-full border-[26px] border-[#1a3030]" /><div className="absolute right-[-80px] bottom-[-70px] h-80 w-[48%] rotate-[20deg] rounded-full border-[26px] border-[#192931]" />{[["19%", "19%"], ["47%", "18%"], ["66%", "73%"], ["86%", "48%"], ["36%", "83%"]].map(([left, top]) => <span key={`${left}-${top}`} className="absolute h-1.5 w-1.5 rounded-full bg-[#6ed8b2] opacity-70" style={{ left, top, boxShadow: "0 0 0 3px rgba(39,139,105,0.12)" }} />)}<span className="absolute left-[17%] top-[56%] grid h-11 w-11 place-items-center rounded-full border-2 border-[#74c8a7] bg-[#101820] text-[#74c8a7]"><Truck className="h-5 w-5" /></span><span className="absolute right-[16%] top-[20%] grid h-11 w-11 place-items-center rounded-full border-2 border-[#74c8a7] bg-[#101820] text-[#74c8a7]"><MapPin className="h-5 w-5" /></span><span className="absolute bottom-4 left-4 text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Current location · TN-07-CD-5678</span><span className="absolute right-4 top-4 text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">{shipment.destination.name}</span></div><div className="mt-4 grid grid-cols-3 gap-3 border-t border-slate-800 pt-4"><div><p className="text-xs text-slate-500">Distance</p><p className="font-display mt-1 text-2xl font-bold tracking-[-0.05em] text-white">3.2 km</p></div><div><p className="text-xs text-slate-500">Arrival in</p><p className="font-display mt-1 text-2xl font-bold tracking-[-0.05em] text-white">{shipment.etaMinutes} min</p></div><div><p className="text-xs text-slate-500">Next check</p><p className="font-display mt-1 text-2xl font-bold tracking-[-0.05em] text-[#74c8a7]">02 min</p></div></div></article>
+
+            <div className="space-y-5"><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#d6a855]"><div className="flex items-start justify-between"><div><p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#e4c177]">Recommended action</p><h2 className="font-display mt-3 text-3xl font-bold tracking-[-0.06em] text-white">Move to {shipment.destination.name}</h2></div><Route className="h-5 w-5 text-[#e4c177]" /></div><p className="mt-4 text-sm leading-6 text-slate-400">The facility can receive the shipment before safe life is exhausted.</p><div className="mt-5 grid grid-cols-2 gap-3"><div className="border border-slate-800 bg-[#0d161e] p-3"><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">Current temp</p><p className="font-display mt-2 text-2xl font-bold text-[#e9918d]">{shipment.temperature.toFixed(1)}°C ↑</p></div><div className="border border-slate-800 bg-[#0d161e] p-3"><p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">After reroute</p><p className="font-display mt-2 text-2xl font-bold text-[#74c8a7]">2 h 12 m</p></div></div><button type="button" onClick={handleAccept} className={`mt-5 flex min-h-12 w-full items-center justify-center gap-2 rounded px-4 text-sm font-semibold ${accepted ? "border border-[#2e7660] bg-[#14261f] text-[#83cfaf]" : "bg-[#238767] text-white hover:bg-[#2c9c78]"}`}>{accepted ? <><Check className="h-4 w-4" /> Reroute accepted</> : <>Accept & reroute <ArrowRight className="h-4 w-4" /></>}</button></article>
+              <article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-200">Cooling support</p><p className="mt-1 text-sm text-slate-500">Backup cooling is available.</p></div><CloudSnow className="h-5 w-5 text-[#74c8a7]" /></div><button type="button" onClick={handleToggleCooling} className={`mt-5 flex min-h-11 w-full items-center justify-center gap-2 rounded border px-4 text-sm font-semibold ${coolingOn ? "border-[#2e7660] bg-[#14261f] text-[#83cfaf]" : "border-slate-700 text-slate-200 hover:bg-slate-800"}`}>{coolingOn ? <><Check className="h-4 w-4" /> Backup cooling active</> : <>Activate backup cooling <CloudSnow className="h-4 w-4" /></>}</button></article></div>
+          </div>
+
+          <div className="mt-5 grid gap-5 xl:grid-cols-[1fr_1fr]"><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><div className="flex items-center justify-between"><div><p className="text-xs font-semibold text-slate-200">Handoff checklist</p><p className="mt-1 text-sm text-slate-500">Complete before closing the assignment.</p></div><PackageCheck className="h-5 w-5 text-[#74c8a7]" /></div><div className="mt-5 grid gap-3 sm:grid-cols-2"><button type="button" onClick={() => setPhotoAdded(true)} className={`flex min-h-20 items-center gap-3 border p-4 text-left ${photoAdded ? "border-[#2e7660] bg-[#14261f]" : "border-slate-700 bg-[#0d161e] hover:bg-slate-800"}`}><span className="grid h-9 w-9 place-items-center rounded border border-slate-700 text-[#74c8a7]"><Camera className="h-4 w-4" /></span><span><span className="block text-sm font-semibold text-white">{photoAdded ? "Photo added" : "Add handoff photo"}</span><span className="mt-1 block text-xs text-slate-500">Storage receipt or product condition</span></span></button><button type="button" onClick={handleConfirmHandoff} disabled={!photoAdded || handoffDone} className="flex min-h-20 items-center gap-3 border border-slate-700 bg-[#0d161e] p-4 text-left disabled:cursor-not-allowed disabled:opacity-40 hover:bg-slate-800"><span className="grid h-9 w-9 place-items-center rounded border border-slate-700 text-[#74c8a7]"><ShieldCheck className="h-4 w-4" /></span><span><span className="block text-sm font-semibold text-white">{handoffDone ? "Handoff confirmed" : "Confirm handoff"}</span><span className="mt-1 block text-xs text-slate-500">Close out {shipment.shipmentId}</span></span></button></div></article><article className="relative overflow-hidden border border-slate-800 bg-[#101820] p-5 before:absolute before:left-0 before:top-0 before:h-px before:w-9 before:bg-[#278a69]"><p className="text-xs font-semibold text-slate-200">Today&apos;s field activity</p><div className="mt-5 grid grid-cols-3 divide-x divide-slate-800 text-center"><div><p className="font-display text-3xl font-bold text-white">04</p><p className="mt-1 text-[10px] uppercase tracking-[0.1em] text-slate-500">Completed</p></div><div><p className="font-display text-3xl font-bold text-[#74c8a7]">01</p><p className="mt-1 text-[10px] uppercase tracking-[0.1em] text-slate-500">Active</p></div><div><p className="font-display text-3xl font-bold text-white">96%</p><p className="mt-1 text-[10px] uppercase tracking-[0.1em] text-slate-500">On-time</p></div></div><Link href="/dashboard/admin" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#7bd0af] hover:text-white">Open Admin/Ops view <ArrowRight className="h-4 w-4" /></Link></article></div>
+        </div></section>
+      </div>
+    </main>
+  );
+}
