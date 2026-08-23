@@ -1,3 +1,4 @@
+import asyncio
 from datetime import datetime, timezone
 from decimal import Decimal
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -14,7 +15,7 @@ async def process_telemetry_ingestion(
 ) -> dict:
     """
     Ingest, validate, persist telemetry from ESP32 / Simulator,
-    calculate AI risk & SHAP factors, and record alerts.
+    calculate AI risk & SHAP factors, and record alerts asynchronously.
     """
     # Derive aggregate temperature if probes given
     current_temp = telemetry_in.temperature
@@ -88,7 +89,7 @@ async def process_telemetry_ingestion(
         t_last = float(recent_readings[-1].temperature)
         temp_trend = round((t_first - t_last) / max(1, len(recent_readings) - 1), 2)
 
-    # 5. Execute AI Risk & SHAP Engine
+    # 5. Execute AI Risk & SHAP Engine Asynchronously in Thread Pool
     (
         risk_score,
         risk_level,
@@ -99,7 +100,8 @@ async def process_telemetry_ingestion(
         shap_factors,
         predicted_points,
         msg
-    ) = calculate_risk_and_shap(
+    ) = await asyncio.to_thread(
+        calculate_risk_and_shap,
         temperature=current_temp,
         safe_min=safe_min,
         safe_max=safe_max,
