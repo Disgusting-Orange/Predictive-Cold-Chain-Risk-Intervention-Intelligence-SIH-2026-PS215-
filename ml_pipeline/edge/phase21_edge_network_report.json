@@ -1,0 +1,245 @@
+{
+  "phase": "21",
+  "phase_name": "LOCAL EDGE NETWORK + INTERNET-RESILIENT ARCHITECTURE",
+  "timestamp": "2026-08-23T03:28:39.070569Z",
+  "final_verdict": "PHASE 21 PASS",
+  "tests_passed_count": 20,
+  "total_tests": 20,
+  "all_tests_passed": true,
+  "test_matrix_results": {
+    "TEST_1_esp32_to_edge_local_wifi": {
+      "passed": true,
+      "status_code": 200,
+      "connectivity": "ONLINE",
+      "reason": "ESP32 packet successfully ingested over local HTTP endpoint without public cloud"
+    },
+    "TEST_2_malformed_packet_rejection": {
+      "passed": true,
+      "status_code": 422,
+      "reason": "Malformed packet rejected fail-closed with HTTP 422"
+    },
+    "TEST_3_sensor_dropout": {
+      "passed": true,
+      "active_probes": 7,
+      "fused_state": "DEGRADED",
+      "reason": "1-Wire fault code sanitization active, partial dropout triggers DEGRADED state"
+    },
+    "TEST_4_duplicate_packet_handling": {
+      "passed": true,
+      "queue_count_before": 0,
+      "queue_count_after": 0,
+      "reason": "Duplicate timestamp packet updated idempotently without duplicate cloud sync queueing"
+    },
+    "TEST_5_out_of_order_packets": {
+      "passed": true,
+      "t0": "2026-08-23T14:10:00Z",
+      "t1": "2026-08-23T14:30:00Z",
+      "reason": "History buffer strictly maintains chronological ascending timestamp sort"
+    },
+    "TEST_6_stale_telemetry_detection": {
+      "passed": true,
+      "fused_state": "DEGRADED",
+      "events": [
+        {
+          "event_type": "STALE_TELEMETRY",
+          "description": "Telemetry transmission gap of 120.0 minutes exceeds 30.0m threshold",
+          "detected_at": "2026-08-23T16:00:00Z",
+          "evidence": {
+            "elapsed_minutes": 120.0,
+            "gap_threshold_min": 30.0
+          }
+        }
+      ],
+      "reason": "Observation gap > 60m successfully flagged STALE_TELEMETRY"
+    },
+    "TEST_7_cold_start_non_inference": {
+      "passed": true,
+      "cold_start_status": "COLD_START",
+      "risk_probability": null,
+      "reason": "Observations N=1..5 strictly suppress XGBoost model inference to prevent bogus early predictions"
+    },
+    "TEST_8_warmed_xgboost_inference": {
+      "passed": true,
+      "risk_probability": 0.00026657062699086964,
+      "threshold": 0.575,
+      "risk_level": "SAFE",
+      "reason": "6th observation unlocks full 40-feature engineering and frozen XGBoost v2 inference"
+    },
+    "TEST_9_fast_event_detection": {
+      "passed": true,
+      "has_rapid_warming": true,
+      "fused_state": "EVENT_AND_PREDICTED_RISK",
+      "reason": "Causal step delta > 0.5\u00b0C in 10m triggers immediate RAPID_WARMING"
+    },
+    "TEST_10_shap_tree_explanations": {
+      "passed": true,
+      "top_factor_count": 5,
+      "top_factor": "spatial_range_t",
+      "reason": "TreeSHAP computes exact marginal feature attributions for XGBoost v2 output"
+    },
+    "TEST_11_risk_fusion_synthesis": {
+      "passed": true,
+      "safe_state": "SAFE",
+      "event_state": "EVENT_AND_PREDICTED_RISK",
+      "reason": "Risk fusion synthesizes fast events, sensor health, and temporal XGBoost risk into unified state"
+    },
+    "TEST_12_internet_available_online": {
+      "passed": true,
+      "network_mode": "ONLINE",
+      "reason": "ONLINE mode established with active cloud synchronization"
+    },
+    "TEST_13_internet_down_local_ml_active": {
+      "passed": true,
+      "connectivity": "LOCAL_ONLY",
+      "risk_probability": 0.00064556032884866,
+      "cloud_sync_pending": 1,
+      "reason": "NO INTERNET != NO LOCAL ML: Telemetry ingested, 40 features extracted, XGBoost v2 + SHAP executed locally"
+    },
+    "TEST_14_edge_gateway_unavailable": {
+      "passed": true,
+      "mode": "EDGE_UNAVAILABLE",
+      "reason": "LAN dropout explicitly recognized as EDGE_UNAVAILABLE (no fabricated observations)"
+    },
+    "TEST_15_internet_restoration": {
+      "passed": true,
+      "mode": "ONLINE",
+      "reason": "Seamless transition from LOCAL_ONLY back to ONLINE mode upon network reconnection"
+    },
+    "TEST_16_buffered_telemetry_sync": {
+      "passed": true,
+      "synced_count": 1,
+      "pending_before": 1,
+      "pending_after": 0,
+      "reason": "All locally accumulated evaluations synchronized chronologically with zero data loss"
+    },
+    "TEST_17_no_fabricated_telemetry": {
+      "passed": true,
+      "original_probe": 2.45,
+      "reason": "Strict identity match across sensor -> packet -> storage -> ML input without synthetic values"
+    },
+    "TEST_18_model_package_integrity": {
+      "passed": true,
+      "hashes_checked": {
+        "model.json": {
+          "expected": "53fc831b207a",
+          "computed": "53fc831b207a",
+          "match": true
+        },
+        "threshold.json": {
+          "expected": "6cd30e38d04b",
+          "computed": "6cd30e38d04b",
+          "match": true
+        },
+        "feature_schema.json": {
+          "expected": "cb1fe48a7b29",
+          "computed": "cb1fe48a7b29",
+          "match": true
+        },
+        "model_metadata.json": {
+          "expected": "84f1cc6dd8c7",
+          "computed": "84f1cc6dd8c7",
+          "match": true
+        },
+        "backend_contract.json": {
+          "expected": "6b3159b6c296",
+          "computed": "6b3159b6c296",
+          "match": true
+        }
+      },
+      "reason": "Cryptographic SHA-256 validation verified zero tampering with XGBoost v2, threshold, schema, metadata"
+    },
+    "TEST_19_no_lookahead_verification": {
+      "passed": true,
+      "slice_len": 1,
+      "target_timestamp": "2026-08-23T14:00:00Z",
+      "reason": "Feature engineering strictly isolates temporal window <= observation timestamp"
+    },
+    "TEST_20_local_inference_latency": {
+      "passed": true,
+      "total_pipeline_ms": 63.41709999833256,
+      "latency_breakdown": {
+        "validation_ms": 0.05050003528594971,
+        "event_detection_ms": 0.11699995957314968,
+        "history_buffer_ms": 0.017300015315413475,
+        "local_storage_raw_ms": 0.7059000199660659,
+        "feature_engineering_ms": 25.4495000699535,
+        "inference_and_shap_ms": 9.029799955897033,
+        "risk_fusion_ms": 0.0996000599116087,
+        "local_storage_eval_ms": 7.319999975152314,
+        "total_pipeline_ms": 63.41709999833256
+      },
+      "reason": "Complete software ingestion & inference latency 63.42ms < 500ms SLA"
+    }
+  },
+  "failure_simulations": {
+    "CASE_A_internet_available": {
+      "mode": "ONLINE",
+      "passed": true
+    },
+    "CASE_B_internet_unavailable": {
+      "mode": "LOCAL_ONLY",
+      "passed": true
+    },
+    "CASE_C_extended_internet_outage": {
+      "pending_accumulated": 5,
+      "passed": true
+    },
+    "CASE_D_lan_available_cloud_unavailable": {
+      "local_ml_success": true,
+      "risk_probability": 0.00026657062699086964,
+      "passed": true
+    },
+    "CASE_E_lan_unavailable": {
+      "mode": "EDGE_UNAVAILABLE",
+      "passed": true
+    },
+    "CASE_F_gateway_restart_resilience": {
+      "ingest_success": true,
+      "passed": true
+    },
+    "CASE_G_network_reconnect_sync": {
+      "synced_count": 7,
+      "pending_remaining": 0,
+      "passed": true
+    }
+  },
+  "measured_latencies_ms": {
+    "validation_ms": 0.05050003528594971,
+    "event_detection_ms": 0.11699995957314968,
+    "history_buffer_ms": 0.017300015315413475,
+    "local_storage_raw_ms": 0.7059000199660659,
+    "feature_engineering_ms": 25.4495000699535,
+    "inference_and_shap_ms": 9.029799955897033,
+    "risk_fusion_ms": 0.0996000599116087,
+    "local_storage_eval_ms": 7.319999975152314,
+    "total_pipeline_ms": 63.41709999833256
+  },
+  "model_artifact_verification": {
+    "model.json": {
+      "expected": "53fc831b207a",
+      "computed": "53fc831b207a",
+      "match": true
+    },
+    "threshold.json": {
+      "expected": "6cd30e38d04b",
+      "computed": "6cd30e38d04b",
+      "match": true
+    },
+    "feature_schema.json": {
+      "expected": "cb1fe48a7b29",
+      "computed": "cb1fe48a7b29",
+      "match": true
+    },
+    "model_metadata.json": {
+      "expected": "84f1cc6dd8c7",
+      "computed": "84f1cc6dd8c7",
+      "match": true
+    },
+    "backend_contract.json": {
+      "expected": "6b3159b6c296",
+      "computed": "6b3159b6c296",
+      "match": true
+    }
+  },
+  "hardware_boundary_notice": "No direct physical refrigeration compressor actuation is claimed. Protective action is issued as software advisory PROTECTIVE_ACTION_REQUEST."
+}

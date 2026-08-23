@@ -18,6 +18,7 @@ export default function App() {
     applyIntervention,
     sendControl,
     sendWarehouseControl,
+    toggleNetworkSimulation,
   } = useWebSocket();
 
   if (!state) {
@@ -62,16 +63,74 @@ export default function App() {
             <Snowflake size={18} className="text-cyan-400" />
           </div>
           <div>
-            <h1 className="text-sm font-bold text-slate-100 tracking-wide">
-              AI COLD CHAIN COMMAND CENTRE
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-sm font-bold text-slate-100 tracking-wide">
+                AI COLD CHAIN COMMAND CENTRE
+              </h1>
+              {/* Edge Network Mode Badge */}
+              <span
+                className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+                style={{
+                  background:
+                    state.networkMode === 'ONLINE'
+                      ? 'rgba(34, 197, 94, 0.15)'
+                      : state.networkMode === 'LOCAL_ONLY'
+                        ? 'rgba(249, 115, 22, 0.15)'
+                        : 'rgba(239, 68, 68, 0.15)',
+                  color:
+                    state.networkMode === 'ONLINE'
+                      ? '#22c55e'
+                      : state.networkMode === 'LOCAL_ONLY'
+                        ? '#f97316'
+                        : '#ef4444',
+                  border: `1px solid ${
+                    state.networkMode === 'ONLINE'
+                      ? 'rgba(34, 197, 94, 0.3)'
+                      : state.networkMode === 'LOCAL_ONLY'
+                        ? 'rgba(249, 115, 22, 0.3)'
+                        : 'rgba(239, 68, 68, 0.3)'
+                  }`,
+                }}
+              >
+                {state.networkMode === 'LOCAL_ONLY'
+                  ? `⚡ Local Edge ML (Offline • ${state.cloudSyncPending || 0} Queued)`
+                  : state.networkMode === 'ONLINE'
+                    ? '🌐 Online (Cloud Synced)'
+                    : state.networkMode || 'EDGE'}
+              </span>
+            </div>
             <p className="text-xs text-slate-500">
-              SIH 2026 Prototype • Simulated Environment
+              FrostLink Phase 21 • Edge-Resilient Multi-Probe Architecture
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          {/* Internet Simulation Toggle */}
+          <button
+            onClick={() => toggleNetworkSimulation(state.networkMode === 'LOCAL_ONLY')}
+            className="px-2.5 py-1 rounded text-xs font-semibold transition-all hover:scale-[1.02]"
+            style={{
+              background:
+                state.networkMode === 'LOCAL_ONLY'
+                  ? 'rgba(34, 197, 94, 0.15)'
+                  : 'rgba(249, 115, 22, 0.15)',
+              border: `1px solid ${
+                state.networkMode === 'LOCAL_ONLY'
+                  ? 'rgba(34, 197, 94, 0.3)'
+                  : 'rgba(249, 115, 22, 0.3)'
+              }`,
+              color:
+                state.networkMode === 'LOCAL_ONLY'
+                  ? '#22c55e'
+                  : '#f97316',
+              cursor: 'pointer',
+            }}
+            title="Toggle Internet connectivity to demonstrate that Edge ML continues uninterrupted offline"
+          >
+            {state.networkMode === 'LOCAL_ONLY' ? '🔌 Restore Internet' : '📡 Drop Internet (Test Offline ML)'}
+          </button>
+
           <ScenarioControls
             scenario={state.scenario}
             onScenario={setScenario}
@@ -80,7 +139,7 @@ export default function App() {
             {connected ? (
               <>
                 <Wifi size={12} className="text-green-400" />
-                <span className="text-xs text-green-400">Live</span>
+                <span className="text-xs text-green-400">Live WS</span>
               </>
             ) : (
               <>

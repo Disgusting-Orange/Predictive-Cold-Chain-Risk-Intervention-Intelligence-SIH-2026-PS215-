@@ -10,6 +10,50 @@ export interface ContributingFactor {
   description: string;
 }
 
+export interface SHAPFactor {
+  feature_name: string;
+  display_name?: string;
+  observed_value: number;
+  shap_value: number;
+  unit?: string;
+  feature_group?: string;
+}
+
+export interface SHAPExplanation {
+  top_risk_increasing_factors: SHAPFactor[];
+  top_risk_reducing_factors: SHAPFactor[];
+}
+
+export interface ObservedEvent {
+  event_type: string;
+  severity: string;
+  description: string;
+  probe_name?: string;
+  metric_value?: number;
+}
+
+export interface ProtectiveAction {
+  state: string;
+  requested_action: string;
+  target_temperature_c?: number;
+  cooling_power_level?: number;
+  reasons: string[];
+  issued_at?: string;
+  disclaimer: string;
+}
+
+export interface EdgeStatus {
+  network_mode: 'ONLINE' | 'LOCAL_ONLY' | 'EDGE_UNAVAILABLE' | 'DEGRADED';
+  internet_connected: boolean;
+  edge_gateway_reachable: boolean;
+  sensor_connected: boolean;
+  ml_available: boolean;
+  cloud_sync_pending_count: number;
+  active_shipments_count: number;
+  uptime_seconds: number;
+  status_updated_at: string;
+}
+
 export interface Shipment {
   shipmentId: string;
   vehicleId: string;
@@ -35,6 +79,12 @@ export interface Shipment {
   safeMaxTemp: number;
   coolingPower: number;
   factors: ContributingFactor[];
+  fusedState?: string;
+  riskProbability?: number | null;
+  threshold?: number;
+  explanation?: SHAPExplanation | null;
+  observedEvents?: ObservedEvent[];
+  protectiveAction?: ProtectiveAction | null;
 }
 
 export interface Warehouse {
@@ -165,6 +215,9 @@ export interface SelectedDetail {
   impact: ImpactData | null;
   safeMinTemp: number;
   safeMaxTemp: number;
+  fusedAssessment?: any;
+  shapExplanation?: SHAPExplanation | null;
+  protectiveAction?: ProtectiveAction | null;
 }
 
 export interface DashboardState {
@@ -179,6 +232,10 @@ export interface DashboardState {
   selectedDetail: SelectedDetail | null;
   locations: Record<string, Location>;
   tick: number;
+  edgeStatus?: EdgeStatus | null;
+  networkMode?: 'ONLINE' | 'LOCAL_ONLY' | 'EDGE_UNAVAILABLE' | 'DEGRADED';
+  cloudSyncPending?: number;
+  mlAvailable?: boolean;
 }
 
 // Risk level color helpers

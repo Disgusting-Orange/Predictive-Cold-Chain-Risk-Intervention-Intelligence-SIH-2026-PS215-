@@ -103,6 +103,53 @@ async def get_state():
     return simulator.get_state()
 
 
+@app.get("/api/edge/status")
+@app.get("/api/v1/edge/status")
+async def get_edge_status():
+    """Get edge network and health status."""
+    if simulator.gateway:
+        return simulator.gateway.network_manager.get_status(simulator.gateway.local_storage).dict()
+    return {
+        "network_mode": "ONLINE",
+        "internet_connected": True,
+        "edge_gateway_reachable": True,
+        "sensor_connected": True,
+        "ml_available": True,
+        "cloud_sync_pending_count": 0
+    }
+
+
+class NetworkSimulationBody(BaseModel):
+    internet_connected: Optional[bool] = None
+    edge_gateway_reachable: Optional[bool] = None
+    sensor_connected: Optional[bool] = None
+
+
+@app.post("/api/edge/simulate_network")
+@app.post("/api/v1/edge/simulate_network")
+async def simulate_edge_network(body: NetworkSimulationBody):
+    """Simulate network state transitions (e.g. Internet drop, reconnection)."""
+    if simulator.gateway:
+        if body.internet_connected is not None:
+            simulator.gateway.network_manager.set_internet_connected(body.internet_connected)
+        if body.edge_gateway_reachable is not None:
+            simulator.gateway.network_manager.set_edge_gateway_reachable(body.edge_gateway_reachable)
+        if body.sensor_connected is not None:
+            simulator.gateway.network_manager.set_sensor_connected(body.sensor_connected)
+    await broadcast_state()
+    return simulator.get_state()
+
+
+@app.post("/api/v1/telemetry")
+async def ingest_hardware_telemetry(payload: dict):
+    """Ingest raw ESP32 multi-probe sensor telemetry packet."""
+    if simulator.gateway:
+        res = simulator.gateway.process_raw_telemetry(payload)
+        await broadcast_state()
+        return res.dict()
+    return {"error": "Hardware gateway uninitialized"}
+
+
 @app.post("/api/scenario/{scenario}")
 async def set_scenario(scenario: str):
     """

@@ -9,8 +9,21 @@ without changing the dashboard, risk engine, or intervention logic.
 """
 
 import copy
+import os
+import sys
 from typing import Dict, List, Optional
 from datetime import datetime, timedelta
+
+# Import FrostLink ML & Hardware Gateway for real AI integration
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "ml_pipeline", "hardware")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "ml_pipeline", "feature_engineering")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "ml_pipeline", "service")))
+
+try:
+    from gateway import HardwareGateway
+except ImportError:
+    HardwareGateway = None
+
 from risk_engine import calculate_risk, predict_excursion
 
 
@@ -384,6 +397,10 @@ class ColdChainSimulator:
         self.loss_avoided = 0
         self.peak_risk = 0
 
+        # Initialize Hardware Gateway for real ML inference
+        self.gateway = HardwareGateway() if HardwareGateway is not None else None
+        self.ml_evaluations: Dict[str, Dict] = {}
+
         # Control overrides (set via API, consumed each tick)
         self.shipment_overrides: Dict[str, Dict] = {}
         self.warehouse_overrides: Dict[str, Dict] = {}
@@ -663,7 +680,7 @@ class ColdChainSimulator:
     # ==================== RISK & ALERTS ====================
 
     def _update_risks(self):
-        """Recalculate risk for all shipments."""
+        """Recalculate risk for all shipments using FrostLink ML Gateway."""
         for sid, shp in self.shipments.items():
             temp_trend = self._calculate_trend(sid)
             prev = self.previous_risks.get(sid)
@@ -680,11 +697,83 @@ class ColdChainSimulator:
                 previous_risk_score=prev,
             )
 
-            shp["riskScore"] = score
-            shp["riskLevel"] = level
+            # Synthesize 9 spatial probes from core temperature and variance
+            temp = float(shp["temperature"])
+            probes = {
+                "Front_Top": round(temp + 0.25, 2),
+                "Front_Middle": round(temp, 2),
+                "Front_Bottom": round(temp - 0.20, 2),
+                "Middle_Top": round(temp + 0.35, 2),
+                "Middle_Middle": round(temp + 0.05, 2),
+                "Middle_Bottom": round(temp - 0.15, 2),
+                "Rear_Top": round(temp + 0.55, 2),
+                "Rear_Middle": round(temp + 0.20, 2),
+                "Rear_Bottom": round(temp + 0.05, 2)
+            }
+            
+            # Format raw ESP32 packet
+            obs_dt = (datetime.utcnow() + timedelta(minutes=self.tick * 10)).strftime("%Y-%m-%dT%H:%M:%SZ")
+            raw_pkt = {
+                "shipment_id": sid,
+                "timestamp": obs_dt,
+                "probes": probes,
+                "sconf": 1.0,
+                "coverage_time": 1.0,
+                "door_open": shp.get("doorOpen", False),
+                "speed_kmh": float(shp.get("speed", 40.0)),
+                "battery_voltage": float(shp.get("battery", 90.0)) / 10.0
+            }
+
+            if self.gateway:
+                try:
+                    ingest_res = self.gateway.process_raw_telemetry(raw_pkt)
+                    if ingest_res.success:
+                        self.ml_evaluations[sid] = ingest_res.dict()
+                        if ingest_res.risk_probability is not None:
+                            shp["riskScore"] = int(round(ingest_res.risk_probability * 100))
+                            shp["riskLevel"] = ingest_res.risk_level
+                            shp["fusedState"] = ingest_res.fused_state
+                            shp["riskProbability"] = ingest_res.risk_probability
+                            shp["threshold"] = ingest_res.threshold
+                            shp["explanation"] = ingest_res.explanation
+                            shp["observedEvents"] = ingest_res.observed_events
+                            shp["protectiveAction"] = ingest_res.protective_action
+                            shp["fusedAssessment"] = ingest_res.fused_assessment
+
+                            # Map top SHAP factors
+                            if ingest_res.explanation:
+                                top_shap = ingest_res.explanation.get("top_risk_increasing_factors", [])
+                                if top_shap:
+                                    factors = [
+                                        {
+                                            "direction": "↑",
+                                            "description": f"{f.get('display_name', f.get('feature_name'))}: {f.get('observed_value', 0):.1f} (SHAP +{f.get('shap_value', 0):.2f})"
+                                        }
+                                        for f in top_shap[:4]
+                                    ]
+                        else:
+                            # Cold start fallback
+                            shp["riskScore"] = score
+                            shp["riskLevel"] = level
+                            shp["fusedState"] = ingest_res.fused_state or "COLD_START"
+                            shp["protectiveAction"] = ingest_res.protective_action
+                            shp["fusedAssessment"] = ingest_res.fused_assessment
+                    else:
+                        shp["riskScore"] = score
+                        shp["riskLevel"] = level
+                        shp["fusedState"] = "ERROR"
+                except Exception:
+                    shp["riskScore"] = score
+                    shp["riskLevel"] = level
+                    shp["fusedState"] = "SAFE"
+            else:
+                shp["riskScore"] = score
+                shp["riskLevel"] = level
+                shp["fusedState"] = "SAFE"
+
             shp["temperatureTrend"] = round(temp_trend, 2)
             shp["_factors"] = factors
-            self.previous_risks[sid] = score
+            self.previous_risks[sid] = shp["riskScore"]
 
     def _calculate_trend(self, shipment_id: str) -> float:
         """Calculate temperature trend from recent history."""
@@ -1051,6 +1140,12 @@ class ColdChainSimulator:
                 "safeMaxTemp": shp["safeMaxTemp"],
                 "coolingPower": shp.get("coolingPower", 65),
                 "factors": shp.get("_factors", []),
+                "fusedState": shp.get("fusedState", "SAFE"),
+                "riskProbability": shp.get("riskProbability"),
+                "threshold": shp.get("threshold", 0.5750),
+                "explanation": shp.get("explanation"),
+                "observedEvents": shp.get("observedEvents", []),
+                "protectiveAction": shp.get("protectiveAction"),
             })
 
         # Warehouse state
@@ -1193,7 +1288,19 @@ class ColdChainSimulator:
                 "impact": impact,
                 "safeMinTemp": sel_shp["safeMinTemp"],
                 "safeMaxTemp": sel_shp["safeMaxTemp"],
+                "fusedAssessment": sel_shp.get("fusedAssessment"),
+                "shapExplanation": sel_shp.get("explanation"),
+                "protectiveAction": sel_shp.get("protectiveAction"),
             }
+
+        edge_status = None
+        network_mode = "ONLINE"
+        sync_pending = 0
+        if self.gateway:
+            net_stat = self.gateway.network_manager.get_status(self.gateway.local_storage)
+            edge_status = net_stat.dict()
+            network_mode = net_stat.network_mode.value
+            sync_pending = net_stat.cloud_sync_pending_count
 
         return {
             "shipments": shipments_list,
@@ -1207,4 +1314,8 @@ class ColdChainSimulator:
             "selectedDetail": selected_detail,
             "locations": LOCATIONS,
             "tick": self.tick,
+            "edgeStatus": edge_status,
+            "networkMode": network_mode,
+            "cloudSyncPending": sync_pending,
+            "mlAvailable": True,
         }

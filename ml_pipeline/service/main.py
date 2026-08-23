@@ -1,7 +1,8 @@
 """
 FrostLink ML Inference Service -- Main Application
 ==================================================
-FastAPI application exposing production risk prediction and health endpoints.
+FastAPI application exposing production risk prediction, health endpoints,
+and local edge gateway communication endpoints (Phase 21).
 """
 
 import os
@@ -9,6 +10,7 @@ import sys
 import logging
 from typing import Dict, Any, Optional
 from contextlib import asynccontextmanager
+from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -20,10 +22,26 @@ from model_service import ModelService, ArtifactIntegrityError
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("frostlink_ml_service")
 
+# Hardware Ingestion Gateway & Edge Network imports
+try:
+    from gateway import HardwareGateway
+    from edge_network import EdgeNetworkManager
+    from edge_sync import EdgeSyncManager
+    from local_storage import LocalStorage
+except ImportError:
+    import sys
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "hardware")))
+    from gateway import HardwareGateway
+    from edge_network import EdgeNetworkManager
+    from edge_sync import EdgeSyncManager
+    from local_storage import LocalStorage
+
+_gateway = HardwareGateway()
+
 # Lifespan context manager for startup / shutdown
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("Initializing FrostLink ML Inference Service...")
+    logger.info("Initializing FrostLink ML Inference & Edge Gateway Service...")
     try:
         ModelService.get_instance()
         logger.info("Model service successfully initialized & artifact integrity verified.")
@@ -32,12 +50,12 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.critical(f"FATAL: Unexpected error loading model service: {e}")
     yield
-    logger.info("Shutting down FrostLink ML Inference Service.")
+    logger.info("Shutting down FrostLink ML Inference & Edge Gateway Service.")
 
 app = FastAPI(
     title=SERVICE_NAME,
     version=SERVICE_VERSION,
-    description="Isolated ML inference microservice serving frozen XGBoost early-warning risk predictions and SHAP attributions.",
+    description="Edge-resilient ML inference service serving frozen XGBoost early-warning risk predictions, SHAP attributions, and local edge telemetry ingestion.",
     lifespan=lifespan
 )
 
@@ -96,17 +114,22 @@ async def generic_exception_handler(request: Request, exc: Exception):
 # Routes
 @app.get("/", tags=["Info"])
 async def root_info():
+    net_status = _gateway.network_manager.get_status(_gateway.local_storage)
     return {
         "service": SERVICE_NAME,
         "version": SERVICE_VERSION,
         "status": "ONLINE",
+        "network_mode": net_status.network_mode.value,
         "docs_url": "/docs",
         "health_check": "/health",
+        "edge_status_check": f"{API_PREFIX}/edge/status",
         "predict_endpoint": f"{API_PREFIX}/predict_risk",
-        "notice": "This model is an advisory early-warning baseline and is not yet validated for autonomous intervention."
+        "telemetry_endpoint": f"{API_PREFIX}/telemetry",
+        "notice": "Advisory early-warning ML baseline with local-edge offline resilience."
     }
 
 @app.get("/health", response_model=HealthResponse, tags=["Health"])
+@app.get(f"{API_PREFIX}/health", response_model=HealthResponse, tags=["Health"])
 async def health_check():
     try:
         service = ModelService.get_instance()
@@ -139,15 +162,9 @@ async def predict_risk(request: PredictionRequest):
         logger.error(f"Inference error: {e}", exc_info=True)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Prediction inference failure.")
 
-# Hardware Ingestion Gateway Routes (ESP32 Wi-Fi / HTTP POST)
-try:
-    from gateway import HardwareGateway
-    _gateway = HardwareGateway()
-except ImportError:
-    import sys
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "hardware")))
-    from gateway import HardwareGateway
-    _gateway = HardwareGateway()
+# ============================================================
+# Local Edge Ingestion & Health Routes (Phase 21)
+# ============================================================
 
 @app.post(
     f"{API_PREFIX}/telemetry/ingest",
@@ -182,3 +199,60 @@ async def ingest_raw_telemetry(payload: Dict[str, Any]):
                 "error_code": "INGESTION_SERVER_ERROR"
             }
         )
+
+@app.get(
+    f"{API_PREFIX}/edge/status",
+    tags=["Edge Health"],
+    summary="Get explicit local edge network and health status"
+)
+@app.get(
+    "/edge/status",
+    tags=["Edge Health"],
+    summary="Root alias for edge status"
+)
+async def get_edge_status():
+    status_obj = _gateway.network_manager.get_status(_gateway.local_storage)
+    return status_obj.dict()
+
+@app.post(
+    f"{API_PREFIX}/edge/sync",
+    tags=["Edge Sync"],
+    summary="Manually trigger cloud sync of queued observations"
+)
+async def trigger_cloud_sync():
+    res = _gateway.sync_manager.sync_pending_records()
+    return res
+
+class NetworkSimulationBody(BaseModel):
+    internet_connected: Optional[bool] = None
+    edge_gateway_reachable: Optional[bool] = None
+    sensor_connected: Optional[bool] = None
+
+@app.post(
+    f"{API_PREFIX}/edge/simulate_network",
+    tags=["Edge Simulation"],
+    summary="Simulate network state transitions for resilience testing"
+)
+async def simulate_network_transition(body: NetworkSimulationBody):
+    if body.internet_connected is not None:
+        _gateway.network_manager.set_internet_connected(body.internet_connected)
+    if body.edge_gateway_reachable is not None:
+        _gateway.network_manager.set_edge_gateway_reachable(body.edge_gateway_reachable)
+    if body.sensor_connected is not None:
+        _gateway.network_manager.set_sensor_connected(body.sensor_connected)
+        
+    return _gateway.network_manager.get_status(_gateway.local_storage).dict()
+
+@app.get(
+    f"{API_PREFIX}/edge/assessment/{{shipment_id}}",
+    tags=["Edge Assessment"],
+    summary="Get latest local ML evaluation and protective action request for a shipment"
+)
+async def get_latest_edge_assessment(shipment_id: str):
+    eval_record = _gateway.local_storage.get_latest_evaluation(shipment_id)
+    if not eval_record:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"No telemetry evaluations found for shipment: {shipment_id}"
+        )
+    return eval_record

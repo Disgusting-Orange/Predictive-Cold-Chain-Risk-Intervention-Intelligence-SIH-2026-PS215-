@@ -1,9 +1,16 @@
 """
-FrostLink Hardware Gateway Ingestion Service -- Phase 18A
+FrostLink Hardware Gateway Ingestion Service -- Phase 21
 ========================================================
-Ingests raw multi-probe packets from ESP32 gateways, executes causal Fast Event Detection,
-maintains shipment history buffers, extracts 40 causal features, runs frozen XGBoost v2 + SHAP,
-and synthesizes the unified assessment via the Risk Fusion layer.
+Edge-Resilient Ingestion Gateway:
+- Ingests raw multi-probe packets from ESP32 gateways over Local Wi-Fi.
+- Executes causal Fast Event Detection.
+- Maintains shipment history buffers.
+- Persists raw telemetry and ML evaluations to local SQLite storage (offline-first).
+- Extracts 40 causal features.
+- Runs frozen XGBoost v2 + SHAP locally on edge gateway (without internet).
+- Synthesizes the unified assessment via Risk Fusion.
+- Evaluates refrigeration control safety abstraction (PROTECTIVE_ACTION_REQUEST).
+- Synchronizes buffered records to cloud when Internet is available.
 """
 
 import sys
@@ -28,9 +35,17 @@ from schemas import PredictionRequest, PredictionResponse
 try:
     from .event_detector import FastEventDetector, ObservedEvent
     from .risk_fusion import RiskFusionEngine, FusedRiskAssessment
+    from .local_storage import LocalStorage
+    from .control_safety import ControlSafetyEngine, ProtectiveActionRequest
+    from .edge_network import EdgeNetworkManager, NetworkModeEnum
+    from .edge_sync import EdgeSyncManager
 except ImportError:
     from event_detector import FastEventDetector, ObservedEvent
     from risk_fusion import RiskFusionEngine, FusedRiskAssessment
+    from local_storage import LocalStorage
+    from control_safety import ControlSafetyEngine, ProtectiveActionRequest
+    from edge_network import EdgeNetworkManager, NetworkModeEnum
+    from edge_sync import EdgeSyncManager
 
 logger = logging.getLogger("frostlink_hardware_gateway")
 
@@ -40,6 +55,9 @@ class IngestionResult(BaseModel):
     timestamp: str
     cold_start_status: str
     active_probes: int
+    connectivity: str = "ONLINE"
+    internet_connected: bool = True
+    cloud_sync_pending: int = 0
     fused_state: Optional[str] = None
     observed_events: List[Dict[str, Any]] = Field(default_factory=list)
     risk_probability: Optional[float] = None
@@ -48,6 +66,7 @@ class IngestionResult(BaseModel):
     prediction_horizon_minutes: Optional[int] = 60
     explanation: Optional[Dict[str, Any]] = None
     fused_assessment: Optional[Dict[str, Any]] = None
+    protective_action: Optional[Dict[str, Any]] = None
     latencies_ms: Dict[str, float] = Field(default_factory=dict)
     error_message: Optional[str] = None
 
@@ -59,17 +78,29 @@ class HardwareGateway:
         model_service: Optional[ModelService] = None,
         event_detector: Optional[FastEventDetector] = None,
         risk_fusion: Optional[RiskFusionEngine] = None,
+        local_storage: Optional[LocalStorage] = None,
+        control_safety: Optional[ControlSafetyEngine] = None,
+        network_manager: Optional[EdgeNetworkManager] = None,
+        sync_manager: Optional[EdgeSyncManager] = None,
         log_dir: Optional[str] = None
     ):
         try:
             from .history_buffer import ShipmentHistoryBuffer
         except ImportError:
             from history_buffer import ShipmentHistoryBuffer
+            
         self.history_buffer = history_buffer or ShipmentHistoryBuffer()
         self.feature_engineer = feature_engineer or FrostLinkFeatureEngineer()
         self.model_service = model_service or ModelService.get_instance()
         self.event_detector = event_detector or FastEventDetector()
         self.risk_fusion = risk_fusion or RiskFusionEngine(ml_threshold=self.model_service.operating_threshold)
+        self.local_storage = local_storage or LocalStorage()
+        self.control_safety = control_safety or ControlSafetyEngine()
+        self.network_manager = network_manager or EdgeNetworkManager.get_instance()
+        self.sync_manager = sync_manager or EdgeSyncManager(
+            local_storage=self.local_storage,
+            network_manager=self.network_manager
+        )
         self.log_dir = log_dir or os.path.join(os.path.dirname(__file__), "logs")
         os.makedirs(self.log_dir, exist_ok=True)
 
@@ -78,15 +109,19 @@ class HardwareGateway:
         raw_payload: Union[str, Dict[str, Any], RawTelemetryPacket]
     ) -> IngestionResult:
         """
-        End-to-end ingestion pipeline:
+        End-to-end Local Edge Ingestion & Inference Pipeline:
         1. Parse & validate raw packet
         2. Fast Event Detection (Causal delta against latest previous observation)
         3. Insert into per-shipment history buffer
-        4. Extract 40 causal features
-        5. Validate feature vector
-        6. Conditional XGBoost v2 model inference & SHAP (strictly N >= 6)
-        7. Risk Fusion: Synthesize fast events + predictive risk
-        8. Measure latency and log data
+        4. Persist raw packet to local storage (idempotent duplicate protection)
+        5. Extract 40 causal features
+        6. Validate feature vector
+        7. Conditional XGBoost v2 model inference & SHAP (strictly N >= 6)
+        8. Risk Fusion: Synthesize fast events + predictive risk
+        9. Refrigeration Control Safety: Generate protective action advisory
+        10. Persist evaluation & queue for cloud synchronization
+        11. Trigger cloud sync if Internet is connected
+        12. Measure stage latencies and return IngestionResult
         """
         t_start = time.perf_counter()
         latencies = {}
@@ -111,6 +146,8 @@ class HardwareGateway:
                 cold_start_status="ERROR",
                 fused_state="ERROR",
                 active_probes=0,
+                connectivity=self.network_manager.get_current_mode().value,
+                internet_connected=self.network_manager.internet_connected,
                 error_message=f"Raw packet validation failed: {str(e)}"
             )
 
@@ -122,6 +159,8 @@ class HardwareGateway:
                 cold_start_status="ERROR",
                 fused_state="ERROR",
                 active_probes=0,
+                connectivity=self.network_manager.get_current_mode().value,
+                internet_connected=self.network_manager.internet_connected,
                 error_message="Raw packet failed structural or probe validation (no valid probe readings)."
             )
         latencies["validation_ms"] = (time.perf_counter() - t0) * 1000.0
@@ -144,7 +183,16 @@ class HardwareGateway:
         history = self.history_buffer.get_history(packet.shipment_id, up_to_timestamp=packet.timestamp)
         latencies["history_buffer_ms"] = (time.perf_counter() - t1) * 1000.0
 
-        # 4. Extract 40 Causal Features
+        # 4. Local Persistent Storage (Idempotent write of raw packet)
+        t_db = time.perf_counter()
+        self.local_storage.insert_telemetry_packet(packet.dict())
+        latencies["local_storage_raw_ms"] = (time.perf_counter() - t_db) * 1000.0
+
+        # Record activity with Network Manager
+        is_sensor_healthy = (sensor_meta.get("sensor_health") != "ERROR_ALL_PROBES_MISSING")
+        self.network_manager.record_activity(packet.shipment_id, packet.timestamp, is_sensor_healthy)
+
+        # 5. Extract 40 Causal Features
         t2 = time.perf_counter()
         try:
             features_dict, meta = self.feature_engineer.extract_features(
@@ -159,11 +207,13 @@ class HardwareGateway:
                 cold_start_status="ERROR",
                 fused_state="ERROR",
                 active_probes=0,
+                connectivity=self.network_manager.get_current_mode().value,
+                internet_connected=self.network_manager.internet_connected,
                 error_message=f"Feature extraction failure: {str(e)}"
             )
         latencies["feature_engineering_ms"] = (time.perf_counter() - t2) * 1000.0
 
-        # 5. Validate 40 Features
+        # 6. Validate 40 Features
         is_valid, val_err = validate_feature_vector(features_dict, self.feature_engineer.feature_names)
         if not is_valid:
             return IngestionResult(
@@ -173,10 +223,12 @@ class HardwareGateway:
                 cold_start_status=meta.get("cold_start_status", "UNKNOWN"),
                 fused_state="ERROR",
                 active_probes=meta.get("active_probes_count", 0),
+                connectivity=self.network_manager.get_current_mode().value,
+                internet_connected=self.network_manager.internet_connected,
                 error_message=f"Engineered features failed validation: {val_err}"
             )
 
-        # 6. Cold-Start Safety Policy: Do NOT invoke model inference before 6 valid observations
+        # 7. Cold-Start Safety Policy: Do NOT invoke model inference before 6 valid observations
         if not meta.get("is_inference_allowed", False):
             latencies["inference_and_shap_ms"] = 0.0
             
@@ -194,9 +246,44 @@ class HardwareGateway:
                 shap_explanation=None
             )
             latencies["risk_fusion_ms"] = (time.perf_counter() - t_fus) * 1000.0
+
+            # Control Safety Evaluation
+            prot_action = self.control_safety.evaluate_control_state(
+                shipment_id=packet.shipment_id,
+                fused_state=fused_assessment.fused_state,
+                risk_probability=None,
+                risk_level=None,
+                observed_events=[e.dict() for e in observed_events]
+            )
+
+            # Persist Evaluation & Enqueue for Cloud Sync
+            t_eval_db = time.perf_counter()
+            self.local_storage.insert_evaluation(
+                shipment_id=packet.shipment_id,
+                timestamp=packet.timestamp,
+                cold_start_status="COLD_START",
+                fused_state=fused_assessment.fused_state,
+                risk_probability=None,
+                risk_level="INSUFFICIENT_DATA",
+                threshold=self.model_service.operating_threshold,
+                observed_events=[e.dict() for e in observed_events],
+                explanation=None,
+                latencies_ms=latencies,
+                control_state=prot_action.state.value,
+                protective_action=prot_action.dict()
+            )
+            latencies["local_storage_eval_ms"] = (time.perf_counter() - t_eval_db) * 1000.0
+
+            # Trigger cloud sync if online
+            if self.network_manager.internet_connected:
+                self.sync_manager.sync_pending_records()
+
             latencies["total_pipeline_ms"] = (time.perf_counter() - t_start) * 1000.0
             
             self._log_telemetry_and_prediction(packet, features_dict, None, observed_events, fused_assessment)
+
+            current_mode = self.network_manager.get_current_mode(sensor_healthy=is_sensor_healthy).value
+            pending_sync = self.local_storage.get_pending_sync_count()
 
             return IngestionResult(
                 success=True,
@@ -204,6 +291,9 @@ class HardwareGateway:
                 timestamp=packet.timestamp,
                 cold_start_status="COLD_START",
                 fused_state=fused_assessment.fused_state,
+                connectivity=current_mode,
+                internet_connected=self.network_manager.internet_connected,
+                cloud_sync_pending=pending_sync,
                 observed_events=[e.dict() for e in observed_events],
                 active_probes=meta.get("active_probes_count", 0),
                 risk_probability=None,
@@ -212,10 +302,11 @@ class HardwareGateway:
                 prediction_horizon_minutes=60,
                 explanation=None,
                 fused_assessment=fused_assessment.dict(),
+                protective_action=prot_action.dict(),
                 latencies_ms=latencies
             )
 
-        # 7. Invoke Model Inference & SHAP (Only when fully warmed, N >= 6)
+        # 8. Invoke Model Inference & SHAP (Only when fully warmed, N >= 6)
         t3 = time.perf_counter()
         try:
             pred_req = PredictionRequest(
@@ -232,11 +323,13 @@ class HardwareGateway:
                 cold_start_status=meta.get("cold_start_status", "UNKNOWN"),
                 fused_state="ERROR",
                 active_probes=meta.get("active_probes_count", 0),
+                connectivity=self.network_manager.get_current_mode().value,
+                internet_connected=self.network_manager.internet_connected,
                 error_message=f"Model inference failed: {str(e)}"
             )
         latencies["inference_and_shap_ms"] = (time.perf_counter() - t3) * 1000.0
 
-        # 8. Risk Fusion: Synthesize Fast Events + XGBoost v2 Predictive Risk
+        # 9. Risk Fusion: Synthesize Fast Events + XGBoost v2 Predictive Risk
         t_fus = time.perf_counter()
         fused_assessment = self.risk_fusion.fuse(
             shipment_id=packet.shipment_id,
@@ -250,10 +343,45 @@ class HardwareGateway:
             shap_explanation=pred_resp.explanation.dict()
         )
         latencies["risk_fusion_ms"] = (time.perf_counter() - t_fus) * 1000.0
+
+        # 10. Refrigeration Control Safety Evaluation
+        prot_action = self.control_safety.evaluate_control_state(
+            shipment_id=packet.shipment_id,
+            fused_state=fused_assessment.fused_state,
+            risk_probability=pred_resp.risk_probability,
+            risk_level=pred_resp.risk_level.value,
+            observed_events=[e.dict() for e in observed_events]
+        )
+
+        # 11. Persist Evaluation & Enqueue for Cloud Sync
+        t_eval_db = time.perf_counter()
+        self.local_storage.insert_evaluation(
+            shipment_id=packet.shipment_id,
+            timestamp=packet.timestamp,
+            cold_start_status=meta.get("cold_start_status", "WARMED"),
+            fused_state=fused_assessment.fused_state,
+            risk_probability=pred_resp.risk_probability,
+            risk_level=pred_resp.risk_level.value,
+            threshold=pred_resp.threshold,
+            observed_events=[e.dict() for e in observed_events],
+            explanation=pred_resp.explanation.dict(),
+            latencies_ms=latencies,
+            control_state=prot_action.state.value,
+            protective_action=prot_action.dict()
+        )
+        latencies["local_storage_eval_ms"] = (time.perf_counter() - t_eval_db) * 1000.0
+
+        # Trigger cloud sync if online
+        if self.network_manager.internet_connected:
+            self.sync_manager.sync_pending_records()
+
         latencies["total_pipeline_ms"] = (time.perf_counter() - t_start) * 1000.0
 
-        # 9. Structured Logging (Raw Telemetry, Events, and ML Predictions)
+        # 12. Structured Logging
         self._log_telemetry_and_prediction(packet, features_dict, pred_resp, observed_events, fused_assessment)
+
+        current_mode = self.network_manager.get_current_mode(sensor_healthy=is_sensor_healthy).value
+        pending_sync = self.local_storage.get_pending_sync_count()
 
         return IngestionResult(
             success=True,
@@ -261,6 +389,9 @@ class HardwareGateway:
             timestamp=packet.timestamp,
             cold_start_status=meta.get("cold_start_status", "WARMED"),
             fused_state=fused_assessment.fused_state,
+            connectivity=current_mode,
+            internet_connected=self.network_manager.internet_connected,
+            cloud_sync_pending=pending_sync,
             observed_events=[e.dict() for e in observed_events],
             active_probes=meta.get("active_probes_count", 0),
             risk_probability=pred_resp.risk_probability,
@@ -269,6 +400,7 @@ class HardwareGateway:
             prediction_horizon_minutes=pred_resp.prediction_horizon_minutes,
             explanation=pred_resp.explanation.dict(),
             fused_assessment=fused_assessment.dict(),
+            protective_action=prot_action.dict(),
             latencies_ms=latencies
         )
 

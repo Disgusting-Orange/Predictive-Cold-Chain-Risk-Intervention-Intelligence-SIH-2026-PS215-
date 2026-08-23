@@ -27,10 +27,10 @@ export default function RiskPanel({ riskScore, riskLevel, factors }: Props) {
       <div className="flex items-center gap-2 mb-3">
         <Shield size={14} style={{ color }} />
         <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
-          Risk Assessment
+          AI Risk Fusion & ML State
         </span>
-        <span className="ml-auto text-xs text-slate-600">
-          Prototype risk engine
+        <span className="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-950/60 text-cyan-400 border border-cyan-800/40">
+          XGBoost V2 (τ=0.5750)
         </span>
       </div>
 

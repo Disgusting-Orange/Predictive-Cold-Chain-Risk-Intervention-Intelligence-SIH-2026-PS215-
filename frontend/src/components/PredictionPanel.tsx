@@ -27,10 +27,10 @@ export default function PredictionPanel({ prediction }: Props) {
       <div className="flex items-center gap-2 mb-3">
         <TrendingUp size={14} className="text-amber-400" />
         <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
-          Cold-Chain Forecast
+          Edge ML Risk Forecast (60 min)
         </span>
-        <span className="ml-auto text-xs text-slate-600">
-          Prototype predictive analytics
+        <span className="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-800/40">
+          SHAP Explained
         </span>
       </div>
 

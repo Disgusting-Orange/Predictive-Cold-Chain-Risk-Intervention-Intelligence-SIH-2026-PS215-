@@ -112,12 +112,14 @@
   "silent_fallbacks_count": 0,
   "model_checksums_verified": true,
   "measured_latencies_ms": {
-    "validation_ms": 0.05289993714541197,
-    "event_detection_ms": 0.12820004485547543,
-    "history_buffer_ms": 0.022600055672228336,
-    "feature_engineering_ms": 18.03679997101426,
-    "inference_and_shap_ms": 14.98039998114109,
-    "risk_fusion_ms": 0.28470007237046957,
-    "total_pipeline_ms": 33.55079994071275
+    "validation_ms": 0.038899946957826614,
+    "event_detection_ms": 0.11290004476904869,
+    "history_buffer_ms": 0.016600009985268116,
+    "local_storage_raw_ms": 0.6250999867916107,
+    "feature_engineering_ms": 19.766700104810297,
+    "inference_and_shap_ms": 9.7432000329718,
+    "risk_fusion_ms": 0.08930009789764881,
+    "local_storage_eval_ms": 6.7755000200122595,
+    "total_pipeline_ms": 62.061999924480915
   }
 }

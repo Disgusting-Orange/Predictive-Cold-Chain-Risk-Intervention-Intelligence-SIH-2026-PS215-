@@ -77,12 +77,14 @@
     }
   },
   "latencies_ms": {
-    "validation_ms": 0.04789989907294512,
-    "event_detection_ms": 0.1178000820800662,
-    "history_buffer_ms": 0.024499953724443913,
-    "feature_engineering_ms": 18.970999983139336,
-    "inference_and_shap_ms": 11.887299944646657,
-    "risk_fusion_ms": 0.09119999594986439,
-    "total_pipeline_ms": 31.183499959297478
+    "validation_ms": 0.05659996531903744,
+    "event_detection_ms": 0.11710007674992085,
+    "history_buffer_ms": 0.01819990575313568,
+    "local_storage_raw_ms": 0.7154999766498804,
+    "feature_engineering_ms": 22.490000003017485,
+    "inference_and_shap_ms": 10.367200011387467,
+    "risk_fusion_ms": 0.10469998233020306,
+    "local_storage_eval_ms": 8.038899977691472,
+    "total_pipeline_ms": 67.8980000084266
   }
 }

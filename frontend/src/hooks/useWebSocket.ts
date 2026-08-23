@@ -118,6 +118,18 @@ export function useWebSocket() {
     }
   }, []);
 
+  const toggleNetworkSimulation = useCallback(async (internetConnected: boolean) => {
+    try {
+      await fetch(`${API_URL}/api/edge/simulate_network`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ internet_connected: internetConnected }),
+      });
+    } catch (e) {
+      console.error('Failed to simulate network:', e);
+    }
+  }, []);
+
   return {
     state,
     connected,
@@ -126,5 +138,6 @@ export function useWebSocket() {
     applyIntervention,
     sendControl,
     sendWarehouseControl,
+    toggleNetworkSimulation,
   };
 }
