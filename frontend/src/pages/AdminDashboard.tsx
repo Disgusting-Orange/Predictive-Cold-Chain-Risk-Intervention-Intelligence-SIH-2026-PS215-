@@ -11,6 +11,7 @@ import {
   FileDown,
   Filter,
   LayoutDashboard,
+  LogOut,
   MapPin,
   Menu,
   PackageSearch,
@@ -25,6 +26,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState, useEffect, type ReactNode } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { useLocation } from "wouter";
 import { api } from "../lib/api";
 
 const tempData = [
@@ -57,6 +59,9 @@ function MiniMap({ shipments, selected, onSelect }: { shipments: Shipment[]; sel
 }
 
 export default function AdminDashboard() {
+  const [, setLocation] = useLocation();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const handleSignOut = () => { localStorage.removeItem("token"); setLocation("/login"); };
   const [mobileNav, setMobileNav] = useState(false);
   const [activeView, setActiveView] = useState<Workspace>("Dashboard");
   const [shipments, setShipments] = useState<Shipment[]>(defaultShipments);
@@ -191,7 +196,7 @@ export default function AdminDashboard() {
       <header className="sticky top-0 z-40 flex h-[64px] items-center justify-between border-b border-slate-800 bg-[#0d151d] px-4 sm:px-6">
         <div className="flex items-center gap-3"><button type="button" onClick={() => setMobileNav(!mobileNav)} className="grid h-9 w-9 place-items-center rounded border border-slate-700 text-slate-300 lg:hidden"><Menu className="h-4 w-4" /></button><div className="flex items-center gap-2.5"><img src="/manus-storage/cold-chain-mark_8a9c38e3.png" alt="Cold Chain AI" className="h-8 w-8" /><div><p className="font-display text-[13px] font-bold uppercase tracking-[0.12em] text-white">Cold Chain <span className="text-[#73c8a7]">AI</span></p><p className="text-[8px] font-bold uppercase tracking-[0.2em] text-slate-500">Ops / Control</p></div></div></div>
         <label className="relative hidden w-full max-w-sm md:block"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" /><input value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} className="h-9 w-full rounded border border-slate-700 bg-[#111b24] pl-9 pr-3 text-sm text-white outline-none placeholder:text-slate-600 focus:border-[#278a69]" placeholder="Search shipments" /></label>
-        <div className="flex items-center gap-2"><button type="button" className="relative grid h-9 w-9 place-items-center rounded border border-slate-700 text-slate-300"><Bell className="h-4 w-4" /><span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#d56560]" /></button><button type="button" className="flex items-center gap-2 rounded border border-slate-700 bg-[#111b24] px-2 py-1.5"><span className="grid h-6 w-6 place-items-center rounded bg-[#238767] text-[9px] font-bold text-white">AM</span><span className="hidden text-xs font-semibold text-slate-300 sm:block">A. Mehta</span><ChevronDown className="hidden h-3 w-3 text-slate-500 sm:block" /></button></div>
+        <div className="flex items-center gap-2"><button type="button" className="relative grid h-9 w-9 place-items-center rounded border border-slate-700 text-slate-300"><Bell className="h-4 w-4" /><span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#d56560]" /></button><div className="relative"><button type="button" onClick={() => setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2 rounded border border-slate-700 bg-[#111b24] px-2 py-1.5"><span className="grid h-6 w-6 place-items-center rounded bg-[#238767] text-[9px] font-bold text-white">AM</span><span className="hidden text-xs font-semibold text-slate-300 sm:block">A. Mehta</span><ChevronDown className={`hidden h-3 w-3 text-slate-500 transition-transform sm:block ${userMenuOpen ? "rotate-180" : ""}`} /></button>{userMenuOpen && <div className="absolute right-0 top-full z-50 mt-1 w-52 border border-slate-700 bg-[#111b24] shadow-xl"><div className="border-b border-slate-700 px-4 py-3"><p className="text-xs font-semibold text-white">Fleet Operations Admin</p><p className="mt-0.5 text-[10px] text-slate-500">admin@coldchain.ai</p></div><button type="button" onClick={handleSignOut} className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm text-slate-300 hover:bg-slate-800 hover:text-white"><LogOut className="h-3.5 w-3.5" /> Sign out</button></div>}</div></div>
       </header>
 
       <div className="flex">

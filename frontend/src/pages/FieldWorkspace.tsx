@@ -1,12 +1,15 @@
 /**
  * Field Agent desktop design: a focused dispatch console with a wide route canvas, a single active assignment, and clear on-site response controls.
  */
-import { ArrowRight, Bell, Camera, Check, CloudSnow, MapPin, Navigation, PackageCheck, Radio, Route, ShieldCheck, ThermometerSun, Truck } from "lucide-react";
+import { ArrowRight, Bell, Camera, Check, ChevronDown, CloudSnow, LogOut, MapPin, Navigation, PackageCheck, Radio, Route, ShieldCheck, ThermometerSun, Truck } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { api } from "../lib/api";
 
 export default function FieldWorkspace() {
+  const [, setLocation] = useLocation();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const handleSignOut = () => { localStorage.removeItem("token"); setLocation("/login"); };
   const [shipment, setShipment] = useState<any>(null);
   const [accepted, setAccepted] = useState(false);
   const [coolingOn, setCoolingOn] = useState(false);
@@ -80,7 +83,7 @@ export default function FieldWorkspace() {
       <header className="sticky top-0 z-30 flex h-[64px] items-center justify-between border-b border-slate-800 bg-[#0d151d] px-5 lg:px-8">
         <div className="flex items-center gap-3"><img src="/manus-storage/cold-chain-mark_8a9c38e3.png" alt="Cold Chain AI" className="h-8 w-8" /><div><p className="font-display text-[13px] font-bold uppercase tracking-[0.12em] text-white">Cold Chain <span className="text-[#73c8a7]">AI</span></p><p className="text-[8px] font-bold uppercase tracking-[0.2em] text-slate-500">Field operations</p></div></div>
         <div className="hidden items-center gap-6 text-sm font-medium text-slate-400 md:flex"><span className="text-[#7bd0af]">My assignment</span><span>Route history</span><span>Help centre</span></div>
-        <div className="flex items-center gap-3"><button type="button" className="relative grid h-9 w-9 place-items-center rounded border border-slate-700 text-slate-300"><Bell className="h-4 w-4" /><span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#d56560]" /></button><span className="grid h-8 w-8 place-items-center rounded bg-[#238767] text-[10px] font-bold text-white">RA</span><div className="hidden text-right md:block"><p className="text-xs font-semibold text-white">Rohan A.</p><p className="mt-0.5 text-[10px] text-slate-500">Field Agent</p></div></div>
+        <div className="flex items-center gap-3"><button type="button" className="relative grid h-9 w-9 place-items-center rounded border border-slate-700 text-slate-300"><Bell className="h-4 w-4" /><span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#d56560]" /></button><div className="relative"><button type="button" onClick={() => setUserMenuOpen(!userMenuOpen)} className="flex items-center gap-2"><span className="grid h-8 w-8 place-items-center rounded bg-[#238767] text-[10px] font-bold text-white">RA</span><div className="hidden text-right md:block"><p className="text-xs font-semibold text-white">Rohan A.</p><p className="mt-0.5 text-[10px] text-slate-500">Field Agent</p></div><ChevronDown className={`hidden h-3 w-3 text-slate-500 transition-transform md:block ${userMenuOpen ? "rotate-180" : ""}`} /></button>{userMenuOpen && <div className="absolute right-0 top-full z-50 mt-1 w-48 border border-slate-700 bg-[#111b24] shadow-xl"><div className="border-b border-slate-700 px-4 py-3"><p className="text-xs font-semibold text-white">Ramesh (Field Driver)</p><p className="mt-0.5 text-[10px] text-slate-500">driver@coldchain.ai</p></div><button type="button" onClick={handleSignOut} className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm text-slate-300 hover:bg-slate-800 hover:text-white"><LogOut className="h-3.5 w-3.5" /> Sign out</button></div>}</div></div>
       </header>
 
       <div className="grid min-h-[calc(100vh-64px)] lg:grid-cols-[220px_1fr]">

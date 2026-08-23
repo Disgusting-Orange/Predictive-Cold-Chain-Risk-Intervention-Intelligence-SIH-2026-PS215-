@@ -1,8 +1,8 @@
 /**
- * Signal Chamber design system: a compact, high-contrast workspace return flow that keeps user intent direct and legible.
+ * Signal Chamber design system: a compact, high-contrast workspace login with real email/password authentication.
  */
 import { Button } from "@/components/ui/button";
-import { ArrowRight, KeyRound, Radio } from "lucide-react";
+import { ArrowRight, KeyRound, Loader2, Radio } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { api } from "../lib/api";
@@ -12,6 +12,8 @@ type LoginRole = "admin" | "field" | "client";
 export default function Login() {
   const [, setLocation] = useLocation();
   const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [role, setRole] = useState<LoginRole>("admin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,18 +34,19 @@ export default function Login() {
 
   const login = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setMessage("Verifying workspace credentials…");
+    setSubmitting(true);
+    setIsError(false);
+    setMessage("Authenticating…");
     try {
-      // Map frontend role terminology to backend roles (ADMIN, FIELD_AGENT, CLIENT)
-      const mappedRole = role === "field" ? "FIELD_AGENT" : role === "client" ? "CLIENT" : "ADMIN";
       const result = await api.login(email, password);
-      
-      setMessage(`Success. Welcome back, ${result.full_name}!`);
+      setMessage(`Welcome back, ${result.full_name}!`);
       window.setTimeout(() => {
         setLocation(role === "field" ? "/field-agent" : role === "client" ? "/client" : "/dashboard/admin");
-      }, 420);
+      }, 500);
     } catch (err: any) {
-      setMessage(`Authentication failed: ${err.message}`);
+      setIsError(true);
+      setMessage(err.message || "Authentication failed. Please check your credentials.");
+      setSubmitting(false);
     }
   };
 
@@ -60,9 +63,11 @@ export default function Login() {
           <label className="form-label">Work email<input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@company.com" className="signal-input mt-2" /></label>
           <label className="form-label">Password<input required type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Your password" className="signal-input mt-2" /></label>
           <label className="form-label">Open workspace as<select value={role} onChange={(event) => setRole(event.target.value as LoginRole)} className="signal-input mt-2"><option value="admin">Admin / Ops</option><option value="field">Field Agent</option><option value="client">Client View</option></select></label>
-          <Button type="submit" className="h-13 w-full rounded-none bg-[#1D9E75] font-extrabold hover:bg-[#27ad84]">Open workspace <ArrowRight className="ml-2 h-4 w-4" /></Button>
+          <Button type="submit" disabled={submitting} className="h-13 w-full rounded-none bg-[#1D9E75] font-extrabold hover:bg-[#27ad84] disabled:opacity-60">
+            {submitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Authenticating…</> : <>Sign in <ArrowRight className="ml-2 h-4 w-4" /></>}
+          </Button>
         </form>
-        {message && <p className="mt-4 flex items-center gap-2 text-xs text-[#66d9b4]"><Radio className="h-3.5 w-3.5" /> {message}</p>}
+        {message && <p className={`mt-4 flex items-center gap-2 text-xs ${isError ? "text-red-400" : "text-[#66d9b4]"}`}><Radio className="h-3.5 w-3.5" /> {message}</p>}
         <p className="mt-8 text-center text-sm text-slate-500">New to Cold Chain AI? <Link href="/signup" className="font-bold text-[#66d9b4] hover:text-white">Create your workspace</Link></p>
       </div>
     </main>
