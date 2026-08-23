@@ -60,12 +60,16 @@ export default function ShipmentDetail() {
 
   useEffect(() => {
     loadShipment();
+    const interval = setInterval(loadShipment, 4000);
     const ws = api.connectTelemetry((msg) => {
       if (msg.type === "TELEMETRY_UPDATE" || msg.type === "DEMO_STATE") {
         loadShipment();
       }
     });
-    return () => ws.close();
+    return () => {
+      clearInterval(interval);
+      ws.close();
+    };
   }, [shipmentId]);
 
   const handleApprove = async () => {
