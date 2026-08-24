@@ -50,7 +50,12 @@ export interface UserResponse {
   role: "ADMIN" | "FIELD_AGENT" | "CLIENT";
 }
 
+export interface TelemetryConnection {
+  close: () => void;
+}
+
 export interface TokenResponse {
+
   access_token: string;
   token_type: string;
   user_id: string;
@@ -327,14 +332,8 @@ export const api = {
   },
 
   // WebSockets
-<<<<<<< HEAD
-  connectTelemetry(onMessage: (data: any) => void): WebSocket {
-    const socket = new WebSocket(getWsUrl());
-=======
   connectTelemetry(onMessage: (data: any) => void): TelemetryConnection {
-    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const configuredWsUrl = import.meta.env.VITE_WS_URL as string | undefined;
-    const socket = new WebSocket(configuredWsUrl || `${protocol}//${window.location.host}/ws`);
+    const socket = new WebSocket(getWsUrl());
     let closed = false;
     let poller: number | undefined;
     const startPolling = () => {
@@ -350,7 +349,6 @@ export const api = {
       poller = window.setInterval(poll, 10000);
       void poll();
     };
->>>>>>> origin/main
     socket.onmessage = (event) => {
       try {
         const payload = JSON.parse(event.data);
@@ -372,3 +370,4 @@ export const api = {
     };
   },
 };
+
