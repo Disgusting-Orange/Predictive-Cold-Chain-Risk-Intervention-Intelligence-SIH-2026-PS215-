@@ -203,10 +203,13 @@ export default function Home() {
             </p>
             <div className="reveal reveal-delay-3 mt-10 flex flex-wrap items-center gap-3">
               <Button asChild size="lg" className="h-13 rounded-none bg-[#1D9E75] px-6 text-[15px] font-extrabold shadow-[0_12px_35px_rgba(29,158,117,0.22)] hover:bg-[#27ad84]">
-                <Link href="/signup">Get Started <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                <Link href="/dashboard/admin">Open Live Control Room <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="h-13 rounded-none border-white/20 bg-white/[0.025] px-6 text-[15px] font-bold text-white hover:border-[#1D9E75] hover:bg-white/[0.08] hover:text-white">
-                <Link href="/signup">Schedule a Demo <ArrowUpRight className="ml-2 h-4 w-4" /></Link>
+              <Button asChild variant="outline" size="lg" className="h-13 rounded-none border-white/20 bg-white/[0.025] px-5 text-[14px] font-bold text-white hover:border-[#1D9E75] hover:bg-white/[0.08] hover:text-white">
+                <Link href="/field-agent">Field Driver View <Truck className="ml-2 h-4 w-4 text-[#66d9b4]" /></Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="h-13 rounded-none border-white/20 bg-white/[0.025] px-5 text-[14px] font-bold text-white hover:border-[#1D9E75] hover:bg-white/[0.08] hover:text-white">
+                <Link href="/client">Client Pharmacy View <Activity className="ml-2 h-4 w-4 text-[#66d9b4]" /></Link>
               </Button>
             </div>
             <div className="reveal reveal-delay-4 mt-14 flex items-center gap-4 text-xs text-slate-400">

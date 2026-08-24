@@ -8,7 +8,7 @@
     "1_firmware_packet_ingest_http": {
       "passed": true,
       "status_code": 200,
-      "http_ms": 63.780699972994626
+      "http_ms": 59.44490002002567
     },
     "2_malformed_missing_id_rejection": {
       "passed": true,
@@ -56,27 +56,27 @@
     "12_monotonic_latency_profile": {
       "passed": true,
       "latencies_ms": {
-        "validation_ms": 0.07099995855242014,
-        "event_detection_ms": 0.1191999763250351,
-        "history_buffer_ms": 0.015900004655122757,
-        "local_storage_raw_ms": 0.8220000891014934,
-        "feature_engineering_ms": 21.96050004567951,
-        "inference_and_shap_ms": 13.080700067803264,
-        "risk_fusion_ms": 0.10409997776150703,
-        "local_storage_eval_ms": 7.876799907535315,
-        "total_pipeline_ms": 57.023299974389374
+        "validation_ms": 0.07660000119358301,
+        "event_detection_ms": 0.1509999856352806,
+        "history_buffer_ms": 0.01880002673715353,
+        "local_storage_raw_ms": 1.1686000507324934,
+        "feature_engineering_ms": 28.433200088329613,
+        "inference_and_shap_ms": 12.129999930039048,
+        "risk_fusion_ms": 0.08210004307329655,
+        "local_storage_eval_ms": 6.718900054693222,
+        "total_pipeline_ms": 58.69970005005598
       }
     }
   },
   "measured_latencies_ms": {
-    "validation_ms": 0.07099995855242014,
-    "event_detection_ms": 0.1191999763250351,
-    "history_buffer_ms": 0.015900004655122757,
-    "local_storage_raw_ms": 0.8220000891014934,
-    "feature_engineering_ms": 21.96050004567951,
-    "inference_and_shap_ms": 13.080700067803264,
-    "risk_fusion_ms": 0.10409997776150703,
-    "local_storage_eval_ms": 7.876799907535315,
-    "total_pipeline_ms": 57.023299974389374
+    "validation_ms": 0.07660000119358301,
+    "event_detection_ms": 0.1509999856352806,
+    "history_buffer_ms": 0.01880002673715353,
+    "local_storage_raw_ms": 1.1686000507324934,
+    "feature_engineering_ms": 28.433200088329613,
+    "inference_and_shap_ms": 12.129999930039048,
+    "risk_fusion_ms": 0.08210004307329655,
+    "local_storage_eval_ms": 6.718900054693222,
+    "total_pipeline_ms": 58.69970005005598
   }
 }

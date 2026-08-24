@@ -62,12 +62,14 @@
     }
   },
   "warmed_step_latencies_ms": {
-    "validation_ms": 0.050900038331747055,
-    "event_detection_ms": 0.13209995813667774,
-    "history_buffer_ms": 0.02410006709396839,
-    "feature_engineering_ms": 18.301400006748736,
-    "inference_and_shap_ms": 12.545799952931702,
-    "risk_fusion_ms": 0.12330000754445791,
-    "total_pipeline_ms": 31.224300037138164
+    "validation_ms": 0.047200010158121586,
+    "event_detection_ms": 0.13770000077784061,
+    "history_buffer_ms": 0.020200037397444248,
+    "local_storage_raw_ms": 0.9810999035835266,
+    "feature_engineering_ms": 27.719700010493398,
+    "inference_and_shap_ms": 18.25610001105815,
+    "risk_fusion_ms": 0.10020006448030472,
+    "local_storage_eval_ms": 7.911600056104362,
+    "total_pipeline_ms": 82.0287000387907
   }
 }

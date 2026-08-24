@@ -54,11 +54,11 @@
     },
     "12_latency_profiling": {
       "passed": true,
-      "total_pipeline_ms": 33.73919997829944,
-      "validation_ms": 0.053799943998456,
-      "history_buffer_ms": 0.024099950678646564,
-      "feature_engineering_ms": 20.80320008099079,
-      "inference_and_shap_ms": 12.574599939398468,
+      "total_pipeline_ms": 53.59140003565699,
+      "validation_ms": 0.033100019209086895,
+      "history_buffer_ms": 0.015400000847876072,
+      "feature_engineering_ms": 18.28469999600202,
+      "inference_and_shap_ms": 7.755700033158064,
       "latency_target_ms": 500.0,
       "latency_target_met": true
     }

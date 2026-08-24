@@ -28,5 +28,12 @@ build/
 .idea/
 *.log
 
+# Testing & DB runtime artifacts
+.pytest_cache/
+*.db-shm
+*.db-wal
+*.db-journal
+
 frontend-old/
 .vite/
+
