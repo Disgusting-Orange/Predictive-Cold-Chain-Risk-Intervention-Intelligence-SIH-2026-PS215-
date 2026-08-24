@@ -45,6 +45,24 @@ def test_auth_login(client: TestClient):
     assert driver_data["role"] == "FIELD_AGENT"
 
 
+@pytest.fixture(scope="module")
+def admin_headers(client: TestClient):
+    response = client.post("/api/auth/login", json={
+        "email": "admin@coldchain.ai",
+        "password": "admin123"
+    })
+    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+
+
+@pytest.fixture(scope="module")
+def field_headers(client: TestClient):
+    response = client.post("/api/auth/login", json={
+        "email": "driver@coldchain.ai",
+        "password": "driver123"
+    })
+    return {"Authorization": f"Bearer {response.json()['access_token']}"}
+
+
 def test_telemetry_ingestion(client: TestClient):
     """Test canonical telemetry ingestion from ESP32/simulator."""
     telemetry_payload = {
@@ -69,27 +87,27 @@ def test_telemetry_ingestion(client: TestClient):
     assert len(data["shapFactors"]) > 0
 
 
-def test_shipments_list(client: TestClient):
+def test_shipments_list(client: TestClient, admin_headers):
     """Test listing all active shipments."""
-    response = client.get("/api/shipments")
+    response = client.get("/api/shipments", headers=admin_headers)
     assert response.status_code == 200
     data = response.json()
     assert "shipments" in data
     assert len(data["shipments"]) > 0
 
 
-def test_products_list(client: TestClient):
+def test_products_list(client: TestClient, admin_headers):
     """Test listing product profiles."""
-    response = client.get("/api/products")
+    response = client.get("/api/products", headers=admin_headers)
     assert response.status_code == 200
     data = response.json()
     assert "products" in data
     assert len(data["products"]) > 0
 
 
-def test_what_if_simulation(client: TestClient):
+def test_what_if_simulation(client: TestClient, admin_headers):
     """Test What-If intervention simulation generating 3 scenarios."""
-    response = client.post("/api/interventions/SHP-1042/simulate")
+    response = client.post("/api/interventions/SHP-1042/simulate", headers=admin_headers)
     assert response.status_code == 200
     data = response.json()
     assert data["shipmentId"] == "SHP-1042"
@@ -98,19 +116,19 @@ def test_what_if_simulation(client: TestClient):
     assert any(s["isRecommended"] for s in data["scenarios"])
 
 
-def test_intervention_approval_lifecycle(client: TestClient):
+def test_intervention_approval_lifecycle(client: TestClient, admin_headers, field_headers):
     """Test full intervention lifecycle: approve -> field-accept -> handoff."""
     # 1. Approve
-    app_res = client.post("/api/interventions/SHP-1042/approve")
+    app_res = client.post("/api/interventions/SHP-1042/approve", headers=admin_headers)
     assert app_res.status_code == 200
     assert app_res.json()["status"] == "success"
 
     # 2. Field Accept
-    fa_res = client.post("/api/interventions/SHP-1042/field-accept")
+    fa_res = client.post("/api/interventions/SHP-1042/field-accept", headers=field_headers)
     assert fa_res.status_code == 200
 
     # 3. Handoff
-    ho_res = client.post("/api/interventions/SHP-1042/handoff", json={
+    ho_res = client.post("/api/interventions/SHP-1042/handoff", headers=field_headers, json={
         "notes": "Delivered in optimal condition to Bay 4"
     })
     assert ho_res.status_code == 200
@@ -127,9 +145,9 @@ def test_public_client_tracking(client: TestClient):
     assert len(data["timeline"]) == 5
 
 
-def test_audit_trail(client: TestClient):
+def test_audit_trail(client: TestClient, admin_headers):
     """Test audit log history retrieval."""
-    response = client.get("/api/audit/SHP-1042")
+    response = client.get("/api/audit/SHP-1042", headers=admin_headers)
     assert response.status_code == 200
     data = response.json()
     assert data["shipmentId"] == "SHP-1042"

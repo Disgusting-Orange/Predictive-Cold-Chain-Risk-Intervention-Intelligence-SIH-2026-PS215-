@@ -32,6 +32,8 @@ export default function FieldWorkspace() {
 
   useEffect(() => {
     loadShipment();
+    const interval = setInterval(loadShipment, 4000);
+    return () => clearInterval(interval);
   }, []);
 
   const handleAccept = async () => {

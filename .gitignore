@@ -36,4 +36,5 @@ build/
 
 frontend-old/
 .vite/
+.vercel
 

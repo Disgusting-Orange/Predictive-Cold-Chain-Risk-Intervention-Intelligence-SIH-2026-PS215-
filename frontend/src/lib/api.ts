@@ -37,6 +37,7 @@ const apiUrl = (path: string): string => {
   return `${base}${cleanPath}`;
 };
 
+
 const getAuthHeaders = (): HeadersInit => {
   const token = localStorage.getItem("token");
   return token ? { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" } : { "Content-Type": "application/json" };
@@ -120,6 +121,10 @@ export interface WhatIfSimulationResponse {
   scenarios: SimulationScenario[];
 }
 
+export interface TelemetryConnection {
+  close: () => void;
+}
+
 export const api = {
   // Authentication
   async login(email: string, password: string): Promise<TokenResponse> {
@@ -188,6 +193,39 @@ export const api = {
     const res = await fetch(apiUrl(`/api/shipments/${code}`), { headers: getAuthHeaders() });
     if (!res.ok) throw new Error("Failed to load shipment details");
     return res.json();
+  },
+
+  async getPublicShipment(code: string): Promise<Shipment> {
+    const res = await fetch(apiUrl(`/api/public/track/${encodeURIComponent(code)}`));
+    if (!res.ok) throw new Error("Failed to load public tracking");
+    const data = await res.json();
+    return {
+      id: data.shipmentId,
+      shipmentId: data.shipmentId,
+      productName: data.productName,
+      productType: data.productCategory,
+      vehicleId: data.vehicleId,
+      origin: { name: data.origin, latitude: 0, longitude: 0, type: "origin" },
+      destination: { name: data.destination, latitude: 0, longitude: 0, type: "destination" },
+      latitude: 0,
+      longitude: 0,
+      temperature: Number(data.temperature || 0),
+      humidity: 0,
+      speed: 0,
+      doorOpen: false,
+      coolingPower: 0,
+      battery: 0,
+      status: data.rawStatus,
+      riskScore: Number(data.riskScore || 0),
+      riskLevel: data.riskLevel || "LOW",
+      plannedEtaMinutes: Number(data.etaMinutes || 0),
+      etaMinutes: Number(data.etaMinutes || 0),
+      delayMinutes: 0,
+      estimatedCargoValue: 0,
+      safeMinTemp: Number(data.safeMinTemp || 0),
+      safeMaxTemp: Number(data.safeMaxTemp || 0),
+      remainingSafeLifeMinutes: null,
+    };
   },
 
   // Products
@@ -289,8 +327,30 @@ export const api = {
   },
 
   // WebSockets
+<<<<<<< HEAD
   connectTelemetry(onMessage: (data: any) => void): WebSocket {
     const socket = new WebSocket(getWsUrl());
+=======
+  connectTelemetry(onMessage: (data: any) => void): TelemetryConnection {
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const configuredWsUrl = import.meta.env.VITE_WS_URL as string | undefined;
+    const socket = new WebSocket(configuredWsUrl || `${protocol}//${window.location.host}/ws`);
+    let closed = false;
+    let poller: number | undefined;
+    const startPolling = () => {
+      if (closed || poller !== undefined || !localStorage.getItem("token")) return;
+      const poll = async () => {
+        try {
+          await api.listShipments();
+          onMessage({ type: "TELEMETRY_UPDATE", transport: "polling" });
+        } catch (err) {
+          console.error("Telemetry polling failed:", err);
+        }
+      };
+      poller = window.setInterval(poll, 10000);
+      void poll();
+    };
+>>>>>>> origin/main
     socket.onmessage = (event) => {
       try {
         const payload = JSON.parse(event.data);
@@ -299,6 +359,16 @@ export const api = {
         console.error("Error parsing telemetry WebSocket frame:", err);
       }
     };
-    return socket;
+    socket.onerror = startPolling;
+    socket.onclose = () => {
+      if (!closed) startPolling();
+    };
+    return {
+      close: () => {
+        closed = true;
+        socket.close();
+        if (poller !== undefined) window.clearInterval(poller);
+      },
+    };
   },
 };

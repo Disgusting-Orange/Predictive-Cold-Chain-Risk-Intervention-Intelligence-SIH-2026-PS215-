@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, desc
 from app.db.database import get_db
 from app.db.models import AuditLog
+from app.core.dependencies import get_current_user
 
 router = APIRouter(prefix="/audit", tags=["Compliance & Audit"])
 
@@ -10,7 +11,8 @@ router = APIRouter(prefix="/audit", tags=["Compliance & Audit"])
 @router.get("/{shipment_id}")
 async def get_shipment_audit_trail(
     shipment_id: str,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    _current_user=Depends(get_current_user),
 ):
     """
     Retrieve chronological audit trail of events (Pickup ➔ Excursions ➔ Approvals ➔ Handoff).

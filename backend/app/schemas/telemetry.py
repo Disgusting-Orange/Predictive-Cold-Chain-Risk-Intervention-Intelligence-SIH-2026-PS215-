@@ -3,6 +3,7 @@ from typing import Optional, Dict, Any
 from datetime import datetime
 
 
+
 class TelemetryCreate(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
@@ -119,6 +120,78 @@ class TelemetryCreate(BaseModel):
                             data["gasValue"] = float(data[k])
                         except (ValueError, TypeError):
                             pass
+                        break
+
+        return data
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_keys(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            # Normalize shipment ID
+            if "shipmentId" not in data:
+                for k in ("shipment_id", "shipmentCode", "shipment_code", "shipment", "shp_id", "id"):
+                    if k in data and data[k]:
+                        data["shipmentId"] = str(data[k])
+                        break
+
+            # Normalize device ID
+            if "deviceId" not in data:
+                for k in ("device_id", "deviceId", "device", "node_id", "nodeId"):
+                    if k in data and data[k]:
+                        data["deviceId"] = str(data[k])
+                        break
+
+            # Normalize temperature
+            if "temperature" not in data:
+                for k in ("temp", "temp_c", "temperature_c", "t"):
+                    if k in data and data[k] is not None:
+                        data["temperature"] = float(data[k])
+                        break
+
+            # Normalize humidity
+            if "humidity" not in data:
+                for k in ("hum", "humidity_pct", "rh", "h"):
+                    if k in data and data[k] is not None:
+                        data["humidity"] = float(data[k])
+                        break
+
+            # Normalize latitude / longitude
+            if "latitude" not in data and "lat" in data:
+                data["latitude"] = float(data["lat"]) if data["lat"] is not None else None
+            if "longitude" not in data:
+                for k in ("lng", "lon", "long"):
+                    if k in data and data[k] is not None:
+                        data["longitude"] = float(data[k])
+                        break
+
+            # Normalize door state
+            if "doorOpen" not in data:
+                for k in ("door_open", "door", "doorState", "door_state"):
+                    if k in data and data[k] is not None:
+                        val = data[k]
+                        data["doorOpen"] = bool(val == 1 or val is True or str(val).lower() == "open" or str(val).lower() == "true")
+                        break
+
+            # Normalize cooling power
+            if "coolingPower" not in data:
+                for k in ("cooling_power", "cooling", "reefer_power", "cooling_power_percent"):
+                    if k in data and data[k] is not None:
+                        data["coolingPower"] = int(data[k])
+                        break
+
+            # Normalize battery
+            if "battery" not in data:
+                for k in ("battery_level", "batteryLevel", "batt", "battery_pct"):
+                    if k in data and data[k] is not None:
+                        data["battery"] = float(data[k])
+                        break
+
+            # Normalize gas / VOC
+            if "gasValue" not in data:
+                for k in ("gas_value", "gas", "voc", "voc_level", "vocLevel", "mq_value"):
+                    if k in data and data[k] is not None:
+                        data["gasValue"] = float(data[k])
                         break
 
         return data

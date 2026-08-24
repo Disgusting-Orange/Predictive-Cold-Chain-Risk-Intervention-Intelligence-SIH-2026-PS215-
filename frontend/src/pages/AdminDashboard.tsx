@@ -194,12 +194,16 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     loadData();
+    const interval = setInterval(loadData, 4000);
     const ws = api.connectTelemetry((msg) => {
       if (msg.type === "TELEMETRY_UPDATE" || msg.type === "DEMO_STATE") {
         loadData();
       }
     });
-    return () => ws.close();
+    return () => {
+      clearInterval(interval);
+      ws.close();
+    };
   }, []);
 
   useEffect(() => {

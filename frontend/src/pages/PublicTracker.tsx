@@ -14,9 +14,7 @@ export default function PublicTracker() {
 
   const loadShipment = async () => {
     try {
-      const active = await api.listShipments();
-      const found = active.find(s => s.shipmentId === token) || active[0];
-      setShipment(found);
+      setShipment(await api.getPublicShipment(token));
     } catch (err) {
       console.error(err);
     }
@@ -24,12 +22,10 @@ export default function PublicTracker() {
 
   useEffect(() => {
     loadShipment();
-    const ws = api.connectTelemetry((msg) => {
-      if (msg.type === "TELEMETRY_UPDATE" || msg.type === "DEMO_STATE") {
-        loadShipment();
-      }
-    });
-    return () => ws.close();
+    const interval = setInterval(loadShipment, 4000);
+    return () => {
+      clearInterval(interval);
+    };
   }, [token]);
 
   if (!shipment) {

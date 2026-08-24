@@ -9,6 +9,12 @@ import { api } from "../lib/api";
 
 type LoginRole = "admin" | "field" | "client";
 
+const demoCredentials: Record<LoginRole, { label: string; email: string; password: string }> = {
+  admin: { label: "Admin / Ops", email: "admin@coldchain.ai", password: "admin123" },
+  field: { label: "Field Agent", email: "driver@coldchain.ai", password: "driver123" },
+  client: { label: "Client View", email: "client@coldchain.ai", password: "client123" },
+};
+
 export default function Login() {
   const [, setLocation] = useLocation();
   const [message, setMessage] = useState("");
